@@ -1,7 +1,7 @@
 variables:
-  HEROKU_APIKEY: fb49a507-a3da-47a0-a661-386f0492a855
-  HEROKU_APPNAME: bizzvest
-  HEROKU_APP_HOST: bizzvest.herokuapp.com
+  HEROKU_APIKEY: "fb49a507-a3da-47a0-a661-386f0492a855"
+  HEROKU_APPNAME: "bizzvest"
+  HEROKU_APP_HOST: "bizzvest.herokuapp.com"
 
 stages:
   - deploy
