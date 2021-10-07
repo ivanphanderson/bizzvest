@@ -1,4 +1,4 @@
-# Bizzvest
+# BizzVest
 “Let’s invest toward your business”
 
 
