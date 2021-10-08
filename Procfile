@@ -1,2 +1,2 @@
-release: python manage.py migrate
-web: gunicorn simpk.wsgi --log-file -
+release: bash deployment.sh
+web: gunicorn BizzVest.wsgi --log-file -
