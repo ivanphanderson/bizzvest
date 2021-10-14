@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DaftartokoConfig(AppConfig):
+class DaftarTokoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'daftarToko'
+    name = 'daftar_toko'
