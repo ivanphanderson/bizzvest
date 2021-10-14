@@ -18,7 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
+    path('', include('home_page.urls')),
     path('faq/', include('faq.urls')),
     path('start-web/', include('start_web.urls')),
     path('mulai-invest/', include('mulai_invest.urls')),
