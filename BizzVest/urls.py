@@ -19,4 +19,10 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
+    path('faq/', include('faq.urls')),
+    path('start-web/', include('start_web.urls')),
+    path('mulai-invest/', include('mulai_invest.urls')),
+    path('daftar-toko', include('daftar_toko.urls')),
+    path('halaman-toko', include('halaman_toko.urls')),
+    path('my-profile', include('my_profile.urls')),
 ]
