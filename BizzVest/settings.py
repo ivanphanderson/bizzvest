@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+
+
+# https://stackoverflow.com/a/34115677/7069108
+# import django
+# django.setup()
+
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,7 +53,9 @@ INSTALLED_APPS = [
     'faq',
     'daftar_toko',
     'mulai_invest',
-    'start_web'
+    'start_web',
+
+    'models',
 ]
 
 MIDDLEWARE = [
