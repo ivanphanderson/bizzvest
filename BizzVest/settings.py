@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepage',
-    'My_Profile'
+    'My_Profile',
+    'halaman_toko',
 ]
 
 MIDDLEWARE = [
