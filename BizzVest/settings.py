@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'daftar_toko',
     'mulai_invest',
     'start_web'
-
 ]
 
 MIDDLEWARE = [
