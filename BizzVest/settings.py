@@ -37,9 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home_page',
-    'My_Profile',
+    'homepage',
+    'my_profile',
     'halaman_toko',
+    'faq',
+    'daftar_toko',
+    'mulai_invest',
+    'start_web'
+
 ]
 
 MIDDLEWARE = [
