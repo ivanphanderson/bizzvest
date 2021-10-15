@@ -15,4 +15,5 @@ class Comment(models.Model):  # komentar yang telah di posting pada halaman toko
     message = models.CharField(max_length=500)
 
 
-
+    def __str__(self):
+        return f"<Comment {self.commenter.username} @ {self.post_target.nama_merek}:  {self.message[:15]}>"
