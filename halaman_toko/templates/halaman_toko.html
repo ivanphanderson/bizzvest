@@ -1,0 +1,59 @@
+{% load static %}
+
+
+<html>
+    <head>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+        <title>{{ nama_toko }}</title>
+    </head>
+    <body>
+        <div id="content">
+            <div id="head">
+                <div id="nama-toko-dan-perusahaan">
+                    <span class="h2 d-block">
+                        {{ nama_toko }}
+                    </span>
+                    <span class="h4 d-block" style="color: grey;">
+                        {{ nama_perusahaan }}
+                    </span>
+                </div>
+            </div>
+
+
+            <div id="body">
+                <div id="edit_btn_container" style="">
+                    <button id="edit_btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                </div>
+                <div id="photos_container" style="background-color: #0dcaf0"></div>
+                <div id="body-1-2" style="background-color: #00dd00"></div>
+                <div id="invest_information_container" style="background-color: #983df3"></div>
+
+                <div id="description_container" style="background-color: #79aec8;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum convallis mollis. Etiam vel nunc dignissim, sagittis tortor eu, eleifend enim. Proin varius magna risus, in tristique tortor consequat vel. Maecenas ullamcorper ligula nisi, vel imperdiet mi pharetra suscipit. Quisque eleifend viverra justo, ac faucibus eros dignissim sit amet. Cras feugiat tortor lorem, et commodo nunc sagittis eu. Duis velit nisl, bibendum at quam sed, ultrices finibus risus. Donec lobortis, elit non faucibus accumsan, ipsum justo dignissim dolor, eget varius mi orci eu enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis varius augue enim, rutrum semper mauris dapibus et. Mauris orci libero, facilisis et vehicula eu, semper sed urna. Quisque libero orci, blandit vel facilisis id, interdum id nunc.
+
+                    Fusce dictum porttitor scelerisque. Nunc orci ligula, sodales eu nibh nec, mattis sagittis ligula. Sed eleifend at sapien a vehicula. Fusce et sagittis quam. Aliquam ante mauris, fringilla eu risus sit amet, pulvinar cursus enim. Maecenas a scelerisque enim. Sed semper elementum nisl. Praesent placerat sit amet sapien ac mattis. Maecenas at velit ac erat cursus mattis at ut risus.
+
+                    Sed tempor feugiat nibh, ac mattis est molestie a. Curabitur ut elit congue, vestibulum felis eu, vulputate libero. Integer interdum mi vitae rhoncus euismod. Maecenas efficitur a urna quis suscipit. Fusce eget sapien augue. Proin felis leo, suscipit ac lectus ac, ornare tincidunt neque. Sed in ipsum neque. Ut porta eleifend venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras commodo tristique dolor et gravida. Sed neque lacus, sagittis ac posuere eget, maximus vitae dui. Vestibulum non nunc placerat, condimentum augue a, condimentum est. Sed molestie, arcu nec molestie consequat, tellus turpis aliquet lacus, consequat feugiat libero nibh nec lectus.
+
+                    Morbi in ornare diam, vitae semper risus. Donec rhoncus orci eu dolor sollicitudin tincidunt. Duis aliquet efficitur lectus, eget accumsan erat rutrum a. Nam vitae magna in purus dapibus mattis. Phasellus nec nisl ut eros volutpat mollis id a justo. Donec mollis diam ut leo imperdiet vulputate. In tempus id nibh sed ornare. Sed dictum vulputate dolor rutrum porttitor. Aliquam varius ipsum ut elit auctor bibendum. Vestibulum ullamcorper libero vitae odio molestie tincidunt.
+
+                    Duis at felis dapibus urna posuere maximus. Suspendisse potenti. Suspendisse vulputate bibendum nisl eget gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas eu lorem finibus, scelerisque mi vel, efficitur justo. Nullam eleifend id arcu eu ullamcorper. Maecenas interdum faucibus lorem ac dignissim.
+                </div>
+
+                <div id="comment_container" style="background-color: #adb5bd">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum convallis mollis. Etiam vel nunc dignissim, sagittis tortor eu, eleifend enim. Proin varius magna risus, in tristique tortor consequat vel. Maecenas ullamcorper ligula nisi, vel imperdiet mi pharetra suscipit. Quisque eleifend viverra justo, ac faucibus eros dignissim sit amet. Cras feugiat tortor lorem, et commodo nunc sagittis eu. Duis velit nisl, bibendum at quam sed, ultrices finibus risus. Donec lobortis, elit non faucibus accumsan, ipsum justo dignissim dolor, eget varius mi orci eu enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis varius augue enim, rutrum semper mauris dapibus et. Mauris orci libero, facilisis et vehicula eu, semper sed urna. Quisque libero orci, blandit vel facilisis id, interdum id nunc.
+
+                </div>
+            </div>
+
+
+            <div id="foot">
+                foot
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+:root{
+    counter-reset: body_child__y_grid_pos;
+
+}
+
+#content{
+    /*background-color: lightgrey;*/
+    margin: 10px 12px 10px 12px;
+}
+
+#head{
+    /*background-color: darkgray;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nama-toko-dan-perusahaan{
+    text-align: center;
+}
+
+
+#body{
+    --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
+    /*--edit-btn-size: auto;*/
+
+    --min_row_col_1_size: 150px;
+    --max_row_col_1_size: 250px;
+    --row_col_1_size: clamp(var(--min_row_col_1_size), 25vw, var(--max_row_col_1_size));
+
+    --min_row_2_height: 60px;
+    --max_row_2_height: 90px;
+    --row_2_height-temp: clamp(var(--min_row_2_height), 15vh, var(--max_row_2_height));
+    --row_2_height: min(calc(var(--row_col_1_size) * 90 / 250),  var(--row_2_height-temp));
+
+
+    /*background-color: #0c63e4;*/
+    display:grid;
+    grid-template-columns: var(--row_col_1_size) auto;
+    grid-template-rows: var(--edit-btn-size) var(--row_col_1_size) var(--row_2_height);
+    grid-gap: 12px 12px;
+}
+
+#edit_btn_container{
+    grid-column: span 2;
+    display: flex;
+    justify-content: right;
+}
+
+
+#body-1-2{
+    grid-column: 2;
+    grid-row: span 2;
+}
+
+/*aspect-ratio: 250/90;*/
+#invest_information_container{
+
+}
+
+
+#photos_container{
+
+}
+
+
+#description_container{
+    grid-column: span 2;
+}
+
+#comment_container{
+    grid-column: span 2;
+}
+
+
+#foot{
+    /*background-color: #6f94c6;*/
+}

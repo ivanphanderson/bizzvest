@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 
@@ -5,9 +6,17 @@ from django.db import models
 
 
 class UserAccount(models.Model):
-    user_id = models.AutoField(primary_key = True)
+    username = models.EmailField(max_length=24, unique=True, db_index=True, null=True)
+    email = models.EmailField(max_length=254, unique=True, null=True)
+
+    photo_profile = models.ImageField(upload_to="uploads/% Y/% m/% d/", null=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
+
+    join_date = models.DateField(default=timezone.now)
+    last_login = models.DateTimeField(default=timezone.now)
+
+
 
 
 
