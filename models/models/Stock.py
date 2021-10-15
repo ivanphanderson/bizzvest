@@ -13,8 +13,9 @@ class Stock(models.Model):  # saham
     # perusahaan tempat saham ini ditanamkan
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-    nilai_saham = models.BigIntegerField()  # besarnya saham
+    jumlah_lembar_saham = models.BigIntegerField()  # banyaknya lembar saham yang dibeli
     tanggal_ditanam = models.DateField(auto_now_add=True)
     tanggal_berakhir = models.DateField()
 
-
+    def __str__(self):
+        return f"<Stock at {self.company.nama_merek} -- {self.jumlah_lembar_saham} @ {self.company.nilai_lembar_saham}>"
