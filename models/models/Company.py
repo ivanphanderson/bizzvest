@@ -7,6 +7,8 @@ class Company(models.Model):  # dengan nama lain: Toko
     pemilik_usaha = models.ForeignKey(EntrepreneurAccountData, on_delete=models.CASCADE)
     nama_merek = models.CharField(max_length=30)
     nama_perusahaan = models.CharField(max_length=35)
+    deskripsi = models.TextField(max_length=3000, default="")
+
 
     # tidak terpengaruh oleh saham yg sudah dikumpulkan
     nilai_saham_dibutuhkan_total = models.BigIntegerField(blank=True, editable=False)

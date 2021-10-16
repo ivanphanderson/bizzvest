@@ -3,6 +3,12 @@
 
 }
 
+body{
+    background: rgb(140,232,255);
+    background: linear-gradient(180deg, rgba(140,232,255,1) 0%, rgba(244,253,255,1) 100%);
+}
+
+
 #content{
     /*background-color: lightgrey;*/
     margin: 10px 12px 10px 12px;
@@ -75,4 +81,29 @@
 
 #foot{
     /*background-color: #6f94c6;*/
+}
+
+
+.white_box{
+    background-color: rgba(239, 252, 255, 0.5);
+    padding: 4px;
+    /*background-color: #DFF9FF;*/
+
+
+    border-radius: 5px;
+
+}
+
+
+.shadowed_box_1{
+    --shadowed-box-1-x-offset: 1px;
+    --shadowed-box-1-y-offset: 1px;
+    --shadowed-box-1-blur: 2px;
+    --shadowed-box-1-spread: 0px;
+    --shadowed-box-1-color: rgba(0,0,0,0.11);
+    --shadowed-box-1-complete: var(--shadowed-box-1-x-offset) var(--shadowed-box-1-y-offset) var(--shadowed-box-1-blur) var(--shadowed-box-1-spread) var(--shadowed-box-1-color);
+
+    box-shadow: var(--shadowed-box-1-complete);
+    -webkit-box-shadow: var(--shadowed-box-1-complete);
+    -moz-box-shadow: var(--shadowed-box-1-complete);
 }

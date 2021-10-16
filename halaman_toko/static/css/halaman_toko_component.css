@@ -1,3 +1,12 @@
+#nama_merk{
+    /*color: #0088ff;*/
+    /*text-shadow: 0px 0px 5px rgba(255,255,255,0.94);*/
+}
+
+#nama_perusahaan{
+    /*-webkit-text-fill-color: grey;*/
+    -webkit-text-stroke: 0.1px #c2eaff;
+}
 
 #edit_btn{
     --edit-btn-box-shadow-x-offset: 1px;
