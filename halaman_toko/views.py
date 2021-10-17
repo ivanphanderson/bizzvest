@@ -49,3 +49,7 @@ def halaman_toko(req:WSGIRequest):
         'company' : company_obj,
         'company_photos': company_obj.companyphoto_set.all()
     })
+
+
+def dummy(req):
+    return render(req, "tes.html", {})

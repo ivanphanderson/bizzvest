@@ -31,12 +31,12 @@ body{
     /*--edit-btn-size: auto;*/
 
     --min_row_col_1_size: 150px;
-    --max_row_col_1_size: 250px;
-    --row_col_1_size: clamp(var(--min_row_col_1_size), 25vw, var(--max_row_col_1_size));
+    --max_row_col_1_size: 350px;
+    --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
 
     --min_row_2_height: 60px;
-    --max_row_2_height: 90px;
-    --row_2_height-temp: clamp(var(--min_row_2_height), 15vh, var(--max_row_2_height));
+    --max_row_2_height: 115px;
+    --row_2_height-temp: clamp(var(--min_row_2_height), 17vh, var(--max_row_2_height));
     --row_2_height: min(calc(var(--row_col_1_size) * 90 / 250),  var(--row_2_height-temp));
 
 
@@ -107,3 +107,66 @@ body{
     -webkit-box-shadow: var(--shadowed-box-1-complete);
     -moz-box-shadow: var(--shadowed-box-1-complete);
 }
+
+#company_photos_carousel .carousel-item-inner-wrapper-1{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#company_photos_carousel .carousel-item-inner-wrapper-2{
+    display: grid;
+    height: 90%;
+    width: 90%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    border-radius: 5px;
+    overflow:hidden;  /* act like a `background-clip` for the filter blur */
+}
+
+#company_photos_carousel .carousel-item-inner-wrapper-2>*{
+    grid-row-start: 1;
+    grid-column-start: 1;
+    border-radius: 5px;
+}
+
+.company_photos_carousel_item_img{
+    background-image: var(--company_photos_carousel_background_img);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: center;
+
+    --ffilter: blur(0);
+    filter: var(--ffilter)!important;
+    -webkit-filter: var(--ffilter)!important;
+}
+
+
+#company_photos_carousel .carousel-item .carousel-item-extra-background{
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    --filter: blur(1px);
+    filter: var(--filter);
+    -webkit-filter: var(--filter);
+
+}
+
+
+/* repeated selectors to increase its priority */
+.carousel-adaptive-background-component.carousel-adaptive-background-component{
+
+
+    --background-image-transition: background-image 0.3s ease-in-out;
+    -webkit-transition: var(--background-image-transition);
+    transition: var(--background-image-transition);
+
+    --filter: invert(100%);
+    filter: var(--filter);
+    -webkit-filter: var(--filter);
+}
+

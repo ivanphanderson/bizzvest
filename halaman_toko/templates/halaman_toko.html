@@ -4,6 +4,8 @@
 <html>
     <head>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/halaman_toko_component.js' %}"></script>
         <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
@@ -28,31 +30,52 @@
                 <div id="edit_btn_container" >
                     <button id="edit_btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                 </div>
-                <div id="photos_container" class="white_box shadowed_box_1">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            {% for image in company_photos %}
 
+
+                <div id="photos_container" class="white_box shadowed_box_1">
+
+                    <div id="company_photos_carousel" class="carousel  slide" data-bs-ride="carousel">
+
+                        <div class="carousel-indicators">
+                            {% for image in company_photos %}
+                                <button type="button" data-bs-target="#company_photos_carousel"
+                                        data-bs-slide-to="{{ forloop.counter0 }}"
+                                        class="carousel-adaptive-background-component {% if image.img_index == 0 %}active{% endif %}"
+                                        aria-current="true" aria-label="Slide {{ forloop.counter }}"
+                                        style=""
+                                ></button>
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-inner h-100">
+                            {% for image in company_photos %}
                                 <div class="carousel-item {% if image.img_index == 0 %}active{% endif %}">
-                                    <img class="d-block w-100" src="{{ image.img.url }}" alt="First slide">
+                                    <div class="carousel-item-inner-wrapper-1">
+                                    <div class="carousel-item-inner-wrapper-2">
+                                        <div class="carousel-item-extra-background">
+
+                                        </div>
+                                        <div class="d-block w-100 company_photos_carousel_item_img"
+                                             style="--company_photos_carousel_background_img: url('{{ image.img.url }}');" alt="First slide">
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <button class="carousel-control-prev"
+                                type="button" data-bs-target="#company_photos_carousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next"
+                                type="button" data-bs-target="#company_photos_carousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
+
                 </div>
+
                 <div id="body-1-2" class="white_box shadowed_box_1"></div>
                 <div id="invest_information_container" class="white_box shadowed_box_1"></div>
 

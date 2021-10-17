@@ -8,6 +8,8 @@ class CompanyPhoto(models.Model):  # dengan nama lain: Toko
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     img = models.ImageField()
     img_index = models.IntegerField()
+    alt = models.CharField(max_length=50, default="", blank=True)
+    caption = models.CharField(max_length=50, default="", blank=True)
 
     def __str__(self):
         return f"<{self.company.nama_merek} -- {self.img}>"
