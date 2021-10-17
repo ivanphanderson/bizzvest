@@ -47,7 +47,7 @@ def halaman_toko(req:WSGIRequest):
 
     return render(req, "halaman_toko.html", {
         'company' : company_obj,
-        'company_photos': company_obj.companyphoto_set.all()
+        'company_photos': company_obj.companyphoto_set.all().order_by("img_index")
     })
 
 

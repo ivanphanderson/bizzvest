@@ -9,7 +9,7 @@ class UserAccount(models.Model):
     username = models.CharField(max_length=24, unique=True, db_index=True, null=True)
     email = models.EmailField(max_length=254, unique=True, null=True)
 
-    photo_profile = models.ImageField(upload_to="uploads/%Y/%m/%d/", null=True)
+    photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
 
