@@ -8,10 +8,13 @@
     -webkit-text-stroke: 0.1px #c2eaff;
 }
 
-#edit_btn{
+
+
+#edit_btn, #save_btn, #photo_edit_btn{
     --edit-btn-box-shadow-x-offset: 1px;
     --edit-btn-box-shadow-y-offset: 1px;
     --edit-btn-box-shadow-color:  rgba(128, 128, 128, 0.72);
+
 
     /*-webkit-text-fill-color: rgba(0,0,0,0);*/
     /*-webkit-text-fill-color: white;*/
@@ -19,11 +22,8 @@
     /*-webkit-text-stroke-color: white;*/
     font-size: calc(var(--edit-btn-size) - 5px);
 
-
-
-    transition: all 100ms;
+    transition: opacity .1s, visibility .1s, transform 50ms, box-shadow 50ms;
     box-shadow: var(--edit-btn-box-shadow-x-offset) var(--edit-btn-box-shadow-y-offset) var(--edit-btn-box-shadow-color);
-    background-color: limegreen;
     height: var(--edit-btn-size);
     width: var(--edit-btn-size);
 
@@ -33,8 +33,51 @@
     padding: 0;
 }
 
+#edit_btn{
+    background-color: limegreen;
+}
 
-#edit_btn:active {
+#photo_edit_btn{
+    background-color: #25cff2;
+    color: white;
+    margin-right: 7px;
+}
+
+
+#photo_edit_btn{
+    opacity: 0;
+    visibility: hidden;
+}
+
+#save_btn{
+    display: none;
+}
+
+.editing_mode #photo_edit_btn{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+
+}
+
+.editing_mode #save_btn{
+    display: block;
+    background-color: #4b6587;  /* bg color when disabled*/
+    color: white;
+}
+
+.editing_mode #save_btn:enabled{
+    background-color: #2982ff;
+}
+
+
+.editing_mode #edit_btn{
+    display: none;
+}
+
+
+
+#edit_btn:active:enabled, #save_btn:active:enabled, #photo_edit_btn:active:enabled {
     /*background-color: #3e8e41;*/
     transform: translateX(var(--edit-btn-box-shadow-x-offset)) translateY(var(--edit-btn-box-shadow-y-offset));
     box-shadow: 0 0 var(--edit-btn-box-shadow-color);
@@ -45,3 +88,16 @@
     height: 100%;
 }
 
+#company_description{
+    margin-top: 10px;
+    padding-left: 20px;
+    white-space: pre-wrap;
+}
+
+.textarea_as_div{
+    background-color: transparent;
+    display: block;
+    border: 0;
+    width: 100%;
+    overflow: hidden;
+}

@@ -47,7 +47,7 @@ body{
     grid-gap: 12px 12px;
 }
 
-#edit_btn_container{
+#control_btn_container{
     grid-column: span 2;
     display: flex;
     justify-content: right;
@@ -72,6 +72,7 @@ body{
 
 #description_container{
     grid-column: span 2;
+    padding: 10px;
 }
 
 #comment_container{
@@ -159,8 +160,6 @@ body{
 
 /* repeated selectors to increase its priority */
 .carousel-adaptive-background-component.carousel-adaptive-background-component{
-
-
     --background-image-transition: background-image 0.3s ease-in-out;
     -webkit-transition: var(--background-image-transition);
     transition: var(--background-image-transition);

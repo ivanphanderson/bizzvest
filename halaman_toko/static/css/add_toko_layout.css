@@ -1,0 +1,30 @@
+
+body{
+    display: flex;
+    justify-content: center;
+}
+
+.form-content-wrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+
+    width: clamp(200px, 80vw, 1200px);
+}
+
+.dummy-row{
+    grid-column: span 2;
+}
+
+#form-content{
+    display: grid;
+    min-height: 50vh;
+    width: clamp(200px, 100%, 900px);
+
+    background-color: rgba(239, 252, 255, 0.7);
+    padding: 15px;
+
+    grid-template-columns: clamp(40px, 35%, 210px) auto;
+    grid-template-rows: auto repeat(5, clamp(40px, 10%, 55px)) auto;
+}
