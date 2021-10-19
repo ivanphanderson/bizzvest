@@ -25,6 +25,13 @@ class Company(models.Model):  # dengan nama lain: Toko
         return f"<{self.nama_merek} -- {self.nama_perusahaan} -- {self.pemilik_usaha.account.username}>"
 
     def save(self, *args, **kwargs):
+
+        print()
+        print()
+        print(self)
+        print()
+        print()
+
         self.nilai_saham_terkumpulkan_total = 0
         self.nilai_saham_dibutuhkan_total = self.nilai_lembar_saham * self.jumlah_lembar
         super().save(*args, **kwargs)

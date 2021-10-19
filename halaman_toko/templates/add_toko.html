@@ -1,0 +1,40 @@
+{% load static %}
+
+
+<html>
+    <head>
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'js/halaman_toko_component.js' %}"></script>
+        <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
+{#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
+        <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/add_toko_layout.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/add_toko_component.css' %}"/>
+        <title>{{ company.nama_merek }}</title>
+    </head>
+    <body>
+        <script>
+            csrf_token = "{{ csrf_token  }}";
+        </script>
+
+        <div id="content" class="form-content-wrapper">
+            <div id="form-content" class="white_box shadowed_box_1">
+
+                <div class="dummy dummy-row"></div>
+
+                <div style="background-color: #79aec8"></div>
+                <div style="background-color: wheat"></div>
+                <div style="background-color: #ffc720"></div>
+                <div style="background-color: #00dd00"></div>
+                <div style="background-color: #0c4128"></div>
+                <div style="background-color: #4b6587"></div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

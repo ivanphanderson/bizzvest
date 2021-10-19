@@ -6,13 +6,20 @@
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/halaman_toko_component.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>
+        <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
+{#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
+        <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
         <title>{{ company.nama_merek }}</title>
     </head>
     <body>
+        <script>
+            company_id = {{ company.id }};
+            csrf_token = "{{ csrf_token  }}";
+        </script>
+
         <div id="content">
             <div id="head">
                 <div id="nama-toko-dan-perusahaan">
@@ -27,13 +34,20 @@
 
 
             <div id="body">
-                <div id="edit_btn_container" >
-                    <button id="edit_btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
+                    <button id="photo_edit_btn" class="control_btn">
+                        <i class="fa fa-file-image" aria-hidden="true"></i>
+                    </button>
+                    <button id="edit_btn" class="control_btn">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                    <button id="save_btn" class="control_btn">
+                        <i class="fas fa-save"></i>
+                    </button>
                 </div>
 
 
                 <div id="photos_container" class="white_box shadowed_box_1">
-
                     <div id="company_photos_carousel" class="carousel  slide" data-bs-ride="carousel">
 
                         <div class="carousel-indicators">
@@ -83,9 +97,10 @@
                     <span class="h5">
                         deskripsi
                     </span>
-                    <div>
-                        {{ company.deskripsi|linebreaksbr }}
-                    </div>
+
+                    {% comment %} no need |linebreaksbr because we have handled it in the css {% endcomment %}
+                    {% comment %} harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut {% endcomment %}
+                    <div id="company_description" onfocusout="company_description_KeyPress();">{{ company.deskripsi }}</div>
                 </div>
 
                 <div id="comment_container" class="white_box shadowed_box_1">
@@ -99,5 +114,45 @@
                 foot
             </div>
         </div>
+
+
+
+        {% comment %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+        </button>{% endcomment %}
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Page</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="editing_form">
+
+
+
+
+                        <form method="post">
+
+                            <span class="h4">deskripsi</span> <br>
+                            {{ edit_form.deskripsi }}
+                        </form>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>
