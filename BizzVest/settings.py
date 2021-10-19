@@ -161,3 +161,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-DATA_UPLOAD_MAX_MEMORY_SIZE
 # 2 MB data upload limit
 DATA_UPLOAD_MAX_MEMORY = 2 * 1024 * 1024
+
+# https://stackoverflow.com/a/47118731/7069108
+# ie if Heroku server
+if 'DATABASE_URL' in os.environ:
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.config()}
