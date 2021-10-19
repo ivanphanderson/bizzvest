@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/photo_control.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+
+<script>
+    company_id = {{ company.id }};
+    csrf_token = "{{ csrf_token }}";
+</script>
+
+<div class="photo-manager">
+    <div class="asdfghjkl"></div>
+</div>
+
+
+<template id="photo-manager-items-template">
+    <div class="photo-manager-items">
+
+    </div>
+</template>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/photo_control.js' %}"></script>

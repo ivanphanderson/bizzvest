@@ -1,0 +1,26 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/manage_photos.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <script rel="stylesheet" href="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script rel="stylesheet" href="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+</head>
+<body>
+
+    <div id="photo-manager-container" class="white_box shadowed_box_1">
+        {% include 'photo_control.html' with company=company %}
+
+    </div>
+
+</body>
+</html>
