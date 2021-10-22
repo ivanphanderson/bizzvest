@@ -6,7 +6,8 @@ Receive parameters:
  - include_id ->    a unique identifier which will be used to separate different instance of
                     photo_control/photo_manager so that we can instantiate multiple (more than 1) instance
                     of photo_control/photo_manage in the same page
-
+ - error_handler [optional] -> the name of error handler function
+ - success_handler [optional] -> the name of success handler function
 {% endcomment %}
 
 
@@ -32,13 +33,29 @@ Receive parameters:
     </div>
 </template>
 
+
+
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 <script src="{% static 'js/photo_control.js' %}"></script>
 
 <script>
-    photo_manager_update_content = photo_manager_component_instantiate(
-        "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}"
-    );
+    $(document).ready(function () {
+        photo_manager_update_content = photo_manager_component_instantiate(
+            "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}",
+
+            {% if error_handler is not None %}
+                {{ error_handler }},
+            {% else %}
+                null,
+            {% endif %}
+
+            {% if success_handler is not None %}
+                {{ success_handler }},
+            {% else %}
+                null
+            {% endif %}
+        );
+    });
 </script>

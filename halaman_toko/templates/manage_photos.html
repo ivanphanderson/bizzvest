@@ -22,7 +22,11 @@
 
 <div class="photo-manager-wrapper">
     <div id="photo-manager-container" class="white_box shadowed_box_1">
-        {% include 'photo_control.html' with company=company include_id="photo_manager_1" %}
+{% with er_h="photo_manager_on_error" %}
+{% with sc_h="photo_manager_on_success" %}
+{% include 'photo_control.html' with company=company include_id="photo_manager_1" error_handler=er_h success_handler=sc_h%}
+{% endwith %}
+{% endwith %}
     </div>
 
     <div class="add-photo-wrapper">
@@ -41,6 +45,26 @@
     <input id="file-picker" type="file" name="img" accept=".gif,.jpg,.jpeg,.png,.svg">
     <input type="text" name="company_id" value="{{ company.id }}">
 </form>
+
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
+    {% comment %}    <div class="toast-header">
+        <img src="..." class="rounded mr-2" alt="...">
+        <strong class="mr-auto">Bootstrap</strong>
+        <small class="text-muted">11 mins ago</small>
+
+    </div>{% endcomment %}
+    <div class="toast-body">
+        <div class="toast-body-wrapper">
+            <div style="display: table;">
+            <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
+                Hello, world! This is a toast message.
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 </body>

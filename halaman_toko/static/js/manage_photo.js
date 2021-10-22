@@ -33,4 +33,23 @@ $(document).ready(function (){
         }
     });
 
+    $('.toast').toast({delay:2500});
 });
+
+function photo_manager_on_error(type, message){
+    console.log(type, message);
+    $(".toast #toast-msg").text("failed");
+    $(".toast").toast("show");
+}
+
+function photo_manager_on_success (type, message){
+    if (type==="deleting")
+        $(".toast #toast-msg").text("the photo has been deleted successfully");
+    else if (type === "reordering")
+        $(".toast #toast-msg").text("the photos' order has been saved");
+    else
+        return;
+
+    $(".toast").toast("show");
+}
+

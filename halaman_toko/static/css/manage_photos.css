@@ -77,7 +77,7 @@ body{
     border-radius: 50%;
 
     cursor: pointer;
-    transition: transform 80ms ease-in-out, background-color 100ms ease-in-out, color 100ms ease-in-out;
+    transition: transform 80ms ease-in-out, background-color 100ms ease-in-out, color 200ms ease-in-out;
     background-color: var(--bs-success);
     color: white;
     box-shadow: var(--add-photo-wrapper-shadow-x) var(--add-photo-wrapper-shadow-y)
@@ -94,11 +94,26 @@ body{
 .photo-manager-wrapper .add-photo-wrapper:active{
     box-shadow: 0 0 1px rgba(145, 145, 145, 0.6);
     transform: translate(var(--add-photo-wrapper-shadow-x), var(--add-photo-wrapper-shadow-y));
-    background-color: #00b161;
     /*color: black;*/
 }
+
+.photo-manager-wrapper .add-photo-wrapper:hover{
+    background-color: #00b161;
+}
+
 
 ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.toast{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+.toast .toast-body .toast-body-wrapper{
+    display: grid;
+    grid-template-columns: 1fr auto;
 }

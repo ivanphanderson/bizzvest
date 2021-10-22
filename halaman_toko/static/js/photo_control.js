@@ -1,17 +1,32 @@
-function photo_manager_component_instantiate(photo_component_identifier, company_id, csrf_token){
-    const container_selector_element = ".photo-manager."+photo_component_identifier;
+function photo_manager_component_instantiate(photo_component_identifier, company_id, csrf_token, error_handler=null, success_handler=null){
+    const container_selector_element = ".photo-manager." + photo_component_identifier;
     var all_photo_manager_items = [];
-    window.debug__all_photo_manager_items = all_photo_manager_items;
+    var is_currently_sending_ajax = false;
 
-    $(document).ready(function (){
-        update_content();
-    });
+    if (error_handler == null) error_handler = (type, message) => {};
+    if (success_handler == null) success_handler = (type, message) => {};
+
+    window.debug__all_photo_manager_items = all_photo_manager_items;
+    window.debug__csrf_token = csrf_token;
 
     function update_content(){
+        if (is_currently_sending_ajax) {
+            error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+            return false;
+        }
+
+        is_currently_sending_ajax = true;
         $.get('/halaman-toko/edit-photos?id=' + company_id + '&ajax_get_json', function (response){
+            is_currently_sending_ajax = false;
+            success_handler("updating", response);
             update_content_from_existing_json(response);
-        });
+        })
+            .fail(function (response) {
+                is_currently_sending_ajax = false;
+                error_handler("updating", response)
+            });
     }
+    update_content();
 
     function clear_content(){
         // clear existing items
@@ -35,12 +50,46 @@ function photo_manager_component_instantiate(photo_component_identifier, company
         }
     }
 
-
     function square_euclidean_distance(x1, y1, x2=0, y2=0){
         const temp_x = x1 - x2;
         const temp_y = y1 - y2;
         return temp_x*temp_x + temp_y*temp_y;
     }
+
+    function get_photos_order(){
+        let ret = {};
+
+        for (let i = 0; i < all_photo_manager_items.length; i++) {
+            ret[all_photo_manager_items[i].photo_id] = all_photo_manager_items[i].element.index();
+        }
+
+        return ret;
+    }
+
+    function submit_current_order(){
+        if (is_currently_sending_ajax) {
+            error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+            return false;
+        }
+
+        let data = {
+            'photo_order': JSON.stringify(get_photos_order()),
+            'company_id': company_id,
+            'csrfmiddlewaretoken': csrf_token
+        };
+        window.debug__data = data;
+
+        is_currently_sending_ajax = true;
+        $.post("/halaman-toko/photo-reorder", data, function (response) {
+            is_currently_sending_ajax = false;
+            success_handler("reordering", response);
+        }).fail(function (response) {
+            is_currently_sending_ajax = false;
+            error_handler('reordering', response);
+        });
+        return true;
+    }
+    window.submit_current_order = submit_current_order;
 
 
     class PhotoManagerItems{
@@ -59,7 +108,6 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             // this.element.draggable({cursor: "pointer"});
             this.photo_url = "";
             this.photo_id = id;
-            console.log(id);
 
             if (draggable)
                 this.initiate_events();
@@ -71,15 +119,25 @@ function photo_manager_component_instantiate(photo_component_identifier, company
         }
 
         delete_from_server(){
+            if (is_currently_sending_ajax) {
+                error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+                return false;
+            }
+
             var data =  {
                 'photo_id': this.photo_id,
                 'csrfmiddlewaretoken': csrf_token
             };
 
-            console.log("deleting ", this.photo_id, data, this);
-
+            is_currently_sending_ajax = true;
             $.post("/halaman-toko/delete-photo", data, function (response) {
+                is_currently_sending_ajax = false;
+                success_handler("deleting", response);
                 update_content_from_existing_json(response);
+            })
+                .fail(function (response) {
+                    is_currently_sending_ajax = false;
+                    error_handler('deleting', response);
             });
         }
 
@@ -261,6 +319,7 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
 
     return {
-        'update_content_from_existing_json': update_content_from_existing_json
+        'update_content_from_existing_json': update_content_from_existing_json,
+        'is_currently_sending_ajax': () => {return is_currently_sending_ajax;}
     };
 }

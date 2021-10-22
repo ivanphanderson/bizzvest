@@ -11,4 +11,5 @@ urlpatterns = [
     path('add', views.add_toko),
     path('add-photo', views.add_photo),
     path('delete-photo', views.delete_photo),
+    path('photo-reorder', views.photo_reorder),
 ]

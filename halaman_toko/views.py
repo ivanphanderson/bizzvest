@@ -206,6 +206,61 @@ def delete_photo(req:WSGIRequest):
 
 
 
+def photo_reorder(req:WSGIRequest):
+    if (get_logged_in_user_account() is None):
+        return HttpResponseRedirect(get_login_url())
+
+    if (req.method == 'POST'):
+        if not 'photo_order' in req.POST:
+            return HttpResponse("field not found: photo_order", status=400)
+
+        is_company_valid, object = validate_toko_id(req.POST['company_id'])
+        if not is_company_valid:
+            return object
+        company:Company = object.first()
+
+        # TODO: Authorization
+
+        photo_order_json_string = req.POST['photo_order']
+        try:
+            photo_order = json.loads(photo_order_json_string)
+            if not isinstance(photo_order, dict):
+                return HttpResponse("invalid json [not a dict]: photo_order", status=400)
+            print(photo_order)
+            for key, value in photo_order.items():
+                if not key.isnumeric():
+                    return HttpResponse("invalid json [non-numeric dict key]: photo_order", status=400)
+                if not isinstance(value, int) or not (0 <= value < 1000):
+                    return HttpResponse("invalid json [invalid dict value]: photo_order", status=400)
+        except ValueError as e:
+            return HttpResponse("invalid json: photo_order", status=400)
+
+        for key,value in set(photo_order.items()):
+            photo_order[int(key)] = value
+            del photo_order[key]  # delete the string version of the key
+
+        if (company.companyphoto_set.all().count() != len(photo_order)):
+            return HttpResponse("invalid json [non-equal length]: photo_order", status=400)
+
+        company_photos = list(company.companyphoto_set.all())
+
+        for company_photo in company_photos:
+            if company_photo.id not in photo_order:
+                return HttpResponse("invalid json [non-equal dict]: photo_order", status=400)
+
+        for company_photo in company_photos:
+            company_photo.img_index = photo_order[company_photo.id]
+
+        company_photos.sort(key=lambda x: x.img_index)
+
+        # normalisasi. Pakai fungsi ini, karena siapa tahu ada orang iseng atau hacker sialan yg berusaha
+        # membuat img_index kacau. (img_index dikatakan kacau kalau ga dimulai dari 1 atau kalau ada bolongnya,
+        # misalnya [1, 3, 2, 7, 5, 6] ada bolongnya: img_index 4 tidak ditemukan)
+        recalculate_img_index_from_list(company_photos)  # sudah termasuk menyimpan urutan ke database
+
+        return HttpResponse("success", status=200)
+    return HttpResponse("Invalid request", status=400)
+
 
 
 
