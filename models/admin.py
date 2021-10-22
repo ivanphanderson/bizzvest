@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from models.models import UserAccount, InvestorAccountData, EntrepreneurAccountData, Company, Comment, Stock, CompanyPhoto
+from models.models import UserAccount, InvestorAccount, EntrepreneurAccount, Company, Comment, Stock, CompanyPhoto
 
 
 # class UserAccountAdmin(admin.ModelAdmin):
@@ -11,7 +11,7 @@ from models.models import UserAccount, InvestorAccountData, EntrepreneurAccountD
 admin.site.register(Comment)
 admin.site.register(Company)
 admin.site.register(CompanyPhoto)
-admin.site.register(EntrepreneurAccountData)
-admin.site.register(InvestorAccountData)
+admin.site.register(EntrepreneurAccount)
+admin.site.register(InvestorAccount)
 admin.site.register(Stock)
 admin.site.register(UserAccount)

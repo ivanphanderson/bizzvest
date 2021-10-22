@@ -1,4 +1,4 @@
-from .InvestorAccountData import *
+from .InvestorAccount import *
 from .Company import *
 from django.db import models
 
@@ -8,7 +8,7 @@ from django.db import models
 
 class Stock(models.Model):  # saham
     # pemegang saham
-    holder = models.ForeignKey(InvestorAccountData, on_delete=models.CASCADE)
+    holder = models.ForeignKey(InvestorAccount, on_delete=models.CASCADE)
 
     # perusahaan tempat saham ini ditanamkan
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
