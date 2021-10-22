@@ -13,6 +13,9 @@ class UserAccount(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
 
+    is_verified = models.BooleanField(default=False)
+    foto_ktp = models.ImageField(upload_to="uploads/foto_ktp/%Y/%m/", null=True)
+    selfie_ktp = models.ImageField(upload_to="uploads/selfie_ktp/%Y/%m/", null=True)
     join_date = models.DateField(default=timezone.now)
     last_login = models.DateTimeField(default=timezone.now)
 
