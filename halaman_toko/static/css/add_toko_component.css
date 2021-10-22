@@ -2,7 +2,7 @@
 
 
 .isian-formulir{
-    --form-control-background-color: rgba(255, 255, 255, 0.75);
+    --form-control-background-color: rgb(255, 255, 255);
     --form-control-background-color-focused: rgba(255, 255, 255, 1);
 
     --isian-formulir-box-shadow-x: 0;
@@ -18,15 +18,11 @@
     padding: 4px;
 }
 
-.isian-formulir:focus{
-    background-color: var(--color-A-3);
-    border-width: 0;
-    outline: none;
-    transform: translate(var(--isian-formulir-box-shadow-x), var(--isian-formulir-box-shadow-y));
-}
 
 /*.isian-formulir.pressed:focus{*/
 .isian-formulir:focus{
+    transform: translate(var(--isian-formulir-box-shadow-x), var(--isian-formulir-box-shadow-y));
+
     --isian-formulir-pressed-focus-box-shadow: 0px 0px 13px -2px rgba(255, 208, 174, 0.95);
 
     box-shadow: var(--isian-formulir-pressed-focus-box-shadow);
@@ -34,10 +30,9 @@
     -moz-box-shadow: var(--isian-formulir-pressed-focus-box-shadow);
 
 
-    background-color: var(--color-A-2);
+    background-color: var(--color-A-4);
     border-width: 0;
     outline: none;
-
 }
 
 .deskripsi-container{

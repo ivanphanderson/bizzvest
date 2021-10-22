@@ -77,8 +77,9 @@ body{
     border-radius: 50%;
 
     cursor: pointer;
-    transition: transform 80ms ease-in-out, background-color 100ms ease-in-out;
-    background-color: var(--color-A-1);
+    transition: transform 80ms ease-in-out, background-color 100ms ease-in-out, color 100ms ease-in-out;
+    background-color: var(--bs-success);
+    color: white;
     box-shadow: var(--add-photo-wrapper-shadow-x) var(--add-photo-wrapper-shadow-y)
         1px rgba(145, 145, 145, 0.6);
 
@@ -93,7 +94,8 @@ body{
 .photo-manager-wrapper .add-photo-wrapper:active{
     box-shadow: 0 0 1px rgba(145, 145, 145, 0.6);
     transform: translate(var(--add-photo-wrapper-shadow-x), var(--add-photo-wrapper-shadow-y));
-    background-color: var(--color-A-0);
+    background-color: #00b161;
+    /*color: black;*/
 }
 
 ::-webkit-scrollbar {

@@ -23,7 +23,7 @@
     --photo-manager-items-size: 140px;
     --photo-manager-items-margin: 12px;
     --photo-manager-items-border-radius: 3px;
-    --photo-manager-items-box-shadow: 1px 1px 0px 0px rgba(213, 213, 213, 0.4);
+    --photo-manager-items-box-shadow: 1px 1px 0px 0px rgba(93, 93, 93, 0.4);
 
     height: var(--photo-manager-items-size);
     width: var(--photo-manager-items-size);
@@ -40,6 +40,7 @@
 .photo-manager-items{  /* for the layout */
     --photo-manager-items-button-default-size: 22px;
 
+    /*border: 1px ridge #0dcaf0;*/
     cursor: grab;
     display:grid;
     grid-template-columns: var(--photo-manager-items-button-default-size) 1fr var(--photo-manager-items-button-default-size);
