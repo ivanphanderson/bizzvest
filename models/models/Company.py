@@ -6,6 +6,9 @@ from django.db import models
 
 class Company(models.Model):  # dengan nama lain: Toko
     pemilik_usaha = models.ForeignKey(EntrepreneurAccount, on_delete=models.CASCADE, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
+    proposal = models.FileField(upload_to="uploads/company_photos/%Y/%m/", null=True)
+
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')
     nama_perusahaan = models.CharField(max_length=35, verbose_name='Nama perusahaan')
     deskripsi = models.TextField(max_length=3000, default="", verbose_name='Deskripsi')
