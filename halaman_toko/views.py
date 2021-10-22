@@ -11,6 +11,7 @@ from models.models.Company import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.core.handlers.wsgi import WSGIRequest
+import json
 
 # Create your views here.
 
@@ -146,11 +147,18 @@ def manage_photos(req:WSGIRequest):
         # TODO: authentication and authorization
 
         company_obj:Company = ret_obj[0]
-        company_photos = company_obj.companyphoto_set.all()
+        company_photos = company_obj.companyphoto_set.all().order_by('img_index')
 
         if "ajax_get_json" in req.GET:
             print("asdfgh")
-            return HttpResponse(serializers.serialize('json', company_photos), content_type='application/json')
+            return HttpResponse(
+                json.dumps(
+                    [{
+                        'id': img.id,
+                        'url': img.img.url
+                    }
+                     for img in company_photos]
+                ), content_type='application/json')
 
         return render(req, "manage_photos.html", {
             'company': company_obj

@@ -5,22 +5,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 
+    <link rel="stylesheet" href="{% static 'css/color_palette.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/manage_photos.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
-    <script rel="stylesheet" href="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script rel="stylesheet" href="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/manage_photo.js' %}"></script>
 
 </head>
 <body>
 
+<div class="photo-manager-wrapper">
     <div id="photo-manager-container" class="white_box shadowed_box_1">
-        {% include 'photo_control.html' with company=company %}
-
+        {% include 'photo_control.html' with company=company include_id="photo_manager_1" %}
     </div>
+
+    <div class="add-photo-wrapper">
+        <i class="far fa-plus-square"></i>
+    </div>
+</div>
+
+
+<form style="visibility: hidden;">
+    <input id="pick-file-btn" type="file">
+</form>
+
 
 </body>
 </html>

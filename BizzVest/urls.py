@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+
 urlpatterns = [
     re_path('admin/?', admin.site.urls),
     path('', include('home_page.urls')),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('daftar-toko', include('daftar_toko.urls')),
 
     path('halaman-toko/', include('halaman_toko.urls')),
+    path('halaman-toko', RedirectView.as_view(url='halaman-toko/', permanent=False)),
     path('add-toko', RedirectView.as_view(url='halaman-toko/add', permanent=False)),
 
     path('my-profile', include('my_profile.urls')),
