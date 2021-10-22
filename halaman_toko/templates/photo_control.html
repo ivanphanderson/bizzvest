@@ -1,0 +1,44 @@
+{% comment %}
+
+Specification:
+Receive parameters:
+ - company -> the Company model's object
+ - include_id ->    a unique identifier which will be used to separate different instance of
+                    photo_control/photo_manager so that we can instantiate multiple (more than 1) instance
+                    of photo_control/photo_manage in the same page
+
+{% endcomment %}
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/photo_control.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+<link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
+
+
+<div class="photo-manager {{ include_id }}">
+</div>
+
+
+<template id="photo-manager-items-template">
+    <div class="photo-manager-items">
+        <div class="photo-manager-items-blur-background">
+        </div>
+        <div class="photo-manager-items-photo">
+        </div>
+        <div class="delete-button">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+    </div>
+</template>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/photo_control.js' %}"></script>
+
+<script>
+    photo_manager_component_instantiate(
+        "{{ include_id }}", {{ company.id }}
+    );
+</script>

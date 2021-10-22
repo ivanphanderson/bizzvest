@@ -1,12 +1,17 @@
+from django.urls import reverse
 from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.middleware import csrf
+from django.utils import dateformat
 
-from halaman_toko.forms.halaman_edit_form import CompanyEditForm
+from halaman_toko.authentication_and_authorization import *
+from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
+from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from models.models.Company import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.core.handlers.wsgi import WSGIRequest
+import json
 
 # Create your views here.
 
@@ -75,26 +80,94 @@ def halaman_toko(req:WSGIRequest):
 
 def add_toko(req:WSGIRequest):
 
+    validation_state = '1'
+    show_invalid_modal = False
+    additional_problems = []
+
+    if (get_logged_in_user_account() is None):
+        return HttpResponseRedirect(get_login_url())
+
+
+    if (req.method == 'POST'):
+        form = CompanyAddForm(req.POST)
+        print(timezone.now())
+        form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
+
+        temp = get_logged_in_user_account().entrepreneuraccountdata
+        form.instance.pemilik_usaha = temp
+        print(temp)
+
+        # if ('pemilik_usaha' in req.POST):
+        #     return HttpResponse("Illegal attribute: 'pemilik_usaha' ", status=400)
+
+        if ('is_validate_only' not in req.POST):
+            additional_problems.append("invalid request error: no 'is_validate_only' property")
+            show_invalid_modal = True
+        else:
+            if (form.is_valid()):
+                print("form valid")
+                if (req.POST.get('is_validate_only', '1') == '0'):
+                    saved_obj:Company = form.save()
+                    print("saved")
+
+                    redirect_url_target = reverse('halaman_toko:halaman_toko')
+                    return HttpResponseRedirect(f"{redirect_url_target}?id={saved_obj.id}")
+                elif req.POST['is_validate_only'] == '1':
+                    validation_state = '0'
+            else:
+                print("form invalid")
+                show_invalid_modal = True
+    else:
+        form = CompanyAddForm(None)
+
+
+
     return render(req, "add_toko.html", {
-        'django_csrf_token': csrf.get_token(req),
+        'form':form,
+        'validation_state': validation_state,
+        'additional_problems': additional_problems,
+        'show_invalid_modal': show_invalid_modal,
+        'errors_field_verbose_name': [Company._meta.get_field(field_name).verbose_name
+                                      for field_name, errors in form.errors.items()]
     })
 
 
 
 
-def edit_photos(req:WSGIRequest):
-    is_valid, ret_obj = validate_toko_id_by_GET_req(req)
-    if not is_valid:
-        return ret_obj
 
-    # TODO: authentication and authorization
 
-    company_obj:Company = ret_obj[0]
-    company_photos = company_obj.companyphoto_set.all()
 
-    return HttpResponse(
-        serializers.serialize("json", company_photos),
-        content_type="application/json")
+def manage_photos(req:WSGIRequest):
+    if req.method == "GET":
+        is_valid, ret_obj = validate_toko_id_by_GET_req(req)
+        if not is_valid:
+            return ret_obj
+
+
+        # TODO: authentication and authorization
+
+        company_obj:Company = ret_obj[0]
+        company_photos = company_obj.companyphoto_set.all().order_by('img_index')
+
+        if "ajax_get_json" in req.GET:
+            print("asdfgh")
+            return HttpResponse(
+                json.dumps(
+                    [{
+                        'id': img.id,
+                        'url': img.img.url
+                    }
+                     for img in company_photos]
+                ), content_type='application/json')
+
+        return render(req, "manage_photos.html", {
+            'company': company_obj
+        })
+
+    elif req.method == "POST":
+        pass
+
+
 
 def is_available(field_name:str, request_query:dict):
     if (field_name not in request_query):

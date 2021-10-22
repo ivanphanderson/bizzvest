@@ -1,15 +1,19 @@
 {% load static %}
+{% load index %}
 
 
 <html>
     <head>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-        <script src="{% static 'js/halaman_toko_component.js' %}"></script>
+        <script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
+
+        <script src="{% static 'js/add_toko.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 {#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
         <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+        <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/add_toko_layout.css' %}"/>
@@ -22,19 +26,181 @@
         </script>
 
         <div id="content" class="form-content-wrapper">
-            <div id="form-content" class="white_box shadowed_box_1">
+            <form id="form-content" class="white_box shadowed_box_1"
+                  method="post" action="">
 
                 <div class="dummy dummy-row"></div>
 
-                <div style="background-color: #79aec8"></div>
-                <div style="background-color: wheat"></div>
-                <div style="background-color: #ffc720"></div>
-                <div style="background-color: #00dd00"></div>
-                <div style="background-color: #0c4128"></div>
-                <div style="background-color: #4b6587"></div>
+                <div style="">
+                    <span class="form-content-label">Nama merek</span>
+                </div>
+                <div style="">
+                    {{ form.nama_merek }}
+                </div>
+                <div style="">
+                    <span class="form-content-label">Nama perusahaan</span>
+                </div>
+                <div style="">
+                    {{ form.nama_perusahaan }}
+                </div>
+
+                <div style="">
+                    <span class="form-content-label">Jumlah lembar saham</span>
+                </div>
+                <div style="">
+                    {{ form.jumlah_lembar }}
+                </div>
+
+                <div style="">
+                    <span class="form-content-label">Nilai lembar saham (rupiah) </span>
+                </div>
+                <div style="">
+                    {{ form.nilai_lembar_saham }}
+                </div>
+
+                <div style="">
+                    <span class="form-content-label">Dividen (bulan) </span>
+                </div>
+                <div style="">
+                    {{ form.dividen }}
+                </div>
+
+                <div style="">
+                    <span class="form-content-label">Batas waktu </span>
+                </div>
+                <div style="">
+                    {{ form.end_date }}
+                </div>
+
+                <div style="">
+                    <span class="form-content-label">Deskripsi</span>
+                </div>
+                <div class="deskripsi-container">
+                    {{ form.deskripsi }}
+                </div>
+
+                <div id="submit-container">
+                    {% csrf_token %}
+                    <input
+                            id="is_validate_only"
+                            type="hidden"
+                            name="is_validate_only"
+                            value="{{ validation_state }}" />
+
+                    <button
+                           id="form-submit-btn"
+                           type="button"
+                           {% comment %}data-bs-toggle="modal" data-bs-target="#confirm-submit"{% endcomment %}
+                           class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+
+            </form>
+        </div>
 
 
+
+
+
+
+
+
+        <!-- Modal -->
+        <div
+                class="modal fade" id="confirm-submit"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Submit confirmation
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: justify;">
+                        Apakah Anda benar-benar ingin mengirim data? <br><br>
+                        Setelah Anda mengirim data, Anda tidak akan dapat menghapus maupun mengubah beberapa data
+                        yang telah Anda submit sampai batas waktu terakhir perusahaan ini.
+                    </div>
+                    <div class="modal-footer">
+                        <button id="confirm-submit-cancel-btn"
+                                type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="form-confirm-submit-btn"
+                                type="button" class="btn btn-primary">I understand. Please submit</button>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+
+
+        <!-- Modal -->
+        <div
+                class="modal fade" id="form-problems-modal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Invalid Data
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: justify;">
+                        {% for field, errors in form.errors.items %}
+                            {{ errors_field_verbose_name|index:forloop.counter0 }}:
+                            <ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+
+                    {% if additional_problems %}
+                        Additional Problems:
+                        <ul>
+                            {% for error in additional_problems %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <script>
+
+        {% if show_invalid_modal %}
+            $(document).ready(function (){
+                $("#form-problems-modal").modal('show');
+            });
+        {% elif validation_state == '0' %}
+            $(document).ready(function (){
+                $("#confirm-submit").modal('show');
+            });
+        {% endif %}
+
+    </script>
+
+
     </body>
 </html>

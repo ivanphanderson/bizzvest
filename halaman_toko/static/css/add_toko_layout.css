@@ -23,8 +23,40 @@ body{
     width: clamp(200px, 100%, 900px);
 
     background-color: rgba(239, 252, 255, 0.7);
+    border-width: 0;
     padding: 15px;
 
     grid-template-columns: clamp(40px, 35%, 210px) auto;
-    grid-template-rows: auto repeat(5, clamp(40px, 10%, 55px)) auto;
+
+    /* the 2nd last auto is for the description row, because it's a textarea */
+    --form-content-row-default-height: clamp(40px, 10%, 55px);
+    grid-template-rows: auto repeat(6, var(--form-content-row-default-height)) auto
+                        var(--form-content-row-default-height) auto;
+
 }
+
+
+@media only screen and (max-width: 750px) {
+    .form-content-label{
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .form-content-label{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .form-content-label{
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .form-content-label{
+        font-size: 9px;
+    }
+}
+
