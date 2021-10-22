@@ -38,7 +38,7 @@
 }
 
 .photo-manager-items{  /* for the layout */
-    --photo-manager-items-button-default-size: 20px;
+    --photo-manager-items-button-default-size: 22px;
 
     cursor: grab;
     display:grid;
@@ -110,7 +110,7 @@
 
 .photo-manager .delete-button i{
     text-shadow: var(--photo-manager-items-delete-icon-text-shadow);
-    font-size: 10px;
+    font-size: 15px;
     cursor: pointer;
     color: white;
 }

@@ -38,7 +38,7 @@ Receive parameters:
 <script src="{% static 'js/photo_control.js' %}"></script>
 
 <script>
-    photo_manager_component_instantiate(
-        "{{ include_id }}", {{ company.id }}
+    photo_manager_update_content = photo_manager_component_instantiate(
+        "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}"
     );
 </script>

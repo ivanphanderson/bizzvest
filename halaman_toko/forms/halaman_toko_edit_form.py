@@ -8,6 +8,6 @@ class CompanyEditForm(forms.ModelForm):
                   )
 
     def save(self, commit=True):
-        self.cleaned_data = dict([ (k,v) for k,v in self.cleaned_data.items() if v != "" ])
+        self.cleaned_data = dict([(k,v) for k,v in self.cleaned_data.items() if v != "" ])
         return super().save(commit=commit)
 

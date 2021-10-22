@@ -1,6 +1,7 @@
-function photo_manager_component_instantiate(photo_component_identifier, company_id){
+function photo_manager_component_instantiate(photo_component_identifier, company_id, csrf_token){
     const container_selector_element = ".photo-manager."+photo_component_identifier;
     var all_photo_manager_items = [];
+    window.debug__all_photo_manager_items = all_photo_manager_items;
 
     $(document).ready(function (){
         update_content();
@@ -8,18 +9,30 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
     function update_content(){
         $.get('/halaman-toko/edit-photos?id=' + company_id + '&ajax_get_json', function (response){
-            all_photo_manager_items.length = 0;  // clear array
-
-            const received_json = response;
-            const container = $(container_selector_element)[0];
-
-            for (let i = 0; i < received_json.length; i++) {
-                var temp = new PhotoManagerItems(container,  received_json[i].id);
-                temp.set_photo_src(received_json[i].url);
-                all_photo_manager_items.push(temp);
-            }
-
+            update_content_from_existing_json(response);
         });
+    }
+
+    function clear_content(){
+        // clear existing items
+        for (let i = 0; i < all_photo_manager_items.length; i++) {
+            all_photo_manager_items[i].element.remove();
+        }
+        all_photo_manager_items.length = 0;
+    }
+
+    function update_content_from_existing_json(json_response, clear=true){
+        if (clear)
+            clear_content();
+
+        const received_json = json_response;
+        const container = $(container_selector_element)[0];
+
+        for (let i = 0; i < received_json.length; i++) {
+            var temp = new PhotoManagerItems(container,  received_json[i].id);
+            temp.set_photo_src(received_json[i].url);
+            all_photo_manager_items.push(temp);
+        }
     }
 
 
@@ -45,6 +58,8 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             this.parent.append(this.element.get(0));
             // this.element.draggable({cursor: "pointer"});
             this.photo_url = "";
+            this.photo_id = id;
+            console.log(id);
 
             if (draggable)
                 this.initiate_events();
@@ -53,6 +68,19 @@ function photo_manager_component_instantiate(photo_component_identifier, company
         set_photo_src(src){
             this.photo_url = src;
             this.element.get(0).style.setProperty('--photo-manager-items-background-url', 'url("' + src + '")');
+        }
+
+        delete_from_server(){
+            var data =  {
+                'photo_id': this.photo_id,
+                'csrfmiddlewaretoken': csrf_token
+            };
+
+            console.log("deleting ", this.photo_id, data, this);
+
+            $.post("/halaman-toko/delete-photo", data, function (response) {
+                update_content_from_existing_json(response);
+            });
         }
 
         initiate_events(){
@@ -105,8 +133,7 @@ function photo_manager_component_instantiate(photo_component_identifier, company
                         const vector_len_square = square_euclidean_distance(vector_x, vector_y);
 
                         if (
-                            true
-                            && vector_len_square < nearest_item.distance_square
+                            vector_len_square < nearest_item.distance_square
                             && vector_x < 0
                             && vector_y < 0  // harus di kuadran 2. Karena kita mau memanfaatkan insertBefore()
                         ){
@@ -217,7 +244,6 @@ function photo_manager_component_instantiate(photo_component_identifier, company
                 item_on_drag_end(e);
             }
 
-
             this.element.on('dragstart', item_on_drag_start);
             this.element.on('dragend', item_on_drag_end);
             this.parent.on('drop', container_ondrop);
@@ -227,12 +253,14 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             this.parent.on('touchmove', item_on_touch_move);
             this.parent.on('touchcancel', item_on_touch_cancel);
             this.parent.on('touchend', item_on_touch_end);
+
+            this.element.find(".delete-button").on("dblclick", () => this.delete_from_server());
         }
 
     }
 
 
-
-
-
+    return {
+        'update_content_from_existing_json': update_content_from_existing_json
+    };
 }

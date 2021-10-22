@@ -4,9 +4,12 @@ from django.core.exceptions import ValidationError
 from django.middleware import csrf
 from django.utils import dateformat
 
+from models.models_utility.company_utility import *
 from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
+from halaman_toko.forms.halaman_toko_add_foto import CompanyPhotoAddForm
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
+from models.models import CompanyPhoto
 from models.models.Company import *
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -14,6 +17,7 @@ from django.core.handlers.wsgi import WSGIRequest
 import json
 
 # Create your views here.
+
 
 def go_to_prev_history_javascript(time_in_ms):
     ret = """
@@ -54,7 +58,7 @@ def validate_toko_id(id_str:str):
     company_id:int = int(company_id_str)
     company_obj_query = Company.objects.filter(id=company_id)
     if (not company_obj_query.exists()):
-        ret = HttpResponse("Sorry, the id you're trying to reach is not exist " + go_to_prev_history_javascript(3000))
+        ret = HttpResponse("Sorry, the id you're trying to reach does not exist " + go_to_prev_history_javascript(3000))
         ret.status_code = 400
         return (False, ret)
     return (True, company_obj_query)
@@ -120,8 +124,6 @@ def add_toko(req:WSGIRequest):
     else:
         form = CompanyAddForm(None)
 
-
-
     return render(req, "add_toko.html", {
         'form':form,
         'validation_state': validation_state,
@@ -135,6 +137,80 @@ def add_toko(req:WSGIRequest):
 
 
 
+def add_photo(req:WSGIRequest):
+    if (get_logged_in_user_account() is None):
+        return HttpResponseRedirect(get_login_url())
+
+    if (req.method == 'POST'):
+
+        if not 'company_id' in req.POST:
+            return HttpResponse("field not found: company_id", status=400)
+
+        is_toko_id_valid, object = validate_toko_id(req.POST['company_id'])
+        if not is_toko_id_valid:
+            return object
+
+        company:Company = object[0]
+        # TODO: Authorization
+
+        company_photos_count = company.companyphoto_set.all().count()
+        if (company_photos_count >= 12):
+            return HttpResponse("Sorry, you can't add any photo more than this", status=400)
+
+        form = CompanyPhotoAddForm(req.POST, req.FILES)
+        form.instance.img_index = company_photos_count + 1
+        form.instance.company = company
+
+        if (form.is_valid()):
+            print("form valid")
+            saved_obj:CompanyPhoto = form.save()
+            return get_photos_json(company)
+        print(form.errors)
+        return HttpResponse("Sorry, the form you've given is invalid", status=400)
+    return HttpResponse("Invalid request", status=400)
+
+
+
+def delete_photo(req:WSGIRequest):
+    if (get_logged_in_user_account() is None):
+        return HttpResponseRedirect(get_login_url())
+
+    if (req.method == 'POST'):
+        if not 'photo_id' in req.POST:
+            return HttpResponse("field not found: photo_id", status=400)
+
+        photo_id_str:str = req.POST['photo_id']
+        if not photo_id_str.isnumeric():
+            return HttpResponse("non numeric: photo_id", status=400)
+
+        photo_id:int = int(photo_id_str)
+        object = CompanyPhoto.objects.filter(id=photo_id).first()
+        if (object is None):
+            return HttpResponse("photo_id object is not found", status=400)
+
+        photo_obj:CompanyPhoto = object
+        photo_index = photo_obj.img_index
+        company_obj:Company = photo_obj.company
+        # TODO: Authorization
+
+
+        company_photos = list(company_obj.companyphoto_set.all().order_by('img_index'))
+        photo_index_in_the_list = photo_index-1
+        assert (company_photos[photo_index_in_the_list].id == photo_obj.id), \
+            "img_index tidak sesuai dengan posisinya pada array"  # +1 because img_index is starts from 1
+
+        company_photos[photo_index_in_the_list].delete()
+        recalculate_img_index(company_obj, photo_index_in_the_list)
+        return get_photos_json(company_obj)
+    return HttpResponse("Invalid request", status=400)
+
+
+
+
+
+
+
+
 
 
 def manage_photos(req:WSGIRequest):
@@ -143,29 +219,32 @@ def manage_photos(req:WSGIRequest):
         if not is_valid:
             return ret_obj
 
-
         # TODO: authentication and authorization
 
         company_obj:Company = ret_obj[0]
-        company_photos = company_obj.companyphoto_set.all().order_by('img_index')
 
         if "ajax_get_json" in req.GET:
             print("asdfgh")
-            return HttpResponse(
-                json.dumps(
-                    [{
-                        'id': img.id,
-                        'url': img.img.url
-                    }
-                     for img in company_photos]
-                ), content_type='application/json')
+            return get_photos_json(company_obj)
 
         return render(req, "manage_photos.html", {
             'company': company_obj
         })
-
     elif req.method == "POST":
         pass
+
+
+def get_photos_json(company_obj):
+    company_photos = company_obj.companyphoto_set.all().order_by('img_index')
+
+    return HttpResponse(
+        json.dumps(
+            [{
+                'id': img.id,
+                'url': img.img.url
+            }
+                for img in company_photos]
+    ), content_type='application/json')
 
 
 

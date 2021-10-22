@@ -31,8 +31,15 @@
 </div>
 
 
-<form style="visibility: hidden;">
-    <input id="pick-file-btn" type="file">
+<form
+        id="add-new-photo-form"
+        style="visibility: hidden;"
+        method="post"
+        action="/halaman-toko/add-photo">
+
+    {% csrf_token %}
+    <input id="file-picker" type="file" name="img">
+    <input type="text" name="company_id" value="{{ company.id }}">
 </form>
 
 
