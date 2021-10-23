@@ -6,6 +6,7 @@
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'js/halaman_toko_component.js' %}"></script>
+        <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 {#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
         <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
@@ -153,8 +154,20 @@
                             <span id="entrepreneur_username" class="h6">@{{ owner_account.username }}</span>
                         </div>
                     </div>
-
                 </div>
+
+                <div class="download_proposal_container red_box shadowed_box_2_clickable">
+                    <div class="download_proposal_icon">
+                        <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>
+                        <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}"></img>
+                    </div>
+                    <div class="download_proposal_text_wrapper">
+                        <span class="download_proposal_text h5">
+                            Download Proposal
+                        </span>
+                    </div>
+                </div>
+
 
                 <div id="description_container" class="white_box shadowed_box_1">
                     <span class="h5">
