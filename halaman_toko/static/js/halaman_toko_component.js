@@ -9,9 +9,22 @@ $(document).ready(function (){
         });
     });
 
-    function carousel_background_updates(active=true) {
+    function carousel_background_updates(update_only_if_active=true) {
+        /*
+        mengupdate background pada carousel supaya mengikuti foto utama, tetapi sedikit lebih blur,
+        sekaligus merubah warna pada carousel indicator supaya kontras terhadap foto.
+
+        Jika update_only_if_active == true, maka yang diupdate hanyalah slide carousel yang sedang aktif saat ini.
+        Jika update_only_if_active == false, maka yang diupdate adalah semua slide [biasanya dipanggil saat pertama kali load].
+        Jika update_only_if_active == false, maka untuk yang terakhir kalinya kita harus memanggil ulang:
+            carousel_background_updates(true)
+            sebab, jika tidak, maka warna background pada carousel indicator akan kontras terhadap foto yang terakhir.
+            Padahal harusnya dia kontras terhadap foto pada current main slide. Oleh karena itu main slide
+            harus diupdate sekali lagi jika awalnya kita memanggil update_only_if_active == false
+         */
+
         var carousel_item, background_el;
-        if (active) {
+        if (update_only_if_active) {
             carousel_item = $('#company_photos_carousel .carousel-item.active .company_photos_carousel_item_img');
             background_el = $("#company_photos_carousel .carousel-item.active .carousel-item-extra-background");
         }else {
@@ -24,10 +37,14 @@ $(document).ready(function (){
             $(".carousel-adaptive-background-component").css("background-image", temp2);
             background_el.eq(i).css("background-image", temp2);
         }
+
+        if (!update_only_if_active)
+            carousel_background_updates(true);
     }
 
     $('#company_photos_carousel').on('slid.bs.carousel', carousel_background_updates)
     carousel_background_updates(false);
+
 
 
 
