@@ -287,7 +287,7 @@ def photo_reorder(req:WSGIRequest):
 
 
 
-def manage_photos(req:WSGIRequest):
+def manage_photos(req:WSGIRequest, *args, **kwargs):
     if req.method == "GET":
         is_valid, ret_obj = validate_toko_id_by_GET_req(req)
         if not is_valid:

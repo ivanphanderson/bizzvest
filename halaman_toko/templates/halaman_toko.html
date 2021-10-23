@@ -35,12 +35,19 @@
 
             <div id="body">
                 <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
-                    <button id="photo_edit_btn" class="control_btn">
+
+                    <a id="photo_edit_link"
+                       href="{%  url 'halaman_toko:edit_photos' %}?id={{ company.id|urlencode  }}"
+                       style="visibility: collapse; "></a>
+                    <button id="photo_edit_btn" class="control_btn" onclick="$('#photo_edit_link')[0].click();">
                         <i class="fa fa-file-image" aria-hidden="true"></i>
                     </button>
+
+
                     <button id="edit_btn" class="control_btn">
                         <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     </button>
+
                     <button id="save_btn" class="control_btn">
                         <i class="fas fa-save"></i>
                     </button>
@@ -174,7 +181,6 @@
 
 
                         <form method="post">
-
                             <span class="h4">deskripsi</span> <br>
                             {{ edit_form.deskripsi }}
                         </form>

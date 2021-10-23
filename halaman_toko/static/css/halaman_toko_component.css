@@ -45,8 +45,9 @@
 
 
 #photo_edit_btn{
-    opacity: 0;
-    visibility: hidden;
+    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
 #save_btn{
@@ -54,9 +55,8 @@
 }
 
 .editing_mode #photo_edit_btn{
-    display: block;
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
+    visibility: hidden;
 
 }
 
