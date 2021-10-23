@@ -41,21 +41,9 @@ Receive parameters:
 <script src="{% static 'js/photo_control.js' %}"></script>
 
 <script>
-    $(document).ready(function () {
-        photo_manager_update_content = photo_manager_component_instantiate(
-            "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}",
+    {{ include_id }} = photo_manager_component_instantiate(
+        "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}"
+    );
 
-            {% if error_handler is not None %}
-                {{ error_handler }},
-            {% else %}
-                null,
-            {% endif %}
 
-            {% if success_handler is not None %}
-                {{ success_handler }},
-            {% else %}
-                null
-            {% endif %}
-        );
-    });
 </script>

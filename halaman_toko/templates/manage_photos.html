@@ -22,11 +22,7 @@
 
 <div class="photo-manager-wrapper">
     <div id="photo-manager-container" class="white_box shadowed_box_1">
-{% with er_h="photo_manager_on_error" %}
-{% with sc_h="photo_manager_on_success" %}
-{% include 'photo_control.html' with company=company include_id="photo_manager_1" error_handler=er_h success_handler=sc_h%}
-{% endwith %}
-{% endwith %}
+        {% include 'photo_control.html' with company=company include_id="photo_manager_1" %}
     </div>
 
     <div class="add-photo-wrapper">
@@ -42,7 +38,7 @@
         action="/halaman-toko/add-photo">
 
     {% csrf_token %}
-    <input id="file-picker" type="file" name="img" accept=".gif,.jpg,.jpeg,.png,.svg">
+    <input id="file-picker" type="file" name="img" accept=".gif,.jpg,.jpeg,.png,.svg" multiple>
     <input type="text" name="company_id" value="{{ company.id }}">
 </form>
 

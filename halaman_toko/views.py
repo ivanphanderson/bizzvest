@@ -142,9 +142,11 @@ def add_photo(req:WSGIRequest):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
-
-        if not 'company_id' in req.POST:
+        if 'company_id' not in req.POST:
             return HttpResponse("field not found: company_id", status=400)
+
+        if 'img' not in req.FILES:
+            return HttpResponse("field not found: img", status=400)
 
         is_toko_id_valid, object = validate_toko_id(req.POST['company_id'])
         if not is_toko_id_valid:
@@ -153,20 +155,35 @@ def add_photo(req:WSGIRequest):
         company:Company = object[0]
         # TODO: Authorization
 
+
         company_photos_count = company.companyphoto_set.all().count()
-        if (company_photos_count >= 12):
-            return HttpResponse("Sorry, you can't add any photo more than this", status=400)
 
-        form = CompanyPhotoAddForm(req.POST, req.FILES)
-        form.instance.img_index = company_photos_count + 1
-        form.instance.company = company
+        if (company_photos_count + len(req.FILES.getlist('img')) > 12):
+            return HttpResponse("Sorry, you can't add any photo more than 12", status=400)
 
-        if (form.is_valid()):
-            print("form valid")
-            saved_obj:CompanyPhoto = form.save()
-            return get_photos_json(company)
-        print(form.errors)
-        return HttpResponse("Sorry, the form you've given is invalid", status=400)
+        uploaded_images = req.FILES.getlist("img")  # daftar semua file yang di upload oleh <input type="file" multiple>
+
+        for i in range(len(uploaded_images)):
+            files_temp = req.FILES.copy()
+            files_temp.setlist(
+                'img',
+                [ req.FILES.getlist('img')[i], ]
+            )
+
+
+            form = CompanyPhotoAddForm(req.POST, files_temp)
+            form.instance.img_index = company_photos_count + 1
+            company_photos_count += 1
+            form.instance.company = company
+
+
+            if (form.is_valid()):
+                print("form valid")
+                saved_obj:CompanyPhoto = form.save()
+            else:
+                print(form.errors)
+                return HttpResponse("Sorry, the form you've given is invalid. ", status=400)
+        return get_photos_json(company)
     return HttpResponse("Invalid request", status=400)
 
 
@@ -201,7 +218,9 @@ def delete_photo(req:WSGIRequest):
 
         company_photos[photo_index_in_the_list].delete()
         recalculate_img_index(company_obj, photo_index_in_the_list)
-        return get_photos_json(company_obj)
+
+        temp = get_photos_json(company_obj)
+        return temp
     return HttpResponse("Invalid request", status=400)
 
 

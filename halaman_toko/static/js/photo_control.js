@@ -1,29 +1,47 @@
-function photo_manager_component_instantiate(photo_component_identifier, company_id, csrf_token, error_handler=null, success_handler=null){
+function photo_manager_component_instantiate(photo_component_identifier, company_id, csrf_token){
+
     const container_selector_element = ".photo-manager." + photo_component_identifier;
     var all_photo_manager_items = [];
     var is_currently_sending_ajax = false;
+    var reorder_update_timeout = -1;  // -1 is an invalid timeout_id. But it's ok to clear a non-existing timeout_id
+    var timeout_delay = 2000;  // in ms
 
-    if (error_handler == null) error_handler = (type, message) => {};
-    if (success_handler == null) success_handler = (type, message) => {};
+    const busy_msg =  "Sorry, we're still working on the previous request.";
+    var return_obj = {
+        'update_content_from_existing_json': update_content_from_existing_json,
+        'is_currently_sending_ajax': (value=null) => {
+            if (value == null)
+                return is_currently_sending_ajax;
+            is_currently_sending_ajax = value;
+        },
+        'error_handler': (type, message) => {},
+        'success_handler': (type, message) => {},
+        'misc_handler': (type, message) => {},
+        'busy_msg': busy_msg,
+        'manager_items': () => all_photo_manager_items,
+        'reorder_update_timeout': () => reorder_update_timeout,
+    };
 
     window.debug__all_photo_manager_items = all_photo_manager_items;
     window.debug__csrf_token = csrf_token;
 
     function update_content(){
         if (is_currently_sending_ajax) {
-            error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+            return_obj.error_handler('busy', null, busy_msg);
             return false;
         }
+        return_obj.misc_handler("updating", "fetching the photos from the server");
+
 
         is_currently_sending_ajax = true;
         $.get('/halaman-toko/edit-photos?id=' + company_id + '&ajax_get_json', function (response){
             is_currently_sending_ajax = false;
-            success_handler("updating", response);
+            return_obj.success_handler("updating", response);
             update_content_from_existing_json(response);
         })
             .fail(function (response) {
                 is_currently_sending_ajax = false;
-                error_handler("updating", response)
+                return_obj.error_handler("updating", response)
             });
     }
     update_content();
@@ -68,9 +86,10 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
     function submit_current_order(){
         if (is_currently_sending_ajax) {
-            error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+            return_obj.error_handler('busy', null,  busy_msg);
             return false;
         }
+        return_obj.misc_handler("reordering", "saving current photos position to the server");
 
         let data = {
             'photo_order': JSON.stringify(get_photos_order()),
@@ -82,15 +101,29 @@ function photo_manager_component_instantiate(photo_component_identifier, company
         is_currently_sending_ajax = true;
         $.post("/halaman-toko/photo-reorder", data, function (response) {
             is_currently_sending_ajax = false;
-            success_handler("reordering", response);
+            return_obj.success_handler("reordering", response);
         }).fail(function (response) {
             is_currently_sending_ajax = false;
-            error_handler('reordering', response);
+            return_obj.error_handler('reordering', response);
         });
         return true;
     }
-    window.submit_current_order = submit_current_order;
 
+    function schedule_for_submit(){
+        if (reorder_update_timeout != null)
+            clearTimeout(reorder_update_timeout);
+
+        console.log("scheduled");
+        function update_timeout_func(){
+            console.log("timeout")
+            if (is_currently_sending_ajax) {
+                reorder_update_timeout = setTimeout(update_timeout_func, timeout_delay);
+                return;
+            }
+            submit_current_order();
+        }
+        reorder_update_timeout = setTimeout(update_timeout_func, timeout_delay);
+    }
 
     class PhotoManagerItems{
         constructor(jquery_parent_div, id, draggable=true) {
@@ -120,9 +153,10 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
         delete_from_server(){
             if (is_currently_sending_ajax) {
-                error_handler('busy', "Sorry, we're still working on the previous request. Please wait a second");
+                return_obj.error_handler('busy', null, busy_msg);
                 return false;
             }
+            return_obj.misc_handler("deleting", "deleting selected photo from the server");
 
             var data =  {
                 'photo_id': this.photo_id,
@@ -132,12 +166,12 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             is_currently_sending_ajax = true;
             $.post("/halaman-toko/delete-photo", data, function (response) {
                 is_currently_sending_ajax = false;
-                success_handler("deleting", response);
+                return_obj.success_handler("deleting", response);
                 update_content_from_existing_json(response);
             })
-                .fail(function (response) {
+                .fail(function (xhr, text_status, error_thrown) {
                     is_currently_sending_ajax = false;
-                    error_handler('deleting', response);
+                    return_obj.error_handler('deleting', xhr, text_status, error_thrown);
             });
         }
 
@@ -244,6 +278,7 @@ function photo_manager_component_instantiate(photo_component_identifier, company
                     return;
                 }
 
+                schedule_for_submit();
                 photo_manager_item.next_sibling_in_prev_state = null;
             }
 
@@ -314,12 +349,8 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
             this.element.find(".delete-button").on("dblclick", () => this.delete_from_server());
         }
-
     }
 
 
-    return {
-        'update_content_from_existing_json': update_content_from_existing_json,
-        'is_currently_sending_ajax': () => {return is_currently_sending_ajax;}
-    };
+    return return_obj;
 }
