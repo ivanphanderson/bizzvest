@@ -30,7 +30,7 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     def save(self, *args, **kwargs):
         if (self.pemilik_usaha is None):
-            self.pemilik_usaha = get_logged_in_user_account().entrepreneuraccountdata
+            self.pemilik_usaha = get_logged_in_user_account().entrepreneuraccount
 
         self.nilai_saham_terkumpulkan_total = 0
         self.nilai_saham_dibutuhkan_total = self.nilai_lembar_saham * self.jumlah_lembar

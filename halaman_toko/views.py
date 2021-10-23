@@ -77,6 +77,7 @@ def halaman_toko(req:WSGIRequest):
         'company_photos': company_obj.companyphoto_set.all().order_by("img_index"),
         'edit_form': CompanyEditForm(None),
         'django_csrf_token': csrf.get_token(req),
+        'owner_account': company_obj.pemilik_usaha.account,
     })
 
 
@@ -94,12 +95,10 @@ def add_toko(req:WSGIRequest):
 
     if (req.method == 'POST'):
         form = CompanyAddForm(req.POST)
-        print(timezone.now())
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
 
-        temp = get_logged_in_user_account().entrepreneuraccountdata
+        temp = get_logged_in_user_account().entrepreneuraccount
         form.instance.pemilik_usaha = temp
-        print(temp)
 
         # if ('pemilik_usaha' in req.POST):
         #     return HttpResponse("Illegal attribute: 'pemilik_usaha' ", status=400)
@@ -109,17 +108,14 @@ def add_toko(req:WSGIRequest):
             show_invalid_modal = True
         else:
             if (form.is_valid()):
-                print("form valid")
                 if (req.POST.get('is_validate_only', '1') == '0'):
                     saved_obj:Company = form.save()
-                    print("saved")
 
                     redirect_url_target = reverse('halaman_toko:halaman_toko')
                     return HttpResponseRedirect(f"{redirect_url_target}?id={saved_obj.id}")
                 elif req.POST['is_validate_only'] == '1':
                     validation_state = '0'
             else:
-                print("form invalid")
                 show_invalid_modal = True
     else:
         form = CompanyAddForm(None)
@@ -132,7 +128,6 @@ def add_toko(req:WSGIRequest):
         'errors_field_verbose_name': [Company._meta.get_field(field_name).verbose_name
                                       for field_name, errors in form.errors.items()]
     })
-
 
 
 
@@ -178,10 +173,8 @@ def add_photo(req:WSGIRequest):
 
 
             if (form.is_valid()):
-                print("form valid")
                 saved_obj:CompanyPhoto = form.save()
             else:
-                print(form.errors)
                 return HttpResponse("Sorry, the form you've given is invalid. ", status=400)
         return get_photos_json(company)
     return HttpResponse("Invalid request", status=400)
@@ -245,7 +238,6 @@ def photo_reorder(req:WSGIRequest):
             photo_order = json.loads(photo_order_json_string)
             if not isinstance(photo_order, dict):
                 return HttpResponse("invalid json [not a dict]: photo_order", status=400)
-            print(photo_order)
             for key, value in photo_order.items():
                 if not key.isnumeric():
                     return HttpResponse("invalid json [non-numeric dict key]: photo_order", status=400)
@@ -285,8 +277,6 @@ def photo_reorder(req:WSGIRequest):
 
 
 
-
-
 def manage_photos(req:WSGIRequest, *args, **kwargs):
     if req.method == "GET":
         is_valid, ret_obj = validate_toko_id_by_GET_req(req)
@@ -298,12 +288,12 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
         company_obj:Company = ret_obj[0]
 
         if "ajax_get_json" in req.GET:
-            print("asdfgh")
             return get_photos_json(company_obj)
 
         return render(req, "manage_photos.html", {
             'company': company_obj
         })
+
     elif req.method == "POST":
         pass
 

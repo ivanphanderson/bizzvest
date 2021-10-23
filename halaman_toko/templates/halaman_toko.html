@@ -56,34 +56,6 @@
 
                 <div id="photos_container" class="white_box shadowed_box_1">
 
-
-                    {% comment %}<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                halo 1
-                            </div>
-                            <div class="carousel-item">
-                                halo 2
-                            </div>
-                            <div class="carousel-item">
-                                halo 3
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>{% endcomment %}
-
                     <div id="company_photos_carousel" class="carousel  slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             {% for image in company_photos %}
@@ -133,7 +105,25 @@
                 </div>
 
                 <div id="body-1-2" class="white_box shadowed_box_1"></div>
-                <div id="invest_information_container" class="white_box shadowed_box_1"></div>
+                <div id="entrepreneur_account_information_container" class="white_box shadowed_box_1">
+                    <div class="entrepreneur_photo_profile_container">
+
+                        <a id="entrepreneur-photo-profile-link" href="{{ owner_account.photo_profile.url }}"></a>
+                        <div id="entrepreneur_photo_profile" style="--entrepreneur-photo-profile: url('{{ owner_account.photo_profile.url }}');"
+                        onclick="$('#entrepreneur-photo-profile-link')[0].click()">
+
+                        </div>
+                    </div>
+                    <div class="entrepreneur_additional_information_container">
+                        <div class="entrepreneur_name_wrapper" style="">
+                            <span id="entrepreneur_name" class="h3">{{ owner_account.first_name }} {{ owner_account.last_name }}</span>
+                        </div>
+                        <div class="entrepreneur_username_wrapper" style="">
+                            <span id="entrepreneur_username" class="h7">@{{ owner_account.username }}</span>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div id="description_container" class="white_box shadowed_box_1">
                     <span class="h5">

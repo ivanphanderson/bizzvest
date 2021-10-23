@@ -101,3 +101,43 @@
     width: 100%;
     overflow: hidden;
 }
+
+
+
+#entrepreneur_photo_profile{
+    background-color: green;
+    background-image: var(--entrepreneur-photo-profile);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    cursor: pointer;
+    flex-grow: 1;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+.entrepreneur_name_wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.entrepreneur_username_wrapper{
+    display: flex;
+    align-items: center;
+}
+
+#entrepreneur_name{
+    margin: 0;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+}
+
+#entrepreneur_username{
+    margin: 0;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    color: dimgrey;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+

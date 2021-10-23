@@ -30,7 +30,7 @@ body{
     --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
     /*--edit-btn-size: auto;*/
 
-    --min_row_col_1_size: 150px;
+    --min_row_col_1_size: 170px;
     --max_row_col_1_size: 350px;
     --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
 
@@ -59,10 +59,32 @@ body{
     grid-row: span 2;
 }
 
-/*aspect-ratio: 250/90;*/
-#invest_information_container{
 
+#entrepreneur_account_information_container{
+    --photo-profile-size: 30;
+
+    display: grid;
+    grid-template-columns: clamp(40px, 30%, 85px) 1fr;
+    grid-template-rows: 1fr;
 }
+
+
+.entrepreneur_photo_profile_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+}
+
+
+.entrepreneur_additional_information_container{
+    display: grid;
+    grid-template-rows: 1fr clamp(20px, 30%, 30px);
+}
+
+
+
 
 
 #photos_container{
