@@ -10,7 +10,7 @@ body{
     align-content: center;
     flex-direction: row;
 
-    width: clamp(200px, 80vw, 1200px);
+    min-width: clamp(400px, 60vw, 650px);
 }
 
 .dummy-row{

@@ -8,12 +8,23 @@ class CompanyAddForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = '__all__'
+
+        # exclude
         exclude = ('pemilik_usaha',
                    'nilai_saham_dibutuhkan_total',
                    'nilai_saham_terkumpulkan_total',
                    'start_date',
                    'id',
                    )
+
+        widgets = {
+            'end_date': forms.DateInput(
+                format=('%Y-%m-%d'),
+                attrs={'class': 'form-control',
+                       'placeholder': 'Select a date',
+                       'type': 'date'
+                       }),
+        }
 
 
     def __init__(self, *args, **kwargs):

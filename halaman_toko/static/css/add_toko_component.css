@@ -64,3 +64,15 @@ textarea.isian-formulir{
     align-self: unset;
 }
 
+
+
+/*
+input[type='date']{
+    position: relative;
+    padding-left: 0;
+}
+
+input::-webkit-calendar-picker-indicator{
+    left: -20px;
+    position: relative;
+}*/

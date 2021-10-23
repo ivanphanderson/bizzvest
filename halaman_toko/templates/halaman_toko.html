@@ -104,7 +104,40 @@
 
                 </div>
 
-                <div id="body-1-2" class="white_box shadowed_box_1"></div>
+                <div id="body-1-2" class="">
+
+                    <div>Status: </div><div>
+                        {{ company.is_verified }}
+                    </div>
+
+                    <div>Dividen: </div><div>
+                        {{ company.dividen }} bulan
+                    </div>
+
+                    <div>Berakhir pada: </div><div>
+                        {{ company.end_date }} <br>
+                    </div>
+
+                    <div>Jumlah lembar saham: </div><div>
+                        {{ company.jumlah_lembar }}
+                    </div>
+
+                    <div>Berakhir pada: </div><div>
+                        {{ company.nilai_lembar_saham }}
+                    </div>
+
+                    <div>Berakhir pada: </div><div>
+                        {{ company.nilai_saham_dibutuhkan_total }}
+                    </div>
+
+                    <div>Berakhir pada: </div><div>
+                        {{ company.nilai_saham_terkumpulkan_total }}
+                    </div>
+
+
+                </div>
+
+
                 <div id="entrepreneur_account_information_container" class="white_box shadowed_box_1">
                     <div class="entrepreneur_photo_profile_container">
 
@@ -115,11 +148,9 @@
                         </div>
                     </div>
                     <div class="entrepreneur_additional_information_container">
-                        <div class="entrepreneur_name_wrapper" style="">
+                        <div class="entrepreneur_additional_information_wrapper">
                             <span id="entrepreneur_name" class="h3">{{ owner_account.first_name }} {{ owner_account.last_name }}</span>
-                        </div>
-                        <div class="entrepreneur_username_wrapper" style="">
-                            <span id="entrepreneur_username" class="h7">@{{ owner_account.username }}</span>
+                            <span id="entrepreneur_username" class="h6">@{{ owner_account.username }}</span>
                         </div>
                     </div>
 
@@ -134,16 +165,16 @@
                     {% comment %} harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut {% endcomment %}
                     <div id="company_description" onfocusout="company_description_KeyPress();">{{ company.deskripsi }}</div>
                 </div>
-
+{% comment %}
                 <div id="comment_container" class="white_box shadowed_box_1">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum convallis mollis. Etiam vel nunc dignissim, sagittis tortor eu, eleifend enim. Proin varius magna risus, in tristique tortor consequat vel. Maecenas ullamcorper ligula nisi, vel imperdiet mi pharetra suscipit. Quisque eleifend viverra justo, ac faucibus eros dignissim sit amet. Cras feugiat tortor lorem, et commodo nunc sagittis eu. Duis velit nisl, bibendum at quam sed, ultrices finibus risus. Donec lobortis, elit non faucibus accumsan, ipsum justo dignissim dolor, eget varius mi orci eu enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis varius augue enim, rutrum semper mauris dapibus et. Mauris orci libero, facilisis et vehicula eu, semper sed urna. Quisque libero orci, blandit vel facilisis id, interdum id nunc.
 
-                </div>
+                </div>{% endcomment %}
             </div>
 
 
             <div id="foot">
-                foot
+
             </div>
         </div>
 

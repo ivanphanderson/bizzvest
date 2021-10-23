@@ -129,13 +129,13 @@
 
 #entrepreneur_name{
     margin: 0;
-    padding-left: 10px;
+    display: block;
+    line-height: 1;
     text-overflow: ellipsis;
 }
 
 #entrepreneur_username{
     margin: 0;
-    padding-left: 10px;
     text-overflow: ellipsis;
     color: dimgrey;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

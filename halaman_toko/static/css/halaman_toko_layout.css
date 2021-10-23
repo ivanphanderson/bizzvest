@@ -11,8 +11,23 @@ body{
 
 #content{
     /*background-color: lightgrey;*/
-    margin: 10px 12px 10px 12px;
+    transition: margin 50ms ease-in-out;
+    margin: 10px clamp(12px, 12vw, 200px);
 }
+
+@media only screen and (max-width: 992px) {
+    #content{
+        /*background-color: lightgrey;*/
+        margin: 10px clamp(12px, 8vw, 150px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #content{
+        margin: 10px clamp(12px, 2vw, 150px);
+    }
+}
+
 
 #head{
     /*background-color: darkgray;*/
@@ -78,11 +93,17 @@ body{
 }
 
 
+
 .entrepreneur_additional_information_container{
-    display: grid;
-    grid-template-rows: 1fr clamp(20px, 30%, 30px);
+    display: flex;
+    align-items: center;
+    padding-left: clamp(5px, 6%, 15px);
 }
 
+
+.entrepreneur_additional_information_wrapper{
+
+}
 
 
 
