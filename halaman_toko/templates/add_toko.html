@@ -23,74 +23,74 @@
     </head>
     <body>
         <script>
-            csrf_token = "{{ csrf_token  }}";
+           csrf_token = "{{ csrf_token  }}";
         </script>
 
         <div class="outter-most-wrapper">
-            <div class="outter-wrapper white_box shadowed_box_1" style="min-width: 400px; min-height: 400px;">
+            <div class="form-content-wrapper white_box shadowed_box_1">
 
                 <form id="form-content" method="post" action="">
 
                     <div class="dummy dummy-row"></div>
 
-                    <div style="">
+                    <div class="nama-merk label">
                         <span class="form-content-label">Nama merek</span>
                     </div>
-                    <div style="">
+                    <div class="nama-merk input">
                         {{ form.nama_merek }}
                     </div>
 
-                    <div style="">
+                    <div class="nama-perusahaan label">
                         <span class="form-content-label">Nama perusahaan</span>
                     </div>
-                    <div style="">
+                    <div class="nama-perusahaan label">
                         {{ form.nama_perusahaan }}
                     </div>
 
-                    <div style="">
+                    <div class="kode-saham label">
                         <span class="form-content-label">Kode saham</span>
                     </div>
-                    <div style="">
+                    <div class="kode-saham input">
                         {{ form.kode_saham }}
                     </div>
 
-                    <div style="">
+                    <div class="alamat-perusahaan label">
                         <span class="form-content-label">Alamat perusahaan</span>
                     </div>
-                    <div style="">
+                    <div class="alamat-perusahaan input">
                         {{ form.alamat }}
                     </div>
 
 
-                    <div style="">
+                    <div class="jumlah-lembar label">
                         <span class="form-content-label">Jumlah lembar saham</span>
                     </div>
-                    <div style="">
+                    <div class="jumlah-lembar input">
                         {{ form.jumlah_lembar }}
                     </div>
 
-                    <div style="">
+                    <div class="nilai-lembar-saham label">
                         <span class="form-content-label">Nilai lembar saham (rupiah) </span>
                     </div>
-                    <div style="">
+                    <div class="nilai-lembar-saham input">
                         {{ form.nilai_lembar_saham }}
                     </div>
 
-                    <div style="">
+                    <div class="dividen label">
                         <span class="form-content-label">Dividen (bulan) </span>
                     </div>
-                    <div style="">
+                    <div class="dividen input">
                         {{ form.dividen }}
                     </div>
 
-                    <div style="">
+                    <div >
                         <span class="form-content-label">Batas waktu </span>
                     </div>
-                    <div style="">
+                    <div >
                         {{ form.end_date }}
                     </div>
 
-                    <div style="">
+                    <div >
                         <span class="form-content-label">Proposal bisnis </span>
                     </div>
                     <div style="display: flex; justify-content: flex-start; align-items: flex-start;">
@@ -101,10 +101,9 @@
                             <div></div>
                         </div>
                         <input id="proposal-file-picker" name="proposal-file" type="file" style="display: none;">
-                        <input name="previous-proposal" type="hidden">
                     </div>
 
-                    <div style="">
+                    <div >
                         <span class="form-content-label">Deskripsi</span>
                     </div>
                     <div class="deskripsi-container">
@@ -122,7 +121,6 @@
                         <button
                                 id="form-submit-btn"
                                 type="button"
-                                data-bs-toggle="modal" data-bs-target="#confirm-submit"
                                 class="btn btn-primary">
                             Submit
                         </button>
@@ -143,7 +141,7 @@
 
         <!-- Modal -->
         <div
-                class="modal fade" id="confirm-submit"
+               class="modal fade" id="confirm-submit"
                 data-bs-backdrop="static"
                 data-bs-keyboard="false"
                 tabindex="-1"
@@ -178,7 +176,7 @@
 
         <!-- Modal -->
         <div
-                class="modal fade" id="form-problems-modal"
+               class="modal fade" id="form-problems-modal"
                 data-bs-backdrop="static"
                 data-bs-keyboard="false"
                 tabindex="-1"

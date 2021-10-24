@@ -22,6 +22,10 @@ def add_toko(req:WSGIRequest):
 
 
     if (req.method == 'POST'):
+        file_proposal = req.session.get('proposal-file', None)
+        if (file_proposal is None and req.FILES.get('proposal-file', None) is None):
+            pass
+
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
 

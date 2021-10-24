@@ -25,7 +25,7 @@ class Company(models.Model):  # dengan nama lain: Toko
     nilai_lembar_saham = models.BigIntegerField(verbose_name='Nilai lembar saham')  # nilai saham per lembar
 
     kode_saham = models.CharField(verbose_name="Kode saham",
-                                  validators=[RegexValidator(regex='^[A-Z]{4}$', message='Length has to be 4',
+                                  validators=[RegexValidator(regex='^[A-Z]{4}$', message='Must be upper case letters of 4 characters',
                                                              code='nomatch')],
                                   unique=True, max_length=4)
     dividen = models.IntegerField(verbose_name='Dividen')  # dividen saham dalam satuan bulan
