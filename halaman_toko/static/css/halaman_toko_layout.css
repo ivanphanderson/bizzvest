@@ -13,6 +13,7 @@ body{
     /*background-color: lightgrey;*/
     transition: margin 50ms ease-in-out;
     margin: 10px clamp(12px, 12vw, 200px);
+    margin: 10px calc(80px + 80 * (100vw - 992px) / (1350 - 992));
 }
 
 @media only screen and (max-width: 992px) {
@@ -38,6 +39,7 @@ body{
 
 #nama-toko-dan-perusahaan{
     text-align: center;
+    font-family: "FF Tisa Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 
@@ -71,10 +73,160 @@ body{
 }
 
 
-#body-1-2{
+#informasi_umum{
     grid-column: 2;
     grid-row: span 3;
+
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-gap: 12px 12px;
 }
+
+#informasi_umum .atas{
+    display: grid;
+    padding: 15px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 3fr 1.5em 2fr auto 3fr;
+}
+
+#informasi_umum .atas .dummy{
+    grid-column: span 3;
+}
+
+#informasi_umum .atas *:not(.dummy){
+    text-align: center;
+}
+
+#informasi_umum .atas .header{
+    color: #9b9b9b;
+    font-size: 0.95em;
+    font-weight: bold;
+    font-family: 'FF Tisa Sans Pro', Helvetica, Arial, sans-serif;
+    /*font-family: 'Quicksand', Georgia, 'Times New Roman', Times, serif;*/
+}
+
+#informasi_umum .atas .value{
+    color: orangered;
+    font-size: 1.3em;
+    font-weight: 900;
+    font-family: 'Quicksand Bold', 'Quicksand', Georgia, 'Times New Roman', Times, serif;
+}
+
+/*#informasi_umum .atas .meta{
+    color: #9b9b9b;
+    font-size: 0.8em;
+    font-weight: normal;
+    font-family: 'Quicksand', 'Quicksand', Georgia, 'Times New Roman', Times, serif;
+}*/
+
+
+
+#informasi_umum .tengah{
+    padding: 10px 10px;
+
+    font-size: 15px;
+    transition: font-size 1s ease-in-out;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr repeat(5, auto) 1fr;
+    grid-gap: 3px 17px;
+}
+
+#informasi_umum .tengah .progress{
+    grid-column: span 2;
+    margin-top: 5px;
+}
+#informasi_umum .tengah .progress .progress-label {
+    font-weight: bold;
+    text-shadow: 0 0 3px white;
+}
+
+#informasi_umum .tengah .dummy{
+    grid-column: span 2;
+}
+
+#informasi_umum .bawah{
+    transition: font-size 1s ease-in-out;
+
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+    grid-gap: 3px 10px;
+    font-size: 15px;
+}
+
+#informasi_umum .bawah > div{
+    --informasi_umum-bawah-column-1: auto;
+    --informasi_umum-bawah-column-2: 1fr;
+
+    display: grid;
+    grid-template-columns: var(--informasi_umum-bawah-column-1) var(--informasi_umum-bawah-column-2);
+    grid-template-rows: 5fr 1.2em 4fr repeat(3, auto) 5fr;
+    grid-gap: 3px 10px;
+    font-size: 0.9em;
+}
+
+#informasi_umum .bawah span{
+    display: block;
+}
+
+#informasi_umum .bawah .header{
+    font-weight: bold;
+    font-size: 1.1em;
+    grid-column: span 2;
+    font-family: "Quicksand Bold", 'Quicksand', Georgia, 'Times New Roman', Times, serif;
+}
+
+#informasi_umum .bawah .dummy{
+    grid-column: span 2;
+}
+
+
+@media only screen and (max-width: 800px) {
+    #informasi_umum .bawah > div{
+        grid-template-columns: 1fr;
+        grid-row-gap: 1px;
+    }
+
+    #informasi_umum .bawah .label{
+        display: none;
+    }
+
+    #informasi_umum .bawah .jumlah_lembar::after{
+        content: '  lembar';
+    }
+
+    #informasi_umum .bawah .dummy, #informasi_umum .bawah .header{
+        grid-column: span 1;
+    }
+}
+
+
+
+@media only screen and (max-width: 670px) {
+    #informasi_umum .bawah > div{
+        grid-template-columns: 1fr;
+        grid-row-gap: 1px;
+    }
+
+    #informasi_umum .bawah .label{
+        display: none;
+    }
+
+    #informasi_umum .bawah .jumlah_lembar::after{
+        content: '  lembar';
+    }
+
+    #informasi_umum .bawah .dummy, #informasi_umum .bawah .header{
+        grid-column: span 1;
+    }
+}
+
+
 
 
 #entrepreneur_account_information_container{
@@ -144,7 +296,7 @@ body{
     --shadowed-box-1-y-offset: 1px;
     --shadowed-box-1-blur: 2px;
     --shadowed-box-1-spread: 0px;
-    --shadowed-box-1-color: rgba(0,0,0,0.11);
+    --shadowed-box-1-color: rgba(0,0,0,0.05);
     --shadowed-box-1-complete: var(--shadowed-box-1-x-offset) var(--shadowed-box-1-y-offset) var(--shadowed-box-1-blur) var(--shadowed-box-1-spread) var(--shadowed-box-1-color);
 
     box-shadow: var(--shadowed-box-1-complete);
@@ -167,7 +319,7 @@ body{
     --shadowed-box-2-y-offset: 1px;
     --shadowed-box-2-blur: 2px;
     --shadowed-box-2-spread: 0px;
-    --shadowed-box-2-color: rgba(0,0,0,0.4);
+    --shadowed-box-2-color: rgba(0,0,0,0.25);
     --shadowed-box-2-color-clicked: rgba(0,0,0,0.15);
     --shadowed-box-2-complete: var(--shadowed-box-2-x-offset) var(--shadowed-box-2-y-offset) var(--shadowed-box-2-blur) var(--shadowed-box-2-spread) var(--shadowed-box-2-color);
 
@@ -297,8 +449,28 @@ body{
     margin:0;
 }
 
+
+
 @media only screen and (max-width: 800px) {
     .download_proposal_text{
         font-size: calc(0.90 * 16px + (100vw - 550px) / (800 - 550) * 0.25 * 16);
+    }
+}
+
+@media only screen and (max-width: 900px){
+    #informasi_umum .tengah{
+        font-size: 12px;
+    }
+    #informasi_umum .bawah{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    #informasi_umum .tengah{
+        font-size: 13px;
+    }
+    #informasi_umum .bawah{
+        font-size: 13px;
     }
 }

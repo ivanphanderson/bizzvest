@@ -1,4 +1,8 @@
 {% load static %}
+{% load l10n %}
+{% load humanize %}
+{% load string_utils %}
+{% load date_utils_tag %}
 
 
 <html>
@@ -8,11 +12,18 @@
         <script src="{% static 'js/halaman_toko_component.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
-{#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
+
+        <link rel="stylesheet" href="{% static 'fonts/tisa/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-regular.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-bold.css' %}" />
+{#        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />#}
+
         <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ company.nama_merek }}</title>
     </head>
     <body>
@@ -56,7 +67,6 @@
 
 
                 <div id="photos_container" class="white_box shadowed_box_1">
-
                     <div id="company_photos_carousel" class="carousel  slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             {% for image in company_photos %}
@@ -100,33 +110,108 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-
-
-
                 </div>
 
-                <div id="body-1-2" class="">
+                <div id="informasi_umum" class="">
+                    <div class="atas white_box shadowed_box_1">
+                        <div class="dummy"></div>
 
-                    <div>Status: </div><div>
-                        {{ company.is_verified }}
+                        <div class="header" style="grid-row: 2;">
+                            kode saham
+                        </div>
+                        <div class="value" style="grid-row: 4;">
+                            {{ company.kode_saham }}
+                        </div>
+
+
+                        <div class="header" style="grid-row: 2;">
+                            sisa waktu
+                        </div>
+                        <div style="grid-row: 4;">
+                            <div class="value">
+                                {{ company.end_date|number_of_days_from_today|ubah_jadi_bulan_atau_tahun_jika_perlu }}
+                            </div>
+                        </div>
+
+
+
+                        <div class="header" style="grid-row: 2;">periode dividen</div>
+                        <div class="value" style="grid-row: 4;">
+                            {{ company.dividen }} bulan
+                        </div>
+
+                        <div class="dummy"></div>
                     </div>
 
-                    <div>Dividen: </div><div>
-                        {{ company.dividen }} bulan
+                    <div class="tengah white_box shadowed_box_1">
+                        <div class="dummy"></div>
+
+
+                        <div>Status </div>
+                        <div>
+                            {% if company.is_verified %} terverifikasi {% else %} belum terverifikasi {% endif %}
+                        </div>
+
+                        <div>Berakhir pada </div>
+                        <div>
+                            {{ company.end_date|date:"d M Y" }}
+                        </div>
+
+
+
+                        <div>Jumlah lembar saham </div>
+                        <div>
+                            {{ company.jumlah_lembar|intcomma|chars_replace:",." }} lembar
+                        </div>
+
+                        <div>harga saham </div>
+                        <div>
+                            Rp{{ company.nilai_lembar_saham|intcomma|chars_replace:",." }},00
+                        </div>
+
+                        <div class="progress position-relative">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                            <small class="progress-label justify-content-center d-flex position-absolute w-100">50%</small>
+                        </div>
+
+                        <div class="dummy"></div>
                     </div>
 
-                    <div>Berakhir pada: </div><div>
-                        {{ company.end_date }} <br>
+                    <div class="bawah white_box shadowed_box_1">
+                        <div>
+                            <div class="dummy"></div>
+                            <span class="header">Saham Tersisa</span>
+                            <div class="dummy"></div>
+
+                            <span class="label">Persentase</span>
+                            <span class="value">20 %</span>
+
+                            <span class="label">Jumlah Lembar</span>
+                            <span class="jumlah_lembar value">2000</span>
+
+                            <span class="label">Total Rupiah</span>
+                            <span class="value">Rp200.000.000,00</span>
+                            <div class="dummy"></div>
+                        </div>
+                        <div>
+                            <div class="dummy"></div>
+                            <span class="header">Saham Terjual</span>
+                            <div class="dummy"></div>
+
+                            <span class="label">Persentase</span>
+                            <span class="value">80 %</span>
+
+                            <span class="label">Jumlah Lembar</span>
+                            <span class="jumlah_lembar value">8000</span>
+
+                            <span class="label">Total Rupiah</span>
+                            <span class="value">Rp800.000.000,00</span>
+                            <div class="dummy"></div>
+                        </div>
                     </div>
 
-                    <div>Jumlah lembar saham: </div><div>
-                        {{ company.jumlah_lembar }}
-                    </div>
-
-                    <div>Berakhir pada: </div><div>
-                        {{ company.nilai_lembar_saham }}
-                    </div>
-
+{% comment %}
                     <div>Berakhir pada: </div><div>
                         {{ company.nilai_saham_dibutuhkan_total }}
                     </div>
@@ -134,6 +219,7 @@
                     <div>Berakhir pada: </div><div>
                         {{ company.nilai_saham_terkumpulkan_total }}
                     </div>
+{% endcomment %}
 
 
                 </div>
@@ -174,15 +260,11 @@
                         deskripsi
                     </span>
 
-                    {% comment %} no need |linebreaksbr because we have handled it in the css {% endcomment %}
-                    {% comment %} harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut {% endcomment %}
+                    {% comment %}
+                    no need |linebreaksbr because we have handled it in the css
+                    harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut       {% endcomment %}
                     <div id="company_description" onfocusout="company_description_KeyPress();">{{ company.deskripsi }}</div>
                 </div>
-{% comment %}
-                <div id="comment_container" class="white_box shadowed_box_1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum convallis mollis. Etiam vel nunc dignissim, sagittis tortor eu, eleifend enim. Proin varius magna risus, in tristique tortor consequat vel. Maecenas ullamcorper ligula nisi, vel imperdiet mi pharetra suscipit. Quisque eleifend viverra justo, ac faucibus eros dignissim sit amet. Cras feugiat tortor lorem, et commodo nunc sagittis eu. Duis velit nisl, bibendum at quam sed, ultrices finibus risus. Donec lobortis, elit non faucibus accumsan, ipsum justo dignissim dolor, eget varius mi orci eu enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis varius augue enim, rutrum semper mauris dapibus et. Mauris orci libero, facilisis et vehicula eu, semper sed urna. Quisque libero orci, blandit vel facilisis id, interdum id nunc.
-
-                </div>{% endcomment %}
             </div>
 
 

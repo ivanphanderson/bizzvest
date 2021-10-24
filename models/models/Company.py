@@ -1,3 +1,5 @@
+from django.core.validators import RegexValidator
+
 from halaman_toko.authentication_and_authorization import *
 from .EntrepreneurAccount import *
 from django.utils import timezone
@@ -21,6 +23,8 @@ class Company(models.Model):  # dengan nama lain: Toko
     jumlah_lembar = models.BigIntegerField(verbose_name='Jumlah lembar saham')  # jumlah lembar saham yang diperlukan
     nilai_lembar_saham = models.BigIntegerField(verbose_name='Nilai lembar saham')  # nilai saham per lembar
 
+    kode_saham = models.CharField(validators=[RegexValidator(regex='^[A-Z]{4}$', message='Length has to be 4', code='nomatch')],
+                                  unique=True, max_length=4)
     dividen = models.IntegerField(verbose_name='Dividen')  # dividen saham dalam satuan bulan
     start_date = models.DateField(default=timezone.now, blank=True)  # waktu dan tanggal perusahaan ini mulai menerima saham
     end_date = models.DateField(verbose_name='Batas waktu')  # waktu dan tanggal perusahaan ini sudah berhenti menerima saham
