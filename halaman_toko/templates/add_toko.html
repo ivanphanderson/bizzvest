@@ -33,67 +33,68 @@
 
                     <div class="dummy dummy-row"></div>
 
-                    <div class="nama-merk label">
+                    <div class="nama-merk label {{ errors.does_problem_exist.nama_merek }}">
                         <span class="form-content-label">Nama merek</span>
                     </div>
-                    <div class="nama-merk input">
+                    <div class="nama-merk input {{ errors.does_problem_exist.nama_merek }}">
                         {{ form.nama_merek }}
                     </div>
 
-                    <div class="nama-perusahaan label">
+                    <div class="nama-perusahaan label {{ errors.does_problem_exist.nama_perusahaan }}">
                         <span class="form-content-label">Nama perusahaan</span>
                     </div>
-                    <div class="nama-perusahaan label">
+                    <div class="nama-perusahaan input {{ errors.does_problem_exist.nama_perusahaan }}">
                         {{ form.nama_perusahaan }}
                     </div>
 
-                    <div class="kode-saham label">
+                    <div class="kode-saham label {{ errors.does_problem_exist.kode_saham }}">
                         <span class="form-content-label">Kode saham</span>
                     </div>
-                    <div class="kode-saham input">
+                    <div class="kode-saham input {{ errors.does_problem_exist.kode_saham }}">
                         {{ form.kode_saham }}
                     </div>
 
-                    <div class="alamat-perusahaan label">
+                    <div class="alamat-perusahaan label {{ errors.does_problem_exist.alamat }}">
                         <span class="form-content-label">Alamat perusahaan</span>
                     </div>
-                    <div class="alamat-perusahaan input">
+                    <div class="alamat-perusahaan input {{ errors.does_problem_exist.alamat }}">
                         {{ form.alamat }}
                     </div>
 
 
-                    <div class="jumlah-lembar label">
+                    <div class="jumlah-lembar label {{ errors.does_problem_exist.jumlah_lembar }}">
                         <span class="form-content-label">Jumlah lembar saham</span>
                     </div>
-                    <div class="jumlah-lembar input">
+                    <div class="jumlah-lembar input {{ errors.does_problem_exist.jumlah_lembar }}">
                         {{ form.jumlah_lembar }}
                     </div>
 
-                    <div class="nilai-lembar-saham label">
+                    <div class="nilai-lembar-saham label {{ errors.does_problem_exist.nilai_lembar_saham }}">
                         <span class="form-content-label">Nilai lembar saham (rupiah) </span>
                     </div>
-                    <div class="nilai-lembar-saham input">
+                    <div class="nilai-lembar-saham input {{ errors.does_problem_exist.nilai_lembar_saham }}">
                         {{ form.nilai_lembar_saham }}
                     </div>
 
-                    <div class="dividen label">
+                    <div class="dividen label {{ errors.does_problem_exist.dividen }}">
                         <span class="form-content-label">Dividen (bulan) </span>
                     </div>
-                    <div class="dividen input">
+                    <div class="dividen input {{ errors.does_problem_exist.dividen }}">
                         {{ form.dividen }}
                     </div>
 
-                    <div >
+                    <div class="end-date label {{ errors.does_problem_exist.end_date }}">
                         <span class="form-content-label">Batas waktu </span>
                     </div>
-                    <div >
+                    <div class="end-date input {{ errors.does_problem_exist.end_date }}">
                         {{ form.end_date }}
                     </div>
 
-                    <div >
+                    <div class="proposal label {{ errors.does_problem_exist.proposal }}">
                         <span class="form-content-label">Proposal bisnis </span>
                     </div>
-                    <div style="display: flex; justify-content: flex-start; align-items: flex-start;">
+                    <div  class="proposal input {{ errors.does_problem_exist.proposal }}"
+                            style="display: flex; justify-content: flex-start; align-items: flex-start;">
                         <div    id="proposal-button"
                                 class="shadowed_box_2_clickable bg-primary"
                                 style="--background-image-src: url('{% static 'fontawesome 5.15/svgs/solid/file-upload.svg' %}')"
@@ -103,10 +104,10 @@
                         <input id="proposal-file-picker" name="proposal-file" type="file" style="display: none;">
                     </div>
 
-                    <div >
+                    <div class="deskripsi label {{ errors.does_problem_exist.deskripsi }}">
                         <span class="form-content-label">Deskripsi</span>
                     </div>
-                    <div class="deskripsi-container">
+                    <div class="deskripsi-container input {{ errors.does_problem_exist.deskripsi }}">
                         {{ form.deskripsi }}
                     </div>
 

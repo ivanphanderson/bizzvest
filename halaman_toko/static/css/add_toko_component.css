@@ -83,6 +83,14 @@ textarea.isian-formulir{
     filter: invert(100%);
 }
 
+.input.problem > input, .input.problem > textarea{
+    border: 1px solid red;
+}
+
+.input.problem > div{
+    border: 2px solid red;
+}
+
 
 /*
 input[type='date']{

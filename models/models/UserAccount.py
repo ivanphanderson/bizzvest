@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.db import models
 
@@ -6,7 +7,12 @@ from django.db import models
 
 
 class UserAccount(models.Model):
-    username = models.CharField(max_length=24, unique=True, db_index=True, null=True)
+    username = models.CharField(max_length=24, unique=True, db_index=True, null=True,
+                                validators=[
+                                    RegexValidator(regex='^[a-z0-9_]+$',
+                                                   message='Must consists only lowercase alphanumeric and underscore '
+                                                           'characters',
+                                                   code='nomatch')])
     email = models.EmailField(max_length=254, unique=True, null=True)
 
     photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)

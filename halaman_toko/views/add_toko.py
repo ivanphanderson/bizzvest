@@ -11,6 +11,33 @@ from halaman_toko.views.utility import validate_toko_id
 from models.models import Company
 
 
+class DoesProblemExist():
+    def __init__(self):
+        pass
+
+
+class FormErrors():
+    def __init__(self, errors):
+        dictionary = dict(errors)
+        temp = ['proposal',
+                'nama_merek',
+                'nama_perusahaan',
+                'alamat',
+                'deskripsi',
+                'jumlah_lembar',
+                'nilai_lembar_saham',
+                'kode_saham',
+                'dividen',
+                'end_date',
+                ]
+
+        self.does_problem_exist = DoesProblemExist()
+
+        for attr_name in temp:
+            setattr(self, attr_name, dictionary.get(attr_name, ""))
+            setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
+
+
 def add_toko(req:WSGIRequest):
 
     validation_state = '1'
@@ -52,20 +79,25 @@ def add_toko(req:WSGIRequest):
     else:
         form = CompanyAddForm(None)
 
+    print(dict(form.errors))
+
     return render(req, "add_toko.html", {
         'form':form,
         'validation_state': validation_state,
         'additional_problems': additional_problems,
         'show_invalid_modal': show_invalid_modal,
         'errors_field_verbose_name': [Company._meta.get_field(field_name).verbose_name
-                                      for field_name, errors in form.errors.items()]
+                                      for field_name, errors in form.errors.items()],
+        'errors': FormErrors(form.errors),
     })
+
 
 
 def is_available(field_name:str, request_query:dict):
     if (field_name not in request_query):
         return HttpResponse(f'invalid request: {repr(field_name)} field is not available', status=400)
     return True
+
 
 
 def save_company_form(req:WSGIRequest):

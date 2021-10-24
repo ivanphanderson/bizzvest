@@ -6,6 +6,15 @@ from django.utils import timezone
 from django.db import models
 
 
+def validate_positive_integer(value):
+    if not isinstance(value, int) or value <= 0:
+        raise ValidationError(
+            _('value must be a positive integer'),
+            params={'value': value},
+        )
+
+
+
 class Company(models.Model):  # dengan nama lain: Toko
     pemilik_usaha = models.ForeignKey(EntrepreneurAccount, on_delete=models.CASCADE, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
@@ -17,20 +26,25 @@ class Company(models.Model):  # dengan nama lain: Toko
     deskripsi = models.TextField(max_length=3000, default="", verbose_name='Deskripsi')
 
 
-    # tidak terpengaruh oleh saham yg sudah dikumpulkan
-    nilai_saham_dibutuhkan_total = models.BigIntegerField(blank=True, editable=False)
-    nilai_saham_terkumpulkan_total = models.BigIntegerField(blank=True, editable=False)
+    # jumlah lembar saham yang diperlukan
+    jumlah_lembar = models.BigIntegerField(verbose_name='Jumlah lembar saham')
 
-    jumlah_lembar = models.BigIntegerField(verbose_name='Jumlah lembar saham')  # jumlah lembar saham yang diperlukan
-    nilai_lembar_saham = models.BigIntegerField(verbose_name='Nilai lembar saham')  # nilai saham per lembar
+    # nilai saham per lembar
+    nilai_lembar_saham = models.BigIntegerField(verbose_name='Nilai lembar saham')
 
     kode_saham = models.CharField(verbose_name="Kode saham",
                                   validators=[RegexValidator(regex='^[A-Z]{4}$', message='Must be upper case letters of 4 characters',
                                                              code='nomatch')],
                                   unique=True, max_length=4)
-    dividen = models.IntegerField(verbose_name='Dividen')  # dividen saham dalam satuan bulan
-    start_date = models.DateField(default=timezone.now, blank=True)  # waktu dan tanggal perusahaan ini mulai menerima saham
-    end_date = models.DateField(verbose_name='Batas waktu')  # waktu dan tanggal perusahaan ini sudah berhenti menerima saham
+
+    # dividen saham dalam satuan bulan
+    dividen = models.IntegerField(verbose_name='Dividen')
+
+    # waktu dan tanggal perusahaan ini mulai menerima saham
+    start_date = models.DateField(default=timezone.now, blank=True)
+
+    # waktu dan tanggal perusahaan ini sudah berhenti menerima saham
+    end_date = models.DateField(verbose_name='Batas waktu')
 
     def __str__(self):
         return f"<{self.nama_merek} -- {self.nama_perusahaan} -- {self.pemilik_usaha.account.username}>"
@@ -39,8 +53,6 @@ class Company(models.Model):  # dengan nama lain: Toko
         if (self.pemilik_usaha is None):
             self.pemilik_usaha = get_logged_in_user_account().entrepreneuraccount
 
-        self.nilai_saham_terkumpulkan_total = 0
-        self.nilai_saham_dibutuhkan_total = self.nilai_lembar_saham * self.jumlah_lembar
         super().save(*args, **kwargs)
 
 
