@@ -16,14 +16,15 @@ body{
     margin: 10px calc(80px + 80 * (100vw - 992px) / (1350 - 992));
 }
 
+
+/* media_margin */
 @media only screen and (max-width: 992px) {
     #content{
-        /*background-color: lightgrey;*/
         margin: 10px clamp(12px, 8vw, 150px);
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     #content{
         margin: 10px clamp(12px, 2vw, 150px);
     }
@@ -47,7 +48,7 @@ body{
     --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
     /*--edit-btn-size: auto;*/
 
-    --min_row_col_1_size: 170px;
+    --min_row_col_1_size: 200px;
     --max_row_col_1_size: 350px;
     --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
 

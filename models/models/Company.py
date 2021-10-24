@@ -13,6 +13,7 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')
     nama_perusahaan = models.CharField(max_length=35, verbose_name='Nama perusahaan')
+    alamat = models.CharField(max_length=140, default="", verbose_name='Alamat')
     deskripsi = models.TextField(max_length=3000, default="", verbose_name='Deskripsi')
 
 
@@ -23,7 +24,9 @@ class Company(models.Model):  # dengan nama lain: Toko
     jumlah_lembar = models.BigIntegerField(verbose_name='Jumlah lembar saham')  # jumlah lembar saham yang diperlukan
     nilai_lembar_saham = models.BigIntegerField(verbose_name='Nilai lembar saham')  # nilai saham per lembar
 
-    kode_saham = models.CharField(validators=[RegexValidator(regex='^[A-Z]{4}$', message='Length has to be 4', code='nomatch')],
+    kode_saham = models.CharField(verbose_name="Kode saham",
+                                  validators=[RegexValidator(regex='^[A-Z]{4}$', message='Length has to be 4',
+                                                             code='nomatch')],
                                   unique=True, max_length=4)
     dividen = models.IntegerField(verbose_name='Dividen')  # dividen saham dalam satuan bulan
     start_date = models.DateField(default=timezone.now, blank=True)  # waktu dan tanggal perusahaan ini mulai menerima saham
