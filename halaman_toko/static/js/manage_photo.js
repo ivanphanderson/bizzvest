@@ -111,4 +111,27 @@ $(document).ready(function (){
 
 
     $('.toast').toast({delay:2500});
+
+
+
+    var touchtime = 0;
+    $(".double-click-mobile-friendly").on("click", function() {
+        console.log("click");
+
+        // noinspection EqualityComparisonWithCoercionJS
+        if (touchtime == 0) {
+            // set first click
+            touchtime = new Date().getTime();
+        } else {
+            // compare first click to this click and see if they occurred within double click threshold
+            if (((new Date().getTime()) - touchtime) < 800) {
+                // double click occurred
+
+                touchtime = 0;
+            } else {
+                // not a double click so set as a new first click
+                touchtime = new Date().getTime();
+            }
+        }
+    });
 });

@@ -12,6 +12,9 @@ Receive parameters:
 
 
 {% load static %}
+
+{% include 'require_javascript.html' %}
+
 <link rel="stylesheet" href="{% static 'css/photo_control.css' %}"/>
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
 <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
@@ -27,7 +30,11 @@ Receive parameters:
         </div>
         <div class="photo-manager-items-photo">
         </div>
-        <div class="delete-button">
+        <div class="delete-button double-click-mobile-friendly"
+                {% comment %}
+                    the double click event handler for mobile must be handled manually by the includer
+                {% endcomment %}
+             data-toggle="tooltip" data-placement="bottom" title="double click to delete this photo">
             <i class="fas fa-trash-alt"></i>
         </div>
     </div>

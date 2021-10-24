@@ -49,6 +49,25 @@ body{
 }
 
 
+.back-to-company-wrapper{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#back-to-company-button{
+    background-color: lightgrey;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .photo-manager-wrapper{
     --photo-manager-add-photo-button-size: 30px;
     --photo-manager-add-photo-button-half-size: calc(var(--photo-manager-add-photo-button-size) / 2);

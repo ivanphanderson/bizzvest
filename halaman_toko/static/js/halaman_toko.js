@@ -47,9 +47,20 @@ $(document).ready(function (){
 
 
 
+    $("#edit_btn").on('click', function(e){
+        $("#control_btn_container").toggleClass("editing_mode");
+        $("#company_description").attr('contenteditable','true');
+        window.onbeforeunload = function(){
+            return 'Perubahan pada deskripsi belum disimpan. Apakah Anda benar-benar ingin meninggalkan laman ini?';
+        };
+    });
+
 
 
     $("#save_btn").on('click', function(e){
+        window.onbeforeunload = null;
+
+
         var el =  $("#company_description");
         var description_content = get_text_with_correct_new_lines(el);
 
@@ -90,12 +101,13 @@ $(document).ready(function (){
         });
     });
 
-    $("#edit_btn").on('click', function(e){
-        $("#control_btn_container").toggleClass("editing_mode");
-        $("#company_description").attr('contenteditable','true');
-    });
 
+    $(function () {
+        $("[rel='tooltip']").tooltip();
+    });
 });
+
+
 function company_description_KeyPress(){
     var el =  $("#company_description");
     var description_content = get_text_with_correct_new_lines(el, false);
@@ -151,37 +163,4 @@ function get_text_with_correct_new_lines(element, decode_tag=true){
         return value;
     };
     return convertToText(element.html());
-
-    /*var str_builder = [];
-
-    let contents = element.contents();
-
-    for (let i = 0; i < contents.length; i++) {
-        if (contents[i].nodeType === Node.ELEMENT_NODE){
-            var tag_name = contents[i].tagName;
-            if (tag_name === 'DIV' || tag_name === 'P' || tag_name === 'BR'){
-
-                if (tag_name === "BR"){
-                    str_builder.push("\n");
-                }
-
-                if (contents.tagName !== 'BR'){
-                    var returned = get_text_with_correct_new_lines(
-                        $(contents[i])
-                    );
-                    str_builder.push(returned);
-                }
-            }else {
-            }
-        }else if (contents[i].nodeType === Node.TEXT_NODE){
-            str_builder.push(contents[i].wholeText);
-        }else if (typeof(contents[i]) === "undefined" || contents[i] === "undefined"){
-
-        }else{
-            // str_builder.push(contents[i].toString());
-            console.log("unhandled node type: " + contents[i].nodeType + "   " + typeof(contents[i]) + "  "
-                + contents[i]);
-        }
-    }
-    return str_builder.join("");*/
 }

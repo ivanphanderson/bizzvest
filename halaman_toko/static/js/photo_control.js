@@ -300,13 +300,14 @@ function photo_manager_component_instantiate(photo_component_identifier, company
 
 
             var touch_started = false;
-            function item_on_touch_start(e){
+            function container_on_touch_start(e){
+                // console.log('container touch start');
                 e.preventDefault();
                 touch_started = true;
                 item_on_drag_start(e);
             }
 
-            function item_on_touch_move(e){
+            function container_on_touch_move(e){
                 if (touch_started) {
                     e.preventDefault();
                     var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
@@ -322,17 +323,18 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             }
 
 
-            function item_on_touch_cancel(e){
+            function container_on_touch_cancel(e){
                 if (touch_started) {
                     e.preventDefault();
                     touch_started = false;
-                    item_on_touch_end(e);
+                    container_on_touch_end(e);
                 }
             }
 
-            function item_on_touch_end(e){
-                e.preventDefault();
+            function container_on_touch_end(e){
+                // console.log('container touch end');
                 touch_started = false;
+                e.preventDefault();
                 container_ondrop(e);
                 item_on_drag_end(e);
             }
@@ -342,15 +344,39 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             this.parent.on('drop', container_ondrop);
             this.parent.on('dragover', container_on_drag_over);
 
-            this.element.on('touchstart', item_on_touch_start);
-            this.parent.on('touchmove', item_on_touch_move);
-            this.parent.on('touchcancel', item_on_touch_cancel);
-            this.parent.on('touchend', item_on_touch_end);
+            this.element.on('touchstart', container_on_touch_start);
+            this.parent.on('touchmove', container_on_touch_move);
+            this.parent.on('touchcancel', container_on_touch_cancel);
+            this.parent.on('touchend', container_on_touch_end);
 
-            this.element.find(".delete-button").on("dblclick", () => this.delete_from_server());
+            var delete_btn = this.element.find(".delete-button");
+            delete_btn.on("dblclick", () => this.delete_from_server());
+
+            var touch_end_time = 0;
+            delete_btn.on('touchend', (e) => {
+                console.log('delete button touch end');
+                if (touch_end_time !== 0 && ((new Date().getTime()) - touch_end_time) < 800){
+                    console.log('delete button dblclicked');
+
+                    var event = new MouseEvent('dblclick', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': true
+                    });
+                    delete_btn[0].dispatchEvent(event);
+                    touch_end_time = 0;
+                } else {
+                    touch_end_time =  new Date().getTime();
+                }
+            });
+
         }
     }
 
 
     return return_obj;
 }
+
+$(function () {
+    $("[rel='tooltip']").tooltip();
+});

@@ -4,12 +4,13 @@
 {% load string_utils %}
 {% load date_utils_tag %}
 
+{% include 'require_javascript.html' %}
 
 <html>
     <head>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-        <script src="{% static 'js/halaman_toko_component.js' %}"></script>
+        <script src="{% static 'js/halaman_toko.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 
@@ -32,6 +33,7 @@
             csrf_token = "{{ csrf_token  }}";
         </script>
 
+
         <div id="content">
             <div id="head">
                 <div id="nama-toko-dan-perusahaan">
@@ -51,16 +53,19 @@
                     <a id="photo_edit_link"
                        href="{%  url 'halaman_toko:edit_photos' %}?id={{ company.id|urlencode  }}"
                        style="visibility: collapse; "></a>
-                    <button id="photo_edit_btn" class="control_btn" onclick="$('#photo_edit_link')[0].click();">
+                    <button id="photo_edit_btn" class="control_btn" onclick="$('#photo_edit_link')[0].click();"
+                            data-toggle="tooltip" data-placement="bottom" title="edit foto">
                         <i class="fa fa-file-image" aria-hidden="true"></i>
                     </button>
 
 
-                    <button id="edit_btn" class="control_btn">
+                    <button id="edit_btn" class="control_btn"
+                            data-toggle="tooltip" data-placement="bottom" title="edit deskripsi">
                         <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                     </button>
 
-                    <button id="save_btn" class="control_btn">
+                    <button id="save_btn" class="control_btn"
+                            data-toggle="tooltip" data-placement="bottom" title="simpan perubahan pada deskripsi">
                         <i class="fas fa-save"></i>
                     </button>
                 </div>
@@ -170,9 +175,13 @@
                         </div>
 
                         <div class="progress position-relative">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                            <div class="progress-bar bg-info" role="progressbar"
+                                 style="width: {{ informasi_saham.persentase_terjual_int }}%"
+                                 aria-valuenow="{{ informasi_saham.persentase_terjual_int }}"
                                  aria-valuemin="0" aria-valuemax="100"></div>
-                            <small class="progress-label justify-content-center d-flex position-absolute w-100">50%</small>
+                            <small class="progress-label justify-content-center d-flex position-absolute w-100">
+                                {{ informasi_saham.persentase_terjual_int }} %
+                            </small>
                         </div>
 
                         <div class="dummy"></div>
@@ -185,13 +194,15 @@
                             <div class="dummy"></div>
 
                             <span class="label">Persentase</span>
-                            <span class="value">20 %</span>
+                            <span class="value">{{ informasi_saham.persentase_tersisa }} %</span>
 
                             <span class="label">Jumlah Lembar</span>
-                            <span class="jumlah_lembar value">2000</span>
+                            <span class="jumlah_lembar value">{{ informasi_saham.lembar_saham_tersisa }}</span>
 
                             <span class="label">Total Rupiah</span>
-                            <span class="value">Rp200.000.000,00</span>
+                            <span class="value">
+                                Rp{{ informasi_saham.total_saham_tersisa|intcomma|chars_replace:',.' }},00
+                            </span>
                             <div class="dummy"></div>
                         </div>
                         <div>
@@ -200,13 +211,15 @@
                             <div class="dummy"></div>
 
                             <span class="label">Persentase</span>
-                            <span class="value">80 %</span>
+                            <span class="value">{{ informasi_saham.persentase_terjual }} %</span>
 
                             <span class="label">Jumlah Lembar</span>
-                            <span class="jumlah_lembar value">8000</span>
+                            <span class="jumlah_lembar value">{{ informasi_saham.lembar_saham_terjual }}</span>
 
                             <span class="label">Total Rupiah</span>
-                            <span class="value">Rp800.000.000,00</span>
+                            <span class="value">
+                                Rp{{ informasi_saham.total_saham_terjual|intcomma|chars_replace:',.' }},00
+                            </span>
                             <div class="dummy"></div>
                         </div>
                     </div>

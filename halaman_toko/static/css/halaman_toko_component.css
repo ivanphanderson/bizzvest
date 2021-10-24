@@ -88,6 +88,11 @@
     height: 100%;
 }
 
+#company_address{
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
 #company_description{
     margin-top: 10px;
     padding-left: 20px;
