@@ -1,14 +1,23 @@
 
-body{
+.outter-most-wrapper{
+    min-height: 100%;
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     justify-content: center;
+    align-items: center;
 }
 
+.outter-wrapper{
+
+}
+
+
+
 .form-content-wrapper{
-    display: flex;
+/*    display: flex;
     justify-content: center;
-    align-content: center;
-    flex-direction: row;
+    align-content: center;*/
 
     min-width: clamp(400px, 60vw, 650px);
 }
@@ -18,9 +27,10 @@ body{
 }
 
 #form-content{
+    /*flex-grow: 1;*/
     display: grid;
-    min-height: 50vh;
-    width: clamp(200px, 100%, 900px);
+    /*min-height: 50vh;*/
+    /*width: clamp(200px, 100%, 900px);*/
 
     background-color: rgba(239, 252, 255, 0.7);
     border-width: 0;
@@ -30,10 +40,11 @@ body{
 
     /* the 2nd last auto is for the description row, because it's a textarea */
     --form-content-row-default-height: clamp(40px, 10%, 55px);
-    grid-template-rows: auto repeat(6, var(--form-content-row-default-height)) auto
+    grid-template-rows: auto repeat(9, var(--form-content-row-default-height)) auto
                         var(--form-content-row-default-height) auto;
 
 }
+
 
 
 @media only screen and (max-width: 750px) {

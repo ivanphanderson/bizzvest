@@ -44,6 +44,8 @@ textarea.isian-formulir{
     width: 100%;
     height: 7em;
 
+    height: 10em;
+
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -64,6 +66,22 @@ textarea.isian-formulir{
     align-self: unset;
 }
 
+#proposal-button{
+    padding: 4px 2px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#proposal-button > div{
+    width: 20px;
+    height: 20px;
+
+    background-image: var(--background-image-src);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    filter: invert(100%);
+}
 
 
 /*

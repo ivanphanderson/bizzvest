@@ -26,78 +26,112 @@
             csrf_token = "{{ csrf_token  }}";
         </script>
 
-        <div id="content" class="form-content-wrapper">
-            <form id="form-content" class="white_box shadowed_box_1"
-                  method="post" action="">
+        <div class="outter-most-wrapper">
+            <div class="outter-wrapper white_box shadowed_box_1" style="min-width: 400px; min-height: 400px;">
 
-                <div class="dummy dummy-row"></div>
+                <form id="form-content" method="post" action="">
 
-                <div style="">
-                    <span class="form-content-label">Nama merek</span>
-                </div>
-                <div style="">
-                    {{ form.nama_merek }}
-                </div>
-                <div style="">
-                    <span class="form-content-label">Nama perusahaan</span>
-                </div>
-                <div style="">
-                    {{ form.nama_perusahaan }}
-                </div>
+                    <div class="dummy dummy-row"></div>
 
-                <div style="">
-                    <span class="form-content-label">Jumlah lembar saham</span>
-                </div>
-                <div style="">
-                    {{ form.jumlah_lembar }}
-                </div>
+                    <div style="">
+                        <span class="form-content-label">Nama merek</span>
+                    </div>
+                    <div style="">
+                        {{ form.nama_merek }}
+                    </div>
 
-                <div style="">
-                    <span class="form-content-label">Nilai lembar saham (rupiah) </span>
-                </div>
-                <div style="">
-                    {{ form.nilai_lembar_saham }}
-                </div>
+                    <div style="">
+                        <span class="form-content-label">Nama perusahaan</span>
+                    </div>
+                    <div style="">
+                        {{ form.nama_perusahaan }}
+                    </div>
 
-                <div style="">
-                    <span class="form-content-label">Dividen (bulan) </span>
-                </div>
-                <div style="">
-                    {{ form.dividen }}
-                </div>
+                    <div style="">
+                        <span class="form-content-label">Kode saham</span>
+                    </div>
+                    <div style="">
+                        {{ form.kode_saham }}
+                    </div>
 
-                <div style="">
-                    <span class="form-content-label">Batas waktu </span>
-                </div>
-                <div style="">
-                    {{ form.end_date }}
-                </div>
+                    <div style="">
+                        <span class="form-content-label">Alamat perusahaan</span>
+                    </div>
+                    <div style="">
+                        {{ form.alamat }}
+                    </div>
 
-                <div style="">
-                    <span class="form-content-label">Deskripsi</span>
-                </div>
-                <div class="deskripsi-container">
-                    {{ form.deskripsi }}
-                </div>
 
-                <div id="submit-container">
-                    {% csrf_token %}
-                    <input
-                            id="is_validate_only"
-                            type="hidden"
-                            name="is_validate_only"
-                            value="{{ validation_state }}" />
+                    <div style="">
+                        <span class="form-content-label">Jumlah lembar saham</span>
+                    </div>
+                    <div style="">
+                        {{ form.jumlah_lembar }}
+                    </div>
 
-                    <button
-                           id="form-submit-btn"
-                           type="button"
-                           {% comment %}data-bs-toggle="modal" data-bs-target="#confirm-submit"{% endcomment %}
-                           class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
+                    <div style="">
+                        <span class="form-content-label">Nilai lembar saham (rupiah) </span>
+                    </div>
+                    <div style="">
+                        {{ form.nilai_lembar_saham }}
+                    </div>
 
-            </form>
+                    <div style="">
+                        <span class="form-content-label">Dividen (bulan) </span>
+                    </div>
+                    <div style="">
+                        {{ form.dividen }}
+                    </div>
+
+                    <div style="">
+                        <span class="form-content-label">Batas waktu </span>
+                    </div>
+                    <div style="">
+                        {{ form.end_date }}
+                    </div>
+
+                    <div style="">
+                        <span class="form-content-label">Proposal bisnis </span>
+                    </div>
+                    <div style="display: flex; justify-content: flex-start; align-items: flex-start;">
+                        <div    id="proposal-button"
+                                class="shadowed_box_2_clickable bg-primary"
+                                style="--background-image-src: url('{% static 'fontawesome 5.15/svgs/solid/file-upload.svg' %}')"
+                                onclick="$('#proposal-file-picker')[0].click();">
+                            <div></div>
+                        </div>
+                        <input id="proposal-file-picker" name="proposal-file" type="file" style="display: none;">
+                        <input name="previous-proposal" type="hidden">
+                    </div>
+
+                    <div style="">
+                        <span class="form-content-label">Deskripsi</span>
+                    </div>
+                    <div class="deskripsi-container">
+                        {{ form.deskripsi }}
+                    </div>
+
+                    <div id="submit-container">
+                        {% csrf_token %}
+                        <input
+                                id="is_validate_only"
+                                type="hidden"
+                                name="is_validate_only"
+                                value="{{ validation_state }}" />
+
+                        <button
+                                id="form-submit-btn"
+                                type="button"
+                                data-bs-toggle="modal" data-bs-target="#confirm-submit"
+                                class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+
+            </div>
         </div>
 
 
