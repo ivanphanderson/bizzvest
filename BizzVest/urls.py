@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
+from my_profile.views import ganti_profil
+from my_profile.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home_page.urls')),
-    path('faq/', include('faq.urls')),
-    path('start-web/', include('start_web.urls')),
-    path('mulai-invest/', include('mulai_invest.urls')),
-    path('daftar-toko', include('daftar_toko.urls')),
-    path('halaman-toko', include('halaman_toko.urls')),
+    path('', index, name='ganti_profil'),
+    # path('faq/', include('faq.urls')),
+    # path('start-web/', include('start_web.urls')),
+    # path('mulai-invest/', include('mulai_invest.urls')),
+    # path('daftar-toko', include('daftar_toko.urls')),
+    # path('halaman-toko', include('halaman_toko.urls')),
     path('my-profile', include('my_profile.urls')),
+    path('ganti-profil', ganti_profil, name='ganti_profil'),
 ]

@@ -1,0 +1,255 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/feather-icons@4.28.0/dist/feather-sprite.svg"></script>
+    <script type="text/javascript" src="{% static 'profil.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="{% static 'ganti_profil.css' %}" rel="stylesheet" type="text/css">
+    <title>Ubah Profil</title>
+</head>
+<body>
+    <h1></h1>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+<div class="row flex-lg-nowrap">
+    <div class="col-md-3 d-none d-md-block">
+        <div class="card">
+          <div class="card-body">
+            <nav class="nav flex-column nav-pills nav-gap-y-1">
+              <a href="#Profil" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded active" id="navbarkiri1" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user mr-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>  Informasi Profil
+              </a>
+              <a href="#Toko" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded" id="navbarkiri">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>  Toko Kita
+              </a>
+              <a href="#Investasi" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded" id="navbarkiri">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>  Status Investasi
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="row">
+                <div class="col-12 col-sm-5 mb-3">
+                  <!-- <div class="mx-auto" style="width: 140px;">
+                    <div class="d-flex justify-content-center align-items-center rounded" id="tempat-foto" style="height: 140px; background-color: rgb(233, 236, 239);">
+                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                    </div>
+                  </div> -->
+                  <div class="profile-pic">
+                    <label class="-label" for="file">
+                      <span class="glyphicon glyphicon-camera"></span>
+                      <span>Change Image</span>
+                    </label>
+                    
+                    <input id="file" type="file" onchange="loadFile(event)"/>
+                    <img src="https://www.gyanvihar.org:3001/uploads/1623494185474dummy.jpg" id="output" width="200" />
+                  </div>
+                </div>
+                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" id="name-head">
+                  <div class="text-center text-sm-left mb-2 mb-sm-0 mt-3">
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">Bang Uyog</h4>
+                    <p class="mb-0">@raihansyahyoga</p>
+                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                    <div class="mt-2">
+                      <!-- <button class="btn btn-primary" type="button" id=ganti-foto>
+                        <i class="fa fa-fw fa-camera"></i>
+                        <span>Change Photo</span>
+                      </button> -->
+                    </div>
+                  </div>
+                  <div class="text-center text-sm-right">
+                    <span class="badge badge-secondary">Pengguna</span>
+                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                  </div>
+                </div>
+              </div>
+              <!-- <ul class="nav nav-tabs">
+                <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+              </ul> -->
+              <div class="tab-content pt-5">
+                <div class="tab-pane active">
+                  <form class="form" novalidate="">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Nama Lengkap</label>
+                              <input class="form-control" type="text" name="name" placeholder="Nama Lengkap" value="Raihansyah Yoga Adhitama">
+                            </div>
+                          </div>
+                          <div class="col mb-3">
+                            <div class="form-group">
+                              <label>Username</label>
+                              <input class="form-control" type="text" name="username" placeholder="raihansyahyoga" value="raihansyahyoga">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-4">
+                              <div class="form-group">
+                                <label for="kelamin">Jenis kelamin</label>
+                                    <select id="inputJenisKelamin" class="form-control" data-bs-toggle="dropdown" >
+                                        <option selected>Pilih jenis kelamin...</option>
+                                        <option>Laki-Laki</option>
+                                        <option>Perempuan</option>
+                                    </select>
+                                <!-- <input class="form-control" type="text" placeholder="user@example.com"> -->
+                              </div>
+                            </div>
+                          </div>
+                        <div class="row">
+                          <div class="col mb-4">
+                            <div class="form-group">
+                              <label>Email</label>
+                              <input class="form-control" type="text" name="email" placeholder="user@example.com">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-4">
+                              <div class="form-group">
+                                <label>Nomor Handphone</label>
+                                <input class="form-control" type="text" name="phone" placeholder="08xxxxxxxxxx">
+                              </div>
+                            </div>
+                          </div>
+                        <div class="row">
+                          <div class="col mb-4">
+                            <div class="form-group">
+                              <label>Alamat</label>
+                              <input class="form-control" type="text" placeholder="Jalan xxxx No.xx">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col mb-4">
+                            <div class="form-group">
+                              <label>Deskripsi diri</label>
+                              <textarea class="form-control" rows="5" placeholder="Tentang diriku"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <!-- <div class="col-12 col-sm-6 mb-3">
+                        <div class="mb-2"><b>Ganti Password</b></div>
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="form-group">
+                              <label>Password saat ini</label>
+                              <input class="form-control" type="password" placeholder="••••••">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="form-group">
+                              <label>Password baru</label>
+                              <input class="form-control" type="password" placeholder="••••••">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Pastikan <span class="d-none d-xl-inline">password baru</span></label>
+                              <input class="form-control" type="password" placeholder="••••••"></div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                        <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
+                        <div class="row">
+                          <div class="col">
+                            <label>Email Notifications</label>
+                            <div class="custom-controls-stacked px-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                              </div>
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                              </div>
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center mb-3" id="button-simpan">
+                            <button class="btn btn-primary justify-content-center " type="submit" id="tombol-simpan">Simpan perubahan</button>
+                        </div>
+                        <div class="col d-flex justify-content-end mb-3" style="float: right" id="button-batalkan">  
+                            <button class="btn btn-primary" type="submit" id="tombol-batalkan">Batalkan perubahan</button>
+                        </div>
+                    </div>
+                    <div class="row mt-4"></div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 col-md-3 mb-3">
+        <div class="card mb-3" id="kotak-log-out">
+          <div class="card-body mb-1 mt-1" id="tombol-log-out">
+            <div class="px-xl-3">
+              <button class="btn btn-block btn-secondary" id="warna-log-out">
+                <i class="fa fa-sign-out"></i>
+                <span>Log out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title font-weight-bold">Merasa kurang aman?</h6>
+            <p class="card-text">Kini anda dapat dengan mudah mengubah password anda dengan menekan tombol di bawah ini</p>
+            <button type="button" class="btn btn-primary" id=tombol-ganti-password>Ganti Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+   
+  </body>
+</html>
