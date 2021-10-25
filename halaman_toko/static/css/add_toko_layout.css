@@ -37,7 +37,7 @@
     /* the 2nd last auto is for the description row, because it's a textarea */
     --form-content-row-default-height: auto;
     /*--form-content-row-default-height: clamp(40px, 2em, 55px);*/
-    grid-template-rows: repeat(9, var(--form-content-row-default-height)) auto
+    grid-template-rows: repeat(8, var(--form-content-row-default-height)) auto
                         var(--form-content-row-default-height);
 }
 

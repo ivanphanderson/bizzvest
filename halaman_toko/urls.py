@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from django.urls import path, re_path
+
+import halaman_toko.views.halaman_toko
 from . import views
 
 app_name = 'halaman_toko'
@@ -12,4 +14,5 @@ urlpatterns = [
     path('add-photo', views.add_photo),
     path('delete-photo', views.delete_photo),
     path('photo-reorder', views.photo_reorder),
+    path('upload-proposal', views.edit_proposal, name="upload_proposal"),
 ]

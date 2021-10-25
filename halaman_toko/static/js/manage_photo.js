@@ -12,7 +12,9 @@ $(document).ready(function (){
 
     // ketika user menekan tombol +, maka prompt user untuk memilih file yang diinginkan
     $(".add-photo-wrapper").on("click", function (e) {
-       $("#file-picker").click();
+        var temp = $("#file-picker");
+        temp[0].value = null;
+        temp[0].click()
     });
 
 

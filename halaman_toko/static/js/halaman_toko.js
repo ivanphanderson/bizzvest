@@ -1,3 +1,4 @@
+var modal_event_control;
 
 $(document).ready(function (){
 
@@ -80,31 +81,68 @@ $(document).ready(function (){
                 'id': company_id,
                 'deskripsi': description_content,
                 'csrfmiddlewaretoken': csrf_token,
-            },
-            statusCode: {
-                200: function (response) {
-                    $("#control_btn_container").toggleClass("editing_mode");
-                    $(".control_btn").prop('disabled', false);
-                },
-                400: function (response) {
-                    $("#company_description").attr('contenteditable','true');
-                    $(".control_btn").prop('disabled', false);
-                    alert(response.responseText);
-                },
-                404: function (response) {
-                    $("#company_description").attr('contenteditable','true');
-                    $(".control_btn").prop('disabled', false);
-                    alert(response.responseText);
-                }
             }, success: function () {
-            },
+                $("#control_btn_container").toggleClass("editing_mode");
+                $(".control_btn").prop('disabled', false);
+                show_toast("The description has been saved successfully!")
+            }, error: function (xhr){
+                $("#company_description").attr('contenteditable','true');
+                $(".control_btn").prop('disabled', false);
+
+                if (xhr.readyState === 0)  // masalah koneksi
+                    show_toast("Sorry, we encountered a connection problem");
+                else if (xhr.readyState === 4)  // status code error
+                    show_toast(xhr.statusText + ":  " + xhr.responseText);
+                else
+                    show_toast("Sorry, we encountered an unknown error");
+            }
         });
     });
 
+    $(".choose_proposal_btn").on("click", (e) => {
+        var temp = $("#pick-proposal");
+        temp[0].value = null;  // mermperbolehkan user untuk mengupload ulang (mengupdate) bahkan jika nama filenya sama
+        temp[0].click()
+    });
+    $("#pick-proposal:file").change(function (e) {
+        console.log("asd", $("#pick-proposal:file")[0].files.length)
+        if ($("#pick-proposal:file")[0].files.length > 0){
+            show_toast('uploading...');
+            var formData = new FormData($("form#upload-proposal-form").get(0));
+
+            $.ajax({  // harus pakai ajax `processData: false, contentType: false` untuk mencegah illegal invocation
+                url: "/halaman-toko/upload-proposal",
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    show_toast("success!");
+                    $("#download-proposal").prop('href', response);
+                },
+                error: function(xhr, text_status, error_thrown){
+                    if (xhr.readyState === 0)  // masalah koneksi
+                        show_toast("Sorry, we encountered a connection problem");
+                    else if (xhr.readyState === 4)  // status code error
+                        show_toast(xhr.statusText + ":  " + xhr.responseText);
+                    else
+                        show_toast("Sorry, we encountered an unknown error");
+                },
+
+                processData: false,
+                contentType: false,
+                cache: false,
+            });
+        }
+    })
+
+
+
+    $('.toast').toast({delay:2500});
 
     $(function () {
         $("[rel='tooltip']").tooltip();
     });
+
+    modal_event_control = initiate_modal_event_control();
 });
 
 
@@ -163,4 +201,69 @@ function get_text_with_correct_new_lines(element, decode_tag=true){
         return value;
     };
     return convertToText(element.html());
+}
+
+
+var get_toast_instance = (jquery_toast_element=$(".toast")) => bootstrap.Toast.getInstance(jquery_toast_element[0]);
+
+function clear_toast_timeout_if_exist(jquery_toast_element=$(".toast")){
+    clearTimeout(get_toast_instance(jquery_toast_element)._timeout);
+}
+
+function show_toast(message) {
+    clear_toast_timeout_if_exist();
+    $("#toast-msg").html(message);
+    $(".toast").toast("show");
+}
+
+
+function show_modal(message, title="", on_ok=(e)=>true, on_cancel = (e)=>true){
+    var modal = $("#my-modal-box");
+    modal.find(".modal-title").html(title);
+    modal.find(".modal-body").html(message);
+
+    modal_event_control.set_on_ok(on_ok);
+    modal_event_control.set_on_cancel(on_cancel);
+    modal.modal('show');
+}
+
+function initiate_modal_event_control(){
+    var on_ok = (e) => {};
+    var on_cancel = (e) => {};
+
+    function set_on_ok(func) {
+        on_ok = func;
+    }
+
+    function set_on_cancel(func) {
+        on_cancel = func;
+    }
+
+    function get_on_ok(){
+        return on_ok;
+    }
+
+    function get_on_cancel(){
+        return on_cancel;
+    }
+
+    var modal = $("#my-modal-box");
+    var cancel_btn = modal.find(".cancel-btn");
+    var ok_btn = modal.find(".ok-btn");
+
+    cancel_btn.on('click', function (e) {
+        if (get_on_cancel()(e))
+            modal.modal('hide');
+    })
+    ok_btn.on('click', function (e) {
+        if (get_on_ok()(e))
+            modal.modal('hide');
+    })
+
+    return {
+        'set_on_ok': set_on_ok,
+        'set_on_cancel': set_on_cancel,
+        'get_on_ok': get_on_ok,
+        'get_on_cancel': get_on_cancel,
+    }
 }

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 from halaman_toko.authentication_and_authorization import *
@@ -16,8 +17,14 @@ def validate_positive_integer(value):
 
 
 class Company(models.Model):  # dengan nama lain: Toko
+    class StatusVerifikasi(models.IntegerChoices):
+        BELUM_MENGAJUKAN_VERIFIKASI = 0
+        MENGAJUKAN_VERIFIKASI = 1
+        VERIFIKASI_DITOLAK = 2
+        TERVERIFIKASI = 3
+
     pemilik_usaha = models.ForeignKey(EntrepreneurAccount, on_delete=models.CASCADE, blank=True, null=True)
-    is_verified = models.BooleanField(default=False)
+    status_verifikasi = models.IntegerField(choices=StatusVerifikasi.choices, default=StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI)
     proposal = models.FileField(upload_to="uploads/company_photos/%Y/%m/", null=True)
 
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')

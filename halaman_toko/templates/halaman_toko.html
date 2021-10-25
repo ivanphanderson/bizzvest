@@ -154,7 +154,24 @@
 
                         <div>Status </div>
                         <div>
-                            {% if company.is_verified %} terverifikasi {% else %} belum terverifikasi {% endif %}
+                            {% if company.status_verifikasi == company.StatusVerifikasi.TERVERIFIKASI %}
+                                terverifikasi
+                            {% elif company.status_verifikasi == company.StatusVerifikasi.VERIFIKASI_DITOLAK %}
+                                verifikasi ditolak
+                            {% elif company.status_verifikasi == company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI %}
+                                sedang mengajukan verifikasi
+                            {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
+                                belum mengajukan verifikasi
+                                &nbsp; <i
+                                        class="choose_proposal_btn fas fa-file-upload"
+                                        style="cursor:pointer;"
+                                        data-toggle="tooltip" data-placement="bottom" title="unggah proposal"></i>
+
+                                &nbsp; <i
+                                        class="choose_proposal_btn fas fa-file-export"
+                                        style="cursor:pointer;"
+                                        data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
+                            {% endif %}
                         </div>
 
                         <div>Berakhir pada </div>
@@ -258,13 +275,14 @@
                 <div class="download_proposal_container red_box shadowed_box_2_clickable">
                     <div class="download_proposal_icon">
                         <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>
-                        <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}"></img>
+                        <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
                     </div>
-                    <div class="download_proposal_text_wrapper">
+                    <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
                         <span class="download_proposal_text h5">
                             Download Proposal
                         </span>
                     </div>
+                    <a href="{{ company.proposal.url }}" id="download-proposal" target="_blank"></a>
                 </div>
 
 
@@ -305,34 +323,53 @@
         </button>{% endcomment %}
 
 
+        <form
+                id="upload-proposal-form"
+                action="{% url 'halaman_toko:upload_proposal' %}">
+            {% csrf_token %}
+            <input type="hidden" name="company_id" value="{{ company.id }}">
+            <input id="pick-proposal" type="file" name="proposal">
+        </form>
+
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="my-modal-box"
+             data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Edit Page</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="editing_form">
-
-
-
-
-                        <form method="post">
-                            <span class="h4">deskripsi</span> <br>
-                            {{ edit_form.deskripsi }}
-                        </form>
-
+                    <div class="modal-body">
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
+                        <button class="cancel-btn btn btn-secondary"
+                                type="button"> cancel </button>
+                        <button class="ok-btn btn btn-primary"
+                                type="button"> I understand. Please submit.</button>
                     </div>
                 </div>
             </div>
         </div>
+
+
+    <!-- toast -->
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
+        <div class="toast-body">
+            <div class="toast-body-wrapper">
+                <div style="display: table;">
+                    <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
+                        Hello, world! This is a toast message.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     </body>
 </html>

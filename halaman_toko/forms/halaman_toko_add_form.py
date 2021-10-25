@@ -15,8 +15,7 @@ class CompanyAddForm(forms.ModelForm):
 
         # exclude
         exclude = ('pemilik_usaha',
-                   'nilai_saham_dibutuhkan_total',
-                   'nilai_saham_terkumpulkan_total',
+                   'proposal',
                    'start_date',
                    'id',
                    )

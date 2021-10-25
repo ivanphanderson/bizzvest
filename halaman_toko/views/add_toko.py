@@ -1,20 +1,12 @@
-import string
-import datetime
-import random
-
 from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import dateformat, timezone
-from django.utils.datastructures import MultiValueDict
 
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
-from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
-from halaman_toko.views.utility import validate_toko_id
 from models.models import Company
-from collections import deque
 
 
 class DoesProblemExist():
@@ -112,25 +104,6 @@ def add_toko(req:WSGIRequest):
 
 
     if (req.method == 'POST'):
-        """
-        files:MultiValueDict = req.FILES.copy()
-
-        
-        print(files)
-        previous_state_object_id = req.session.get('proposal', None)
-
-        instance = None
-        if (files.get('proposal', None) is None
-                and (previous_state_object_id is not None)
-                and previous_state_object_id in TemporaryFiles.global_dict):
-            instance = Company.objects.get(id=TemporaryFiles.get(previous_state_object_id))
-            TemporaryFiles.reset_counter(previous_state_object_id)
-            form = CompanyAddForm(req.POST, files, instance=instance)
-        else:
-            form = CompanyAddForm(req.POST, files)
-            req.session('proposal', TemporaryFiles(form.instance.s)
-                        )
-                        """
 
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
@@ -172,39 +145,3 @@ def add_toko(req:WSGIRequest):
 
 
 
-def is_available(field_name:str, request_query:dict):
-    if (field_name not in request_query):
-        return HttpResponse(f'invalid request: {repr(field_name)} field is not available', status=400)
-    return True
-
-
-
-def save_company_form(req:WSGIRequest):
-    if (req.method != 'POST'):
-        return HttpResponse('invalid request: not a POST request', status=400)
-
-    if (temp:=is_available('deskripsi', req.POST)) is not True:
-        return temp
-    if (temp:=is_available('id', req.POST)) is not True:
-        return temp
-
-    # TODO: authentication and authorization
-    id = req.POST['id']
-
-    if not (temp:= validate_toko_id(id))[0]:
-        return temp[1]
-    # validate_toko_id() returns (True, company_obj_query) when valid, or (False, HttpResponse) when invalid
-    company_object_query = temp[1]
-    company_object = company_object_query[0]  # get the first query. I think it should only have one item tho
-    form = CompanyEditForm(req.POST, instance=company_object)
-
-    if (form.is_valid()):
-        print(form)
-        form.save()
-        return HttpResponse('saved successfully!', status=200)
-    else:
-        assert form.errors
-        error_messages = []
-        for field, error in form.errors.items():
-            error_messages.append(f"{field}  {str(error.as_data()[0])}")
-        return HttpResponse('the following errors has occured: \n\n ' + '\n'.join(error_messages), status=400)
