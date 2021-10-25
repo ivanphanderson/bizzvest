@@ -1,7 +1,7 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 
-from models.models import Company
+from models_app.models import Company
 
 
 def go_to_prev_history_javascript(time_in_ms):

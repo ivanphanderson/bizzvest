@@ -7,8 +7,8 @@ from django.shortcuts import render
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
 from halaman_toko.forms.halaman_toko_add_foto import CompanyPhotoAddForm
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
-from models.models import Company, CompanyPhoto
-from models.models_utility.company_utility import recalculate_img_index, recalculate_img_index_from_list
+from models_app.models import Company, CompanyPhoto
+from models_app.models_utility.company_utility import recalculate_img_index, recalculate_img_index_from_list
 
 
 

@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'mulai_invest',
     'start_web',
 
-    'models',
+    'models_app',
 ]
 
 MIDDLEWARE = [

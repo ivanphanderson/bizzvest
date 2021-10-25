@@ -6,7 +6,7 @@ from django.utils import dateformat, timezone
 
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
-from models.models import Company
+from models_app.models import Company
 
 
 class DoesProblemExist():

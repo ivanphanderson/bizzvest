@@ -150,7 +150,7 @@ $(document).ready(function (){
 
 
 
-    $('.toast').toast({delay:2500});
+    $('.toast').toast({delay:4000});
 
     $(function () {
         $("[rel='tooltip']").tooltip();

@@ -1,4 +1,4 @@
-from models.models import Company
+from models_app.models import Company
 
 
 def recalculate_img_index(company_obj:Company, zero_based_index_update_start_pos:int=0):

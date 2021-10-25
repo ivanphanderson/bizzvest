@@ -1,7 +1,7 @@
 from typing import Union
 
 from django.db.models import QuerySet
-from models.models.UserAccount import *
+from models_app.models.UserAccount import *
 
 
 

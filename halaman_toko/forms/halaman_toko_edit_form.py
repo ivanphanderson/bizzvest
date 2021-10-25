@@ -1,4 +1,4 @@
-from models.models.Company import *
+from models_app.models.Company import *
 from django import forms
 
 class CompanyEditForm(forms.ModelForm):

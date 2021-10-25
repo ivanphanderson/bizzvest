@@ -7,7 +7,7 @@ from django.shortcuts import render
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
-from models.models import Company
+from models_app.models import Company
 
 
 
@@ -78,6 +78,11 @@ def edit_proposal(req:WSGIRequest):
     )
 
 
+def proposal_not_available(req:WSGIRequest):
+    return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)
+
+
+
 def save_company_form(req:WSGIRequest):
     if (req.method != 'POST'):
         return HttpResponse('invalid request: not a POST request', status=400)
@@ -128,6 +133,13 @@ def ajukan_verifikasi(req:WSGIRequest):
 
     if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
         return HttpResponse("Invalid verification status", status=400)
+
+    if (company_object.proposal is None):
+        return HttpResponse("Proposal must be uploaded", status=400)
+
+    if (company_object.companyphoto_set.all().count() == 0):
+        return HttpResponse("The company must have at least 1 photo", status=400)
+
 
     company_object.status_verifikasi = Company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI
     company_object.save()

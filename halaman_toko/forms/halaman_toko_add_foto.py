@@ -1,4 +1,4 @@
-from models.models.CompanyPhoto import *
+from models_app.models.CompanyPhoto import *
 from django import forms
 
 class CompanyPhotoAddForm(forms.ModelForm):

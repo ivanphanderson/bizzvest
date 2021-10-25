@@ -1,8 +1,9 @@
-from models.validators import validate_pdf_file_extension
+
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, FileExtensionValidator
 
 from halaman_toko.authentication_and_authorization import *
+from models_app.validators import validate_pdf_file_extension
 from .EntrepreneurAccount import *
 from django.utils import timezone
 from django.db import models
@@ -20,9 +21,9 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     pemilik_usaha = models.ForeignKey(EntrepreneurAccount, on_delete=models.CASCADE, blank=True, null=True)
     status_verifikasi = models.IntegerField(choices=StatusVerifikasi.choices, default=StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI)
-    proposal = models.FileField(upload_to="uploads/company_photos/%Y/%m/",
+    proposal = models.FileField(upload_to="uploads/proposals/%Y/%m/",
                                 null=True,
-                                # validators=[validate_pdf_file_extension]
+                                validators=[validate_pdf_file_extension]
                                 )
 
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')

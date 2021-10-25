@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from models.models import UserAccount, InvestorAccount, EntrepreneurAccount, Company, Comment, Stock, CompanyPhoto
+from models_app.models import UserAccount, InvestorAccount, EntrepreneurAccount, Company, Comment, Stock, CompanyPhoto
 
 
 # class UserAccountAdmin(admin.ModelAdmin):

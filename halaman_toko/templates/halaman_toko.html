@@ -282,7 +282,13 @@
                             Download Proposal
                         </span>
                     </div>
-                    <a href="{{ company.proposal.url }}" id="download-proposal" target="_blank"></a>
+                    <a
+                            {% if company.proposal %}
+                                href="{{ company.proposal.url }}"
+                            {% else %}
+                                href="{% url 'halaman_toko:proposal_not_available' %}"
+                            {% endif %}
+                       id="download-proposal" target="_blank"></a>
                 </div>
 
 

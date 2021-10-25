@@ -2,7 +2,7 @@ from datetime import date
 
 from django.core.exceptions import ValidationError
 
-from models.models.Company import *
+from models_app.models.Company import *
 from django import forms
 
 
