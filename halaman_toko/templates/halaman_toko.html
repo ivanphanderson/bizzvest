@@ -159,7 +159,7 @@
                             {% elif company.status_verifikasi == company.StatusVerifikasi.VERIFIKASI_DITOLAK %}
                                 verifikasi ditolak
                             {% elif company.status_verifikasi == company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI %}
-                                sedang mengajukan verifikasi
+                                menunggu verifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
                                 belum mengajukan verifikasi
                                 &nbsp; <i
@@ -168,7 +168,7 @@
                                         data-toggle="tooltip" data-placement="bottom" title="unggah proposal"></i>
 
                                 &nbsp; <i
-                                        class="choose_proposal_btn fas fa-file-export"
+                                        class="request_for_verification fas fa-file-export"
                                         style="cursor:pointer;"
                                         data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
                             {% endif %}
@@ -325,10 +325,20 @@
 
         <form
                 id="upload-proposal-form"
-                action="{% url 'halaman_toko:upload_proposal' %}">
+                action="{% url 'halaman_toko:upload_proposal' %}"
+                style="display: none;">
             {% csrf_token %}
             <input type="hidden" name="company_id" value="{{ company.id }}">
             <input id="pick-proposal" type="file" name="proposal">
+        </form>
+
+        <form
+                id="request-verification-form"
+                method="post"
+                action="{% url 'halaman_toko:ajukan_verifikasi' %}"
+                style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ company.id }}">
         </form>
 
 

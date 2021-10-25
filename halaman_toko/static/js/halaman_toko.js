@@ -104,6 +104,7 @@ $(document).ready(function (){
         temp[0].value = null;  // mermperbolehkan user untuk mengupload ulang (mengupdate) bahkan jika nama filenya sama
         temp[0].click()
     });
+
     $("#pick-proposal:file").change(function (e) {
         console.log("asd", $("#pick-proposal:file")[0].files.length)
         if ($("#pick-proposal:file")[0].files.length > 0){
@@ -132,6 +133,19 @@ $(document).ready(function (){
                 cache: false,
             });
         }
+    });
+
+    $(".request_for_verification").on('click', function (e) {
+        show_modal("Apakah Anda benar-benar ingin mengajukan verifikasi? " + "<br/><br/>" +
+            "Jika anda sudah mengajukan verifikasi, maka anda tidak akan bisa mengubah informasi apapun lagi untuk kedepannya",
+            "Submit for verification",
+            function (e) {
+                $("form#request-verification-form").submit();
+                return true;  // close the modal
+            }, function (e) {
+                show_toast("the submission for verification has been cancelled");
+                return true;  // close the modal
+            });
     })
 
 
@@ -226,6 +240,7 @@ function show_modal(message, title="", on_ok=(e)=>true, on_cancel = (e)=>true){
     modal_event_control.set_on_cancel(on_cancel);
     modal.modal('show');
 }
+
 
 function initiate_modal_event_control(){
     var on_ok = (e) => {};

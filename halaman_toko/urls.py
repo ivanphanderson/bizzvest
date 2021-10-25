@@ -15,4 +15,5 @@ urlpatterns = [
     path('delete-photo', views.delete_photo),
     path('photo-reorder', views.photo_reorder),
     path('upload-proposal', views.edit_proposal, name="upload_proposal"),
+    path('request-for-verification', views.ajukan_verifikasi, name="ajukan_verifikasi"),
 ]

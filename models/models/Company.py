@@ -1,5 +1,6 @@
+from models.validators import validate_pdf_file_extension
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 
 from halaman_toko.authentication_and_authorization import *
 from .EntrepreneurAccount import *
@@ -7,12 +8,6 @@ from django.utils import timezone
 from django.db import models
 
 
-def validate_positive_integer(value):
-    if not isinstance(value, int) or value <= 0:
-        raise ValidationError(
-            _('value must be a positive integer'),
-            params={'value': value},
-        )
 
 
 
@@ -25,7 +20,10 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     pemilik_usaha = models.ForeignKey(EntrepreneurAccount, on_delete=models.CASCADE, blank=True, null=True)
     status_verifikasi = models.IntegerField(choices=StatusVerifikasi.choices, default=StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI)
-    proposal = models.FileField(upload_to="uploads/company_photos/%Y/%m/", null=True)
+    proposal = models.FileField(upload_to="uploads/company_photos/%Y/%m/",
+                                null=True,
+                                # validators=[validate_pdf_file_extension]
+                                )
 
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')
     nama_perusahaan = models.CharField(max_length=35, verbose_name='Nama perusahaan')

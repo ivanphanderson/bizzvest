@@ -24,7 +24,7 @@ class CompanyAddProposalForm(forms.ModelForm):
         data = self.cleaned_data
 
         if (self.instance.status_verifikasi != self.Meta.model.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
-            raise ValidationError("Non-zero verfication status cannot change the proposal file")
+            raise ValidationError({"proposal":["Non-zero verfication status cannot change the proposal file"]})
 
         return data
 

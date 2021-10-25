@@ -63,6 +63,8 @@ def edit_proposal(req:WSGIRequest):
         return HttpResponse('No uploaded files', status=400)
 
     company_obj:Company = ret_obj[0]
+    # TODO: authentication and authorization
+
     form = CompanyAddProposalForm(req, req.FILES, instance=company_obj)
 
     if (form.is_valid()):
@@ -71,7 +73,7 @@ def edit_proposal(req:WSGIRequest):
         return HttpResponse(form_instance.proposal.url, status=200)
 
     return HttpResponse(
-        form.errors,
+        str(form.errors),
         status=400
     )
 
@@ -82,6 +84,7 @@ def save_company_form(req:WSGIRequest):
 
     if (temp:=is_available('deskripsi', req.POST)) is not True:
         return temp
+
     if (temp:=is_available('id', req.POST)) is not True:
         return temp
 
@@ -107,8 +110,29 @@ def save_company_form(req:WSGIRequest):
         return HttpResponse('the following errors has occured: \n\n ' + '\n'.join(error_messages), status=400)
 
 
+def ajukan_verifikasi(req:WSGIRequest):
+    if (req.method != 'POST'):
+        return HttpResponse('invalid request: not a POST request', status=400)
 
+    if (temp:=is_available('id', req.POST)) is not True:
+        return temp
+    # TODO: authentication and authorization
 
+    id = req.POST['id']
+
+    is_valid, obj = validate_toko_id(id)
+    if not is_valid:
+        return obj
+
+    company_object:Company = obj[0]
+
+    if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+        return HttpResponse("Invalid verification status", status=400)
+
+    company_object.status_verifikasi = Company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI
+    company_object.save()
+
+    return HttpResponse("success!")
 
 
 def is_available(field_name:str, request_query:dict):
