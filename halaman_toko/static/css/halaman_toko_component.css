@@ -1,6 +1,5 @@
-#nama_merk{
-    /*color: #0088ff;*/
-    /*text-shadow: 0px 0px 5px rgba(255,255,255,0.94);*/
+#nama_merek{
+    font-weight: bold;
 }
 
 #nama_perusahaan{
@@ -38,7 +37,7 @@
 }
 
 #photo_edit_btn{
-    background-color: #25cff2;
+    background-color: var(--bs-primary);
     color: white;
     margin-right: 7px;
 }
@@ -133,9 +132,13 @@
 }
 
 #entrepreneur_name{
+    max-width: 100%;
     margin: 0;
+    padding-bottom: 4px;
     display: block;
     line-height: 1;
+    overflow:hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 

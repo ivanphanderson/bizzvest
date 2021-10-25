@@ -16,8 +16,8 @@ class UserAccount(models.Model):
     email = models.EmailField(max_length=254, unique=True, null=True)
 
     photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=12)
+    last_name = models.CharField(max_length=12)
 
     is_verified = models.BooleanField(default=False)
     foto_ktp = models.ImageField(upload_to="uploads/foto_ktp/%Y/%m/", null=True)
