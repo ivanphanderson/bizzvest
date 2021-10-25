@@ -50,6 +50,9 @@
             <div id="body">
                 <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
 
+
+                    {% if company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
+
                     <a id="photo_edit_link"
                        href="{%  url 'halaman_toko:edit_photos' %}?id={{ company.id|urlencode  }}"
                        style="visibility: collapse; "></a>
@@ -68,6 +71,8 @@
                             data-toggle="tooltip" data-placement="bottom" title="simpan perubahan pada deskripsi">
                         <i class="fas fa-save"></i>
                     </button>
+
+                    {% endif %}
                 </div>
 
 

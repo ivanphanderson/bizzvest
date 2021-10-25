@@ -24,7 +24,7 @@
 #form-content{
     display: grid;
     min-height: 50vh;
-    width: clamp(200px, 100%, 900px);
+    width: clamp(350px, 100%, 900px);
 
     background-color: rgba(239, 252, 255, 0.7);
     border-width: 0;
@@ -51,5 +51,58 @@
 @media only screen and (max-width: 850px) {
     .form-content-label{
         font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /*noinspection CssOverwrittenProperties*/
+    .form-content-wrapper{
+        min-width: clamp(50px, 90vw, 650px);
+        max-width: 97%;
+        max-width: calc(97vw - 10px);
+    }
+
+
+    #form-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        padding: 10px;
+        width: 100%;
+    }
+
+
+    #form-content > *{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    #form-content > .input{
+        margin-bottom: 12px;
+    }
+
+    #form-content > .label{
+        font-weight: 600;
+    }
+
+/*
+    #form-content{
+        display: grid;
+
+        padding: 10px;
+        width: 100%;
+        grid-template-columns: auto;
+        grid-gap: 0px;
+
+        !* the 2nd last auto is for the description row, because it's a textarea *!
+        --form-content-row-default-height: auto;
+        grid-template-rows: repeat(16, var(--form-content-row-default-height)) auto
+                        var(--form-content-row-default-height);
+    }*/
+
+    #submit-container#submit-container{
+        grid-column: span 1;
     }
 }
