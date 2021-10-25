@@ -191,16 +191,6 @@
                             Rp{{ company.nilai_lembar_saham|intcomma|chars_replace:",." }},00
                         </div>
 
-                        <div class="progress position-relative">
-                            <div class="progress-bar bg-info" role="progressbar"
-                                 style="width: {{ informasi_saham.persentase_terjual_int }}%"
-                                 aria-valuenow="{{ informasi_saham.persentase_terjual_int }}"
-                                 aria-valuemin="0" aria-valuemax="100"></div>
-                            <small class="progress-label justify-content-center d-flex position-absolute w-100">
-                                {{ informasi_saham.persentase_terjual_int }} %
-                            </small>
-                        </div>
-
                         <div class="dummy"></div>
                     </div>
 
@@ -238,6 +228,16 @@
                                 Rp{{ informasi_saham.total_saham_terjual|intcomma|chars_replace:',.' }},00
                             </span>
                             <div class="dummy"></div>
+                        </div>
+
+                        <div class="progress position-relative">
+                            <div class="progress-bar bg-info" role="progressbar"
+                                 style="width: {{ informasi_saham.persentase_terjual_int }}%"
+                                 aria-valuenow="{{ informasi_saham.persentase_terjual_int }}"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                            <small class="progress-label justify-content-center d-flex position-absolute w-100">
+                                {{ informasi_saham.persentase_terjual_int }} %
+                            </small>
                         </div>
                     </div>
 

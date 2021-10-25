@@ -36,6 +36,7 @@ def halaman_toko(req:WSGIRequest):
 
     company_obj:Company = ret_obj[0]
 
+
     return render(req, "halaman_toko.html", {
         'company': company_obj,
         'StatusVerifikasi': Company.StatusVerifikasi,
@@ -60,7 +61,7 @@ def edit_proposal(req:WSGIRequest):
         return ret_obj
 
     if req.FILES.get('proposal', None) is None:
-        return HttpResponse('No uploaded files', status=400)
+        return HttpResponse('Proposal must be submitted', status=400)
 
     company_obj:Company = ret_obj[0]
     # TODO: authentication and authorization
@@ -96,11 +97,14 @@ def save_company_form(req:WSGIRequest):
     # TODO: authentication and authorization
     id = req.POST['id']
 
-    if not (temp:= validate_toko_id(id))[0]:
-        return temp[1]
-    # validate_toko_id() returns (True, company_obj_query) when valid, or (False, HttpResponse) when invalid
-    company_object_query = temp[1]
-    company_object = company_object_query[0]  # get the first query. I think it should only have one item tho
+    is_company_valid, obj = validate_toko_id(id)
+    if not is_company_valid:
+        return obj
+
+    company_object = obj.first()  # get the first query. I think it should only have one item tho
+    if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+        return HttpResponse("verification status must be 'not submitted yet' to alter any information", status=400)
+
     form = CompanyEditForm(req.POST, instance=company_object)
 
     if (form.is_valid()):

@@ -13,6 +13,8 @@ from models_app.models_utility.company_utility import recalculate_img_index, rec
 
 
 
+
+
 def add_photo(req:WSGIRequest):
     if (get_logged_in_user_account() is None):
         return HttpResponseRedirect(get_login_url())
@@ -30,6 +32,9 @@ def add_photo(req:WSGIRequest):
 
         company:Company = object[0]
         # TODO: Authorization
+
+        if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+            return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
 
         company_photos_count = company.companyphoto_set.all().count()
@@ -83,6 +88,8 @@ def delete_photo(req:WSGIRequest):
         company_obj:Company = photo_obj.company
         # TODO: Authorization
 
+        if (company_obj.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+            return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
         company_photos = list(company_obj.companyphoto_set.all().order_by('img_index'))
         photo_index_in_the_list = photo_index-1
@@ -108,9 +115,11 @@ def photo_reorder(req:WSGIRequest):
         is_company_valid, object = validate_toko_id(req.POST['company_id'])
         if not is_company_valid:
             return object
+        
         company:Company = object.first()
-
         # TODO: Authorization
+        if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+            return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
         photo_order_json_string = req.POST['photo_order']
         try:

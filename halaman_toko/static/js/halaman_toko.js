@@ -59,9 +59,6 @@ $(document).ready(function (){
 
 
     $("#save_btn").on('click', function(e){
-        window.onbeforeunload = null;
-
-
         var el =  $("#company_description");
         var description_content = get_text_with_correct_new_lines(el);
 
@@ -82,6 +79,7 @@ $(document).ready(function (){
                 'deskripsi': description_content,
                 'csrfmiddlewaretoken': csrf_token,
             }, success: function () {
+                window.onbeforeunload = null;
                 $("#control_btn_container").toggleClass("editing_mode");
                 $(".control_btn").prop('disabled', false);
                 show_toast("The description has been saved successfully!")
@@ -140,7 +138,31 @@ $(document).ready(function (){
             "Jika anda sudah mengajukan verifikasi, maka anda tidak akan bisa mengubah informasi apapun lagi untuk kedepannya",
             "Submit for verification",
             function (e) {
-                $("form#request-verification-form").submit();
+                show_toast('submitting the verification');
+                var proposal = $("form#request-verification-form");
+
+                $.ajax({  // harus pakai ajax `processData: false, contentType: false` untuk mencegah illegal invocation
+                    url: proposal.prop('action'),
+                    type: 'POST',
+                    data: new FormData(proposal.get(0)),
+                    success: function (response) {
+                        show_toast("success!");
+                        $("#download-proposal").prop('href', response);
+                    },
+                    error: function(xhr, text_status, error_thrown){
+                        if (xhr.readyState === 0)  // masalah koneksi
+                            show_toast("Sorry, we encountered a connection problem");
+                        else if (xhr.readyState === 4)  // status code error
+                            show_toast(xhr.statusText + ":  " + xhr.responseText);
+                        else
+                            show_toast("Sorry, we encountered an unknown error");
+                    },
+
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                });
+
                 return true;  // close the modal
             }, function (e) {
                 show_toast("the submission for verification has been cancelled");
