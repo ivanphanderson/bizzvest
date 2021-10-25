@@ -29,7 +29,7 @@
         <div class="outter-most-wrapper">
             <div class="form-content-wrapper white_box shadowed_box_1">
 
-                <form id="form-content" method="post" action="">
+                <form id="form-content" method="post" action="" enctype="multipart/form-data">
 
                     <div class="dummy dummy-row"></div>
 
@@ -90,7 +90,7 @@
                         {{ form.end_date }}
                     </div>
 
-                    <div class="proposal label {{ errors.does_problem_exist.proposal }}">
+                    {% comment %}<div class="proposal label {{ errors.does_problem_exist.proposal }}">
                         <span class="form-content-label">Proposal bisnis </span>
                     </div>
                     <div  class="proposal input {{ errors.does_problem_exist.proposal }}"
@@ -101,8 +101,8 @@
                                 onclick="$('#proposal-file-picker')[0].click();">
                             <div></div>
                         </div>
-                        <input id="proposal-file-picker" name="proposal-file" type="file" style="display: none;">
-                    </div>
+                        <input id="proposal-file-picker" name="proposal" type="file" style="display: none;">
+                    </div>{% endcomment %}
 
                     <div class="deskripsi label {{ errors.does_problem_exist.deskripsi }}">
                         <span class="form-content-label">Deskripsi</span>

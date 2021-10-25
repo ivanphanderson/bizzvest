@@ -1,14 +1,20 @@
+import string
+import datetime
+import random
+
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import dateformat, timezone
+from django.utils.datastructures import MultiValueDict
 
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.views.utility import validate_toko_id
 from models.models import Company
+from collections import deque
 
 
 class DoesProblemExist():
@@ -38,7 +44,64 @@ class FormErrors():
             setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
 
 
+"""
+string_character_choices = string.digits + string.ascii_letters
+class TemporaryFiles:
+    global_dict = {}
+    global_queue = deque()
+
+    def __init__(self, data, timeout_in_second=12):
+        while (id:=''.join(random.choices(string_character_choices, k=48))) in self.__class__.global_dict:
+            pass
+
+        self.data = data
+        self.id = id
+        self.timeout = datetime.datetime.now() + datetime.timedelta(0, timeout_in_second)
+        self.__class__.global_dict[self.id] = self
+        self.__class__.global_queue.append(self)
+
+    @classmethod
+    def get(cls, key, default=Exception):
+        ret = cls.global_dict.get(key, default)
+        if isinstance(ret, Exception):
+            raise ret("key error")
+        return ret
+
+
+    @classmethod
+    def delete_outdated_files(cls):
+        if len(cls.global_queue) == 0:
+            assert len(cls.global_dict) == 0
+            return
+
+        temp = cls.global_queue[-1]
+        while (temp.timeout < datetime.datetime.now()):
+            if temp.id in cls.global_dict:
+                del cls.global_dict[temp.id]
+                Company.objects.filter(id=temp.data).delete()
+            cls.global_queue.pop()
+
+            if not cls.global_queue:  # if queue is empty, then dict must be empty. Tapi ga berlaku sebaliknya
+                assert len(cls.global_dict) == 0
+                break
+
+            temp = cls.global_queue[-1]
+
+    @classmethod
+    def mark_as_permanent(cls, tempfile_id):
+        del cls.global_dict[tempfile_id]
+
+    @classmethod
+    def reset_counter(cls, prev_id):
+        ret = cls(cls.global_dict[prev_id].data)
+        del cls.global_dict[prev_id]
+        return ret
+"""
+
+
+
 def add_toko(req:WSGIRequest):
+    # TemporaryFiles.delete_outdated_files()
 
     validation_state = '1'
     show_invalid_modal = False
@@ -49,9 +112,25 @@ def add_toko(req:WSGIRequest):
 
 
     if (req.method == 'POST'):
-        file_proposal = req.session.get('proposal-file', None)
-        if (file_proposal is None and req.FILES.get('proposal-file', None) is None):
-            pass
+        """
+        files:MultiValueDict = req.FILES.copy()
+
+        
+        print(files)
+        previous_state_object_id = req.session.get('proposal', None)
+
+        instance = None
+        if (files.get('proposal', None) is None
+                and (previous_state_object_id is not None)
+                and previous_state_object_id in TemporaryFiles.global_dict):
+            instance = Company.objects.get(id=TemporaryFiles.get(previous_state_object_id))
+            TemporaryFiles.reset_counter(previous_state_object_id)
+            form = CompanyAddForm(req.POST, files, instance=instance)
+        else:
+            form = CompanyAddForm(req.POST, files)
+            req.session('proposal', TemporaryFiles(form.instance.s)
+                        )
+                        """
 
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
