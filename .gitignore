@@ -72,3 +72,4 @@ staticfiles/
 
 # ignore virtual environment
 env/
+my-env/
