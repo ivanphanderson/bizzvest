@@ -21,14 +21,16 @@
 </head>
 <body>
 
-    <a href="/halaman-toko/?id={{ company.id }}"
-       data-toggle="tooltip" data-placement="bottom" title="kembali ke halaman toko">
-        <div class="back-to-company-wrapper">
+
+        <div class="back-to-company-wrapper" onclick="$('#back-to-company-link')[0].click();"
+             data-toggle="tooltip" data-placement="bottom" title="kembali ke halaman toko">
             <div id="back-to-company-button" class="shadowed_box_2_clickable">
                 <i class="fas fa-arrow-left"></i>
             </div>
         </div>
-    </a>
+        <a id="back-to-company-link" href="/halaman-toko/?id={{ company.id }}">
+
+        </a>
 
 <div class="photo-manager-wrapper">
     <div id="photo-manager-container" class="white_box shadowed_box_1">

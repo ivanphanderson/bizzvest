@@ -136,4 +136,38 @@ $(document).ready(function (){
             }
         }
     });
+
+
+
+    /* Mengurus layout */
+
+    var readjust_photo_manager = function (e) {
+        var photo_manager_container = $("#photo-manager-container");
+        var photo_manager_container_width = photo_manager_container.innerWidth();  // assume that the padding is always zero
+        var photo_manager = $(".photo-manager");
+
+        var photo_manager_item = $(".photo-manager-items").get(0);
+        var computed_photo_item = getComputedStyle(photo_manager_item);
+
+        var photo_item_width = computed_photo_item.getPropertyValue('--photo-manager-items-size');
+        photo_item_width = photo_item_width.replace("px", "").trim();
+        var photo_item_margin = computed_photo_item.getPropertyValue('--photo-manager-items-margin');
+        photo_item_margin = photo_item_margin.replace("px", "").trim();
+
+        var total_width_each_item = parseInt(photo_item_width) + 2 * parseInt(photo_item_margin);
+
+        var max_number_of_item_per_row = Math.max(1,
+            Math.floor((photo_manager_container_width - 40) / total_width_each_item));
+
+        photo_manager.css('display', 'grid');
+        photo_manager.css('grid-template-rows', 'repeat(12, auto)');  // 12 = banyak foto maksimum
+        photo_manager.css('grid-template-columns', 'repeat(' + max_number_of_item_per_row + ', auto)');
+    };
+    $(window).resize(readjust_photo_manager);
+    try{
+        readjust_photo_manager();
+    }catch (e) {
+        setTimeout(readjust_photo_manager, 200);
+    }
+
 });
