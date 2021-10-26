@@ -138,8 +138,9 @@ body{
     transition: font-size 1s ease-in-out;
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr repeat(4, auto) 1fr;
-    grid-gap: 3px 17px;
+    grid-template-rows: 3fr auto 2fr auto 2fr auto 2fr auto 3fr;
+    grid-column-gap: 17px;
+    grid-row-gap: 2px;
 }
 
 

@@ -2,14 +2,6 @@ $(document).ready(function (){
     photo_manager = photo_manager_1;
 
 
-    var get_toast_instance = (jquery_toast_element=$(".toast")) => bootstrap.Toast.getInstance(jquery_toast_element[0]);
-    window.debug__get_toast_instance = get_toast_instance;
-
-    function clear_toast_timeout_if_exist(jquery_toast_element=$(".toast")){
-        clearTimeout(get_toast_instance(jquery_toast_element)._timeout);
-    }
-
-
     // ketika user menekan tombol +, maka prompt user untuk memilih file yang diinginkan
     $(".add-photo-wrapper").on("click", function (e) {
         var temp = $("#file-picker");
@@ -22,21 +14,23 @@ $(document).ready(function (){
     $("#file-picker:file").change(function (){
         var pick_file_btn = $("#file-picker");
 
-        if (photo_manager.is_currently_sending_ajax()) {
-            photo_manager.error_handler('busy', null, photo_manager.busy_msg);
-            return false;
-        }
-        photo_manager.is_currently_sending_ajax(true);
-        photo_manager.misc_handler('uploading', 'uploading the selected photo(s)');
 
         // jika user tidak menekan tombol cancel
         if (pick_file_btn.get(0).files.length > 0){
+            if (photo_manager.is_currently_sending_ajax()) {
+                photo_manager.error_handler('busy', null, photo_manager.busy_msg);
+                return false;
+            }
 
             if (pick_file_btn.get(0).files.length + photo_manager.manager_items().length > 12){
                 photo_manager.error_handler('illegal-uploading', null,
                     "Sorry, you can't have more than 12 photos");
-                return;
+                return false;
             }
+
+            photo_manager.is_currently_sending_ajax(true);
+            photo_manager.misc_handler('uploading', 'uploading the selected photo(s)');
+
 
             console.log("uploading photos");
             var formData = new FormData($("form#add-new-photo-form").get(0));
@@ -64,55 +58,38 @@ $(document).ready(function (){
 
 
     photo_manager.error_handler = function (type, xhr, text_status, error_thrown){
-        clear_toast_timeout_if_exist();
 
-        console.log(" =========== start ============");
-        console.log(type);
-        console.log(xhr);
-        console.log(text_status);
-        console.log(error_thrown);
-        console.log(" =========== end ============");
-
-        if (type === "busy") {
-            $(".toast #toast-msg").text(text_status);
-            console.log('asdfgh');
-        } else if (type === "illegal-uploading")
-            $(".toast #toast-msg").text(text_status);
+        if (type === "busy" || type === "illegal-uploading")
+            show_toast(text_status, 1);
         else if (xhr.readyState === 0)  // masalah koneksi
-            $(".toast #toast-msg").text("Sorry, we encountered a connection problem");
+            show_toast("Sorry, we encountered a connection problem", 1);
         else if (xhr.readyState === 4)  // status code error
-            $(".toast #toast-msg").text(xhr.statusText + ":  " + xhr.responseText);
+            show_toast(xhr.statusText + ":  " + xhr.responseText, 1);
         else
-            $(".toast #toast-msg").text("Sorry, we encountered an unknown error");
+            show_toast("Sorry, we encountered an unknown error", 1);
 
-        $(".toast").toast("show");
     }
 
     photo_manager.success_handler = function (type, message){
-        clear_toast_timeout_if_exist();
-
         if (type==="deleting")
-            $(".toast #toast-msg").text("the photo has been deleted successfully");
+            show_toast("the photo has been deleted successfully", 2);
         else if (type === "reordering")
-            $(".toast #toast-msg").text("the photos' order has been saved");
+            show_toast("the photos' order has been saved", 2);
         else if (type === "uploading")
-            $(".toast #toast-msg").text("the photo(s) has been uploaded");
+            show_toast("the photo(s) has been uploaded", 2);
         else
             return;
 
-        $(".toast").toast("show");
+        setTimeout(readjust_photo_manager, 150);
     }
 
     photo_manager.misc_handler = function (type, message) {
-        clear_toast_timeout_if_exist();
-
-        $(".toast #toast-msg").text(message);
-        $(".toast").toast("show");
+        show_toast(message, 0);
     }
 
 
 
-    $('.toast').toast({delay:2500});
+    $('.toast').toast({delay:3000});
 
 
 
@@ -139,7 +116,7 @@ $(document).ready(function (){
 
 
 
-    /* Mengurus layout */
+    /* ======================= Mengurus layout ======================= */
 
     var readjust_photo_manager = function (e) {
         var photo_manager_container = $("#photo-manager-container");
@@ -163,7 +140,9 @@ $(document).ready(function (){
         photo_manager.css('grid-template-rows', 'repeat(12, auto)');  // 12 = banyak foto maksimum
         photo_manager.css('grid-template-columns', 'repeat(' + max_number_of_item_per_row + ', auto)');
     };
+
     $(window).resize(readjust_photo_manager);
+
     try{
         readjust_photo_manager();
     }catch (e) {

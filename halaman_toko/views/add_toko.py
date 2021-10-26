@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -16,23 +17,26 @@ class DoesProblemExist():
 
 class FormErrors():
     def __init__(self, errors):
-        dictionary = dict(errors)
-        temp = ['proposal',
-                'nama_merek',
-                'nama_perusahaan',
-                'alamat',
-                'deskripsi',
-                'jumlah_lembar',
-                'nilai_lembar_saham',
-                'kode_saham',
-                'dividen',
-                'end_date',
-                ]
+        # dictionary = dict(errors)
+        dictionary = errors.as_data()
+        fields_list =  ['proposal',
+                        'nama_merek',
+                        'nama_perusahaan',
+                        'alamat',
+                        'deskripsi',
+                        'jumlah_lembar',
+                        'nilai_lembar_saham',
+                        'kode_saham',
+                        'dividen',
+                        'end_date',
+                        ]
 
         self.does_problem_exist = DoesProblemExist()
 
-        for attr_name in temp:
-            setattr(self, attr_name, dictionary.get(attr_name, ""))
+        no_error = (ValidationError("") ,)
+        for attr_name in fields_list:
+            temp:ValidationError = dictionary.get(attr_name, no_error)[-1]
+            setattr(self, attr_name, temp.message)
             setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
 
 
@@ -54,7 +58,10 @@ def add_toko(req:WSGIRequest):
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
 
-        temp = get_logged_in_user_account().entrepreneuraccount
+        temp = get_logged_in_user_account()
+        if not hasattr(temp, 'entrepreneuraccount'):
+            return HttpResponse("Your account hasn't been registered as an entrepreneur yet", status=400)
+        temp = temp.entrepreneuraccount
         form.instance.pemilik_usaha = temp
 
         if ('pemilik_usaha' in req.POST):

@@ -51,7 +51,7 @@ class CompanyAddForm(forms.ModelForm):
             errors['dividen'] = ["dividen must be positive",]
 
         if ('end_date' not in data or data['end_date'] <= date.today()):
-            errors['end_date'] = ["end date must be future dates",]
+            errors['end_date'] = ["end date must be in the future",]
 
         if len(errors) > 0:
             raise ValidationError(errors)

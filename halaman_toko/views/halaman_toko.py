@@ -73,11 +73,14 @@ def edit_proposal(req:WSGIRequest):
         form_instance:Company = form.instance
         return HttpResponse(form_instance.proposal.url, status=200)
 
-    return HttpResponse(
-        str(form.errors),
-        status=400
-    )
-
+    try:
+        return HttpResponse(
+            # harusnya cuman ada 1 field yang error, karena memang cuman ada 1 field
+            form.errors.as_data()['proposal'][-1].message,
+            status=400
+        )
+    except:
+        return HttpResponse(str(form.errors), status=400)
 
 def proposal_not_available(req:WSGIRequest):
     return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)
@@ -138,7 +141,7 @@ def ajukan_verifikasi(req:WSGIRequest):
     if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
         return HttpResponse("Invalid verification status", status=400)
 
-    if (company_object.proposal is None):
+    if (not company_object.proposal):
         return HttpResponse("Proposal must be uploaded", status=400)
 
     if (company_object.companyphoto_set.all().count() == 0):

@@ -18,7 +18,9 @@
     <head>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/toast.js' %}"></script>
         <script src="{% static 'js/halaman_toko.js' %}"></script>
+
         <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 
@@ -31,6 +33,7 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/toast.css' %}"/>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ company.nama_merek }}</title>
@@ -213,16 +216,22 @@
                                         data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
                             {% endif %}
                         </div>
+                        <div class="dummy dummy-between"></div>
+
 
                         <div>Berakhir pada </div>
                         <div>
                             {{ company.end_date|date:"d M Y" }}
                         </div>
+                        <div class="dummy dummy-between"></div>
+
 
                         <div>Jumlah lembar saham </div>
                         <div>
                             {{ company.jumlah_lembar|intcomma|chars_replace:",." }} lembar
                         </div>
+                        <div class="dummy dummy-between"></div>
+
 
                         <div>harga saham </div>
                         <div>
@@ -392,22 +401,6 @@
             </div>
         </div>
 
-
-    <!-- toast -->
-
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
-        <div class="toast-body">
-            <div class="toast-body-wrapper">
-                <div style="display: table;">
-                    <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
-                        Hello, world! This is a toast message.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+    {% include 'toast.html' %}
     </body>
 </html>
