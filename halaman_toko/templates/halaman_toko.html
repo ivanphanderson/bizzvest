@@ -200,7 +200,7 @@
                             {% if company.status_verifikasi == company.StatusVerifikasi.TERVERIFIKASI %}
                                 terverifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.VERIFIKASI_DITOLAK %}
-                                verifikasi ditolak
+                                <span style="color: red;">verifikasi ditolak</span>
                             {% elif company.status_verifikasi == company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI %}
                                 menunggu verifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
