@@ -1,0 +1,35 @@
+/* #row-name {
+    align-self: center;
+} */
+
+/* #col-set{
+    margin-left: 50px;
+    position: relative;
+    text-align: left;
+} */
+
+/* #col-nama {
+    text-align: left;
+    float: left;
+} */
+
+/* #col-username {
+    float: right;
+} */
+
+p{
+    margin-left: 30px;
+    margin-right: 0px;
+}
+
+#label-nama, #label-user , #label-kelamin, #label-phone{
+    margin-left: 30px;
+}
+#label-desk {
+    margin-left: 41%;
+    margin-top: 20px;
+}
+
+#isi-desk {
+    margin-right: 30px;
+}

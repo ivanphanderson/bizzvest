@@ -226,3 +226,22 @@ label {
   background-color: #0096C7;
   
 }  */
+
+#signupModal {
+  border-radius: 20px 20px 20px 20px;
+}
+
+.modal-content {
+  border-radius: 20px 20px 20px 20px;
+}
+
+#tombol-ubah-password {
+  border-radius: 10px 10px 10px 10px;
+  background-color: #0096C7;
+  color: white;
+  
+}
+
+.footer {
+  align-self: center;
+}

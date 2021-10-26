@@ -1,0 +1,239 @@
+body {
+  margin-top: 100px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#8ce8ff), to(#f4fdff));
+  background-image: linear-gradient(to bottom, #8ce8ff, #f4fdff);
+  margin-bottom: 83px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+html {
+  font-size: 100%;
+}
+
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.col {
+  margin-bottom: 35px;
+}
+
+#warna-log-out {
+  background-color: #E05D5D;
+  padding: 10px 20px;
+  font-size: 20px;
+  -webkit-box-align: cen;
+      -ms-flex-align: cen;
+          align-items: cen;
+}
+
+#tombol-simpan {
+  margin-top: 40px;
+  background-color: #0096C7;
+  
+
+}
+
+#ganti-foto {
+  background-color: #0096C7;
+}
+
+
+#navbarkiri2, #navbarkiri3 {
+  color: #0096C7;
+}
+
+#navbarkiri1 {
+  background-color: #0096C7;
+}
+.nav-link:focus{
+  color: #0096C7;
+  text-decoration: none;
+}
+
+/* #navbarkiri1:visited {
+  background-color: #0096C7;
+  text-decoration: none;
+} */
+
+#navbarkiri2:hover, #navbarkiri3:hover {
+  color: #0096C7;
+  text-decoration: underline;
+}
+
+#navbarkiri1:hover {
+  background-color: #0096C7;
+  text-decoration: underline;
+}
+
+
+.card {
+  border-radius: 20px 20px 20px 20px;
+}
+
+.e-profile {
+  /* height: fit-content + 20px; */
+}
+
+#tombol-ganti-password {
+  background-color: #0096C7;
+}
+
+.badge {
+  background-color: #FFB344;
+}
+
+#tombol-log-out {
+  padding: 8px 15px;
+  font-size: medium;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.profile-pic {
+  color: transparent;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  /* translasinya untuk object center pada css */
+  /* biar gausah pake preprocessor scss lagi */
+  -webkit-box-pack: center;  
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  transition: all .3s ease;
+  margin-left: auto;
+}
+
+.profile-pic input {
+  display: none;
+}
+
+.profile-pic img {
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 165px;
+  height: 165px;
+  -webkit-box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+          box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 100px;
+  z-index: 0;
+  margin-top: 38px;
+  margin-left: 0px;
+}
+
+
+#name-head {
+  margin-top:38px;
+  margin-left: auto;
+  -ms-transform: translate(-20%, -20%);
+  transform: translate(-10%, -30%, 40%);
+}
+.profile-pic .-label {
+  cursor: pointer;
+  height: 165px;
+  width: 165px;
+  margin-left: 0;
+  margin-top: 38px;
+}
+
+.profile-pic:hover .-label {    
+  /* kalo dihover bakal mennciut sedikir, dan muncul shadow pada frame picture*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* dibawah ini biar konten change imagenya ke tengah */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* di bawah ini biar muncul shadow item dan ada animasi menggelap */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  -webkit-transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out;
+
+  /* ini biar efek shadowingnya menyesuaikan bentuk frame picture yang lingkaran */
+  border-radius: 100px;
+
+  /* di bawah ini biar konten cardnya mengkerucut ketika kita hover ke picture */
+  /* margin-top: 50px; */
+}
+
+.profile-pic span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: .2em;
+  height: 2em;
+}
+
+
+body a:hover {
+  text-decoration: none;
+}
+/*# sourceMappingURL=ganti_profil.css.map */
+
+label {
+  /* margin-bottom: 5px; */
+}
+
+/* .pt-sm-2 {
+  margin-top: 50px;
+} */
+
+#fbuilder select{
+  opacity: 1 !important; 
+  visibility: visible !important;
+  }
+
+#dropdownMenuButton1 {
+  background-color: white;
+  color: black;
+}
+
+#button-simpan {
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+} 
+
+#tombol-batalkan {
+  background-color: #E05D5D;
+  display:flex;
+  justify-content: flex-end;
+  -ms-transform: translate(-10%, -10%);
+  transform: translate(-10%, -120%);
+}
+/* 
+#button-batalkan {
+  background-color: #0096C7;
+  
+}  */
