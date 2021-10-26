@@ -1,4 +1,13 @@
 
+.label, .input{
+    font-family: 'Tisa Sans Pro', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*.input{
+    font-family: 'Quicksand', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}*/
+
+
 .outter-most-wrapper{
     min-height: 100%;
     display: flex;
@@ -14,6 +23,10 @@
 
 .form-content-wrapper{
     min-width: clamp(400px, 70vw, 650px);
+
+    --form-content-wrapper-vertical-margin: 20px;
+    margin-bottom: var(--form-content-wrapper-vertical-margin);
+    margin-top: var(--form-content-wrapper-vertical-margin);
 }
 
 .dummy-row{
@@ -54,9 +67,11 @@
     }
 }
 
-@media only screen and (max-width: 600px) {
+
+/* mobile parts */
+@media only screen and (max-width: 640px) {
     /*noinspection CssOverwrittenProperties*/
-    .form-content-wrapper{
+    .form-content-wrapper.form-content-wrapper{
         min-width: clamp(50px, 90vw, 650px);
         max-width: 97%;
         max-width: calc(97vw - 10px);
@@ -84,7 +99,7 @@
     }
 
     #form-content > .label{
-        font-weight: 600;
+        font-weight: 500;
     }
 
 /*

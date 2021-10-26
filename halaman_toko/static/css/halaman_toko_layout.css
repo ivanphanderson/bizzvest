@@ -1,6 +1,5 @@
 :root{
     counter-reset: body_child__y_grid_pos;
-
 }
 
 body{
@@ -499,6 +498,11 @@ body{
         align-items: stretch;
     }
 
+    #body > div{
+        --mobile-bottom-margin: 2px;
+        margin-bottom: var(--mobile-bottom-margin);
+    }
+
     #photos_container{
         height: clamp(30vh, 90vw, 45vh);
     }
@@ -516,6 +520,11 @@ body{
         margin: auto;
     }
 
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+
     #entrepreneur_account_information_container .h4{
         font-size: calc(1.1em + 0.4vw);
     }
@@ -523,6 +532,10 @@ body{
     #informasi_umum{
         display: flex;
         flex-direction: column;
+    }
+
+    #informasi_umum > div{
+        margin: var(--mobile-bottom-margin);
     }
 
     #informasi_umum .atas{

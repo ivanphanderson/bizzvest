@@ -136,3 +136,25 @@ body{
     display: grid;
     grid-template-columns: 1fr auto;
 }
+
+
+/*  for mobile. Media max-width may need to be readjusted manually if you make some changes to the photo_control or
+    to this manage_photos */
+@media only screen and (max-width: 640px) {
+    .photo-manager.photo-manager{
+        display: grid;
+        grid-template-columns: auto auto;
+
+        /* 6 because 6 * 2 [number of col] = 12
+            [max-number of a photo you can have] */
+        grid-template-rows: repeat(6, auto);
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .photo-manager.photo-manager{
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: repeat(12, auto);
+    }
+}

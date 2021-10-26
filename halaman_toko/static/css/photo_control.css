@@ -17,16 +17,21 @@
 }
 
 
+
+
+
 .photo-manager-items{
     --photo-manager-items-blur-background-filter: blur(1px);
     --photo-manager-items-photo-filter: blur(0);
     --photo-manager-items-size: 140px;
-    --photo-manager-items-margin: 12px;
+    --photo-manager-items-margin: 7px;
     --photo-manager-items-border-radius: 3px;
     --photo-manager-items-box-shadow: 1px 1px 0px 0px rgba(93, 93, 93, 0.4);
 
-    height: var(--photo-manager-items-size);
     width: var(--photo-manager-items-size);
+    height: var(--photo-manager-items-size);
+    aspect-ratio: 1 / 1;
+
     margin: var(--photo-manager-items-margin);
     border-radius: var(--photo-manager-items-border-radius);
     background-clip: padding-box;
@@ -126,3 +131,6 @@
         padding-right:30px;
     }
 }
+
+
+
