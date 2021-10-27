@@ -58,31 +58,14 @@
             <div class="card">
 
               <div class="view overlay">
-                   
-                <div class="carousel-inner h-100">                  
-                  
-                  {% for image in item.companyphoto_set.all %}
-                    <img src="{{ image.img }}">
-                  {% endfor %}
-
-                </div>  
-                <img src="" class="card-img-top">
-                <a href="{{ item.get_absolute_url }}">
-                  <div class="mask rgba-white-slight"></div>
-                </a>
+                 <img src="{{ item.companyphoto_set.all.0.img }}">
               </div>
 
               <div class="card-body text-center">
                 <a href="" class="grey-text">
-                  <h5>{{ item.get_category_display }}</h5>
+                  <h5>loh</h5>
                 </a>
-                <h5>
-                  <strong>
-                    <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}
-                      <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span>
-                    </a>
-                  </strong>
-                </h5>
+               
 
                 <h4 class="font-weight-bold blue-text">
                   <strong>                  
