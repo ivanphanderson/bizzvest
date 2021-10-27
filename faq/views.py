@@ -15,10 +15,7 @@ def save_data(request):
         if form.is_valid():
             nama = request.POST['nama']
             pertanyaan = request.POST['pertanyaan']
-            if(pertanyaan == ''):
-                faq = Faq(nama = nama, pertanyaan = pertanyaan)
-            else:
-                faq = Faq(nama=nama, pertanyaan=pertanyaan)
+            faq = Faq(nama=nama, pertanyaan=pertanyaan)
             faq.save()
             tanya = Faq.objects.values()
             pertanyaan_data = list(tanya)
