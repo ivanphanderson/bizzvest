@@ -20,6 +20,7 @@
 p{
     margin-left: 30px;
     margin-right: 0px;
+    font-family: Roboto;
 }
 
 #label-nama, #label-user , #label-kelamin, #label-phone{
@@ -32,4 +33,18 @@ p{
 
 #isi-desk {
     margin-right: 30px;
+    font-weight: lighter;
+    
+}
+
+#isi-data {
+    font-weight: lighter;
+}
+
+#card-desk {
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+a {
+    color: #0096C7;
 }

@@ -1,3 +1,4 @@
+
 body {
   margin-top: 100px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8ce8ff), to(#f4fdff));
@@ -72,6 +73,8 @@ html {
 }
 .card {
   border-radius: 20px 20px 20px 20px;
+  background: rgba(255, 255, 255, 0.25) ;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .e-profile {
@@ -113,6 +116,11 @@ html {
   position: relative;
   transition: all .3s ease;
   margin-left: auto;
+  ;
+}
+.-label {
+  color: transparent;
+  
 }
 
 .profile-pic input {
@@ -190,6 +198,45 @@ body a:hover {
 
 label {
   /* margin-bottom: 5px; */
+  color: #0096C7;
+  font-family: Roboto;
+  font-weight: 1200;
+}
+
+p {
+  font-family: Roboto;
+  color: #27adc5;
+  font-weight: bold;
+ 
+  
+}
+
+#kini-anda {
+  color: #07a6c2;
+  font-weight: lighter;
+}
+
+.form-control {
+font-family: Roboto;
+font-style: normal;
+font-weight: lighter;
+font-size: 15px;
+/* line-height: 42px; */
+
+color: #0096C7;
+
+}
+
+h4{
+  color: #0096c5;
+  font-family: Roboto;
+  font-weight: 900;
+}
+
+h5{
+  color: #0096c5;
+  font-family: Roboto;
+  font-weight: 900;
 }
 
 /* .pt-sm-2 {
@@ -233,6 +280,13 @@ label {
 
 .modal-content {
   border-radius: 20px 20px 20px 20px;
+  background-image: linear-gradient(to bottom, #8ce8ff, #f4fdff);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.myModalLabel {
+  font-family: Roboto;
+  color: #0096C7;
 }
 
 #tombol-ubah-password {
