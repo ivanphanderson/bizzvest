@@ -82,17 +82,17 @@ $(document).ready(function (){
                 window.onbeforeunload = null;
                 $("#control_btn_container").toggleClass("editing_mode");
                 $(".control_btn").prop('disabled', false);
-                show_toast("The description has been saved successfully!")
+                show_toast("The description has been saved successfully!", 2)
             }, error: function (xhr){
                 $("#company_description").attr('contenteditable','true');
                 $(".control_btn").prop('disabled', false);
 
                 if (xhr.readyState === 0)  // masalah koneksi
-                    show_toast("Sorry, we encountered a connection problem");
+                    show_toast("Sorry, we encountered a connection problem", 1);
                 else if (xhr.readyState === 4)  // status code error
-                    show_toast(xhr.statusText + ":  " + xhr.responseText);
+                    show_toast(xhr.statusText + ":  " + xhr.responseText, 1);
                 else
-                    show_toast("Sorry, we encountered an unknown error");
+                    show_toast("Sorry, we encountered an unknown error", 1);
             }
         });
     });
@@ -106,7 +106,7 @@ $(document).ready(function (){
     $("#pick-proposal:file").change(function (e) {
         console.log("asd", $("#pick-proposal:file")[0].files.length)
         if ($("#pick-proposal:file")[0].files.length > 0){
-            show_toast('uploading...');
+            show_toast('uploading...', 0);
             var formData = new FormData($("form#upload-proposal-form").get(0));
 
             $.ajax({  // harus pakai ajax `processData: false, contentType: false` untuk mencegah illegal invocation
@@ -114,16 +114,16 @@ $(document).ready(function (){
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    show_toast("success!");
+                    show_toast("success!", 2);
                     $("#download-proposal").prop('href', response);
                 },
                 error: function(xhr, text_status, error_thrown){
                     if (xhr.readyState === 0)  // masalah koneksi
-                        show_toast("Sorry, we encountered a connection problem");
+                        show_toast("Sorry, we encountered a connection problem", 1);
                     else if (xhr.readyState === 4)  // status code error
-                        show_toast(xhr.statusText + ":  " + xhr.responseText);
+                        show_toast(xhr.statusText + ":  " + xhr.responseText, 1);
                     else
-                        show_toast("Sorry, we encountered an unknown error");
+                        show_toast("Sorry, we encountered an unknown error", 1);
                 },
 
                 processData: false,
@@ -135,10 +135,12 @@ $(document).ready(function (){
 
     $(".request_for_verification").on('click', function (e) {
         show_modal("Apakah Anda benar-benar ingin mengajukan verifikasi? " + "<br/><br/>" +
-            "Jika anda sudah mengajukan verifikasi, maka anda tidak akan bisa mengubah informasi apapun lagi untuk kedepannya",
+            "Jika anda sudah mengajukan verifikasi, maka anda tidak akan bisa mengubah informasi " +
+            "apapun lagi untuk kedepannya",
+
             "Submit for verification",
             function (e) {
-                show_toast('submitting the verification');
+                show_toast('submitting the verification', 0);
                 var proposal = $("form#request-verification-form");
 
                 $.ajax({  // harus pakai ajax `processData: false, contentType: false` untuk mencegah illegal invocation
@@ -146,16 +148,16 @@ $(document).ready(function (){
                     type: 'POST',
                     data: new FormData(proposal.get(0)),
                     success: function (response) {
-                        show_toast("success!");
-                        $("#download-proposal").prop('href', response);
+                        show_toast("success!", 2);
+                        setTimeout(()=>location.reload(), 2000);
                     },
                     error: function(xhr, text_status, error_thrown){
                         if (xhr.readyState === 0)  // masalah koneksi
-                            show_toast("Sorry, we encountered a connection problem");
+                            show_toast("Sorry, we encountered a connection problem", 1);
                         else if (xhr.readyState === 4)  // status code error
-                            show_toast(xhr.statusText + ":  " + xhr.responseText);
+                            show_toast(xhr.statusText + ":  " + xhr.responseText, 1);
                         else
-                            show_toast("Sorry, we encountered an unknown error");
+                            show_toast("Sorry, we encountered an unknown error", 1);
                     },
 
                     processData: false,
@@ -165,7 +167,7 @@ $(document).ready(function (){
 
                 return true;  // close the modal
             }, function (e) {
-                show_toast("the submission for verification has been cancelled");
+                show_toast("the submission for verification has been cancelled", 0);
                 return true;  // close the modal
             });
     })
@@ -240,17 +242,6 @@ function get_text_with_correct_new_lines(element, decode_tag=true){
 }
 
 
-var get_toast_instance = (jquery_toast_element=$(".toast")) => bootstrap.Toast.getInstance(jquery_toast_element[0]);
-
-function clear_toast_timeout_if_exist(jquery_toast_element=$(".toast")){
-    clearTimeout(get_toast_instance(jquery_toast_element)._timeout);
-}
-
-function show_toast(message) {
-    clear_toast_timeout_if_exist();
-    $("#toast-msg").html(message);
-    $(".toast").toast("show");
-}
 
 
 function show_modal(message, title="", on_ok=(e)=>true, on_cancel = (e)=>true){
@@ -304,3 +295,4 @@ function initiate_modal_event_control(){
         'get_on_cancel': get_on_cancel,
     }
 }
+

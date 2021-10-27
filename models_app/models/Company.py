@@ -23,6 +23,7 @@ class Company(models.Model):  # dengan nama lain: Toko
     status_verifikasi = models.IntegerField(choices=StatusVerifikasi.choices, default=StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI)
     proposal = models.FileField(upload_to="uploads/proposals/%Y/%m/",
                                 null=True,
+                                blank=True,
                                 validators=[validate_pdf_file_extension]
                                 )
 

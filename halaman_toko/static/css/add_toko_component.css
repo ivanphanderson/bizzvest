@@ -91,14 +91,12 @@ textarea.isian-formulir{
     border: 2px solid red;
 }
 
-
-/*
-input[type='date']{
-    position: relative;
-    padding-left: 0;
+.error-msg{
+    font-size: 0.75em;
+    color: red;
 }
 
-input::-webkit-calendar-picker-indicator{
-    left: -20px;
-    position: relative;
-}*/
+div.problem .error-msg{
+    display: inline-block;
+    margin-bottom: 0px;
+}

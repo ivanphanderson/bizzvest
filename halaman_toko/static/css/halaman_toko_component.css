@@ -1,3 +1,5 @@
+@import url("color_palette.css");
+
 #nama_merek{
     font-weight: bold;
 }
@@ -153,4 +155,23 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
+}
+
+
+#description_container .h5{
+    color: #07829f;
+}
+#description_container div{
+    color: #004d62;
+}
+
+#informasi_umum .bawah .header{
+    color: #07829f;
+}
+
+#informasi_umum .bawah .div-kiri, #informasi_umum .bawah .div-kanan{
+    color: #004d62;
+}
+#informasi_umum .tengah{
+    color: #004d62;
 }
