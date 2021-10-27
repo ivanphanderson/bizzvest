@@ -86,8 +86,8 @@ Semua yang ada disini tidak akan dirender
 class DefineDuplicationNode(template.Node):
     ALL_DEFINED_DUPLICATIONS = {}
 
-    def __init__(self, id, nodelist: NodeList[Any]):
-        self.nodelist: NodeList[Any] = nodelist
+    def __init__(self, id, nodelist: NodeList):
+        self.nodelist: NodeList = nodelist
         self.id = id
         self.__class__.ALL_DEFINED_DUPLICATIONS[self.id] = self
 
@@ -100,7 +100,7 @@ class DefineDuplicationNode(template.Node):
 
 
 class InstantiateDuplication(template.Node):
-    def __init__(self, target_duplication_id:str, extra_class:str, nodelist:NodeList[Any]):
+    def __init__(self, target_duplication_id:str, extra_class:str, nodelist:NodeList):
         self.nodelist = nodelist
         self.extra_class = str(extra_class)
         self.target_duplication_id = str(target_duplication_id)
@@ -121,7 +121,7 @@ def define_duplication(parser:Parser, token:Token) -> DefineDuplicationNode:
         raise TemplateSyntaxError("define_duplication takes one string arguments: duplication_id")
 
     # parse semua node ke dalam nodelist sampai akhirnya ketemu token end_define_duplication
-    nodelist: NodeList[Any] = parser.parse(("end_define_duplication",))
+    nodelist: NodeList = parser.parse(("end_define_duplication",))
 
     # Kita buang (jangan dimasukkan ke rendered html) token end_define_duplication tersebut
     parser.delete_first_token()  # first token = token pertama pada posisi kursor saat ini
@@ -139,7 +139,7 @@ def instantiate_duplication(parser:Parser, token:Token) -> InstantiateDuplicatio
     except ValueError:
         raise TemplateSyntaxError("define_duplication takes two string arguments: target_duplication_id and extra_class")
 
-    nodelist: NodeList[Any] = parser.parse(("end_instantiate_duplication",))
+    nodelist: NodeList = parser.parse(("end_instantiate_duplication",))
     parser.delete_first_token()  # first token = token pertama pada posisi kursor saat ini
 
     duplication_id = duplication_id[1:-1]  # menghapus tanda kutip di awal dan di akhir
