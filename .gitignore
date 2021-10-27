@@ -1,6 +1,13 @@
 # pycharm
 .idea/
 venv/
+uploads/
+
+# migrations
+**/migrations/**
+#!**/migrations
+#!**/migrations/__init__.py
+
 
 
 # Byte-compiled / optimized / DLL files
@@ -65,3 +72,4 @@ staticfiles/
 
 # ignore virtual environment
 env/
+my-env/

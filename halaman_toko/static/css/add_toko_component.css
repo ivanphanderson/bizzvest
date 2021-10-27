@@ -1,0 +1,102 @@
+@import url("color_palette.css");
+
+
+.isian-formulir{
+    --form-control-background-color: rgb(255, 255, 255);
+    --form-control-background-color-focused: rgba(255, 255, 255, 1);
+
+    --isian-formulir-box-shadow-x: 0;
+    --isian-formulir-box-shadow-y: 1px;
+
+    box-shadow: var(--isian-formulir-box-shadow-x) var(--isian-formulir-box-shadow-y) var(--color-A-5);
+    background-color: var(--form-control-background-color);
+    border-width: 0;
+    border-radius: 2px;
+
+    transition: transform 0.1s, background-color 0.5s, box-shadow 0.5s ease-out;
+    width: 100%;
+    padding: 4px;
+}
+
+
+/*.isian-formulir.pressed:focus{*/
+.isian-formulir:focus{
+    transform: translate(var(--isian-formulir-box-shadow-x), var(--isian-formulir-box-shadow-y));
+
+    --isian-formulir-pressed-focus-box-shadow: 0px 0px 13px -2px rgba(255, 208, 174, 0.95);
+
+    box-shadow: var(--isian-formulir-pressed-focus-box-shadow);
+    -webkit-box-shadow: var(--isian-formulir-pressed-focus-box-shadow);
+    -moz-box-shadow: var(--isian-formulir-pressed-focus-box-shadow);
+
+
+    background-color: var(--color-A-4);
+    border-width: 0;
+    outline: none;
+}
+
+.deskripsi-container{
+    display: flex;
+    flex-direction: column;
+}
+
+textarea.isian-formulir{
+    width: 100%;
+
+    height: 10em;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+#submit-container{
+    padding: 12px 2px;
+
+    grid-column: span 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+#submit-container .btn{
+    align-self: unset;
+}
+
+#proposal-button{
+    padding: 4px 2px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/*noinspection CssUnresolvedCustomProperty*/
+#proposal-button > div{
+    width: 20px;
+    height: 20px;
+
+    background-image: var(--background-image-src);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    filter: invert(100%);
+}
+
+.input.problem > input, .input.problem > textarea{
+    border: 1px solid red;
+}
+
+.input.problem > div{
+    border: 2px solid red;
+}
+
+.error-msg{
+    font-size: 0.75em;
+    color: red;
+}
+
+div.problem .error-msg{
+    display: inline-block;
+    margin-bottom: 0px;
+}

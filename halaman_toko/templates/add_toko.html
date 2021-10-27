@@ -1,0 +1,245 @@
+{% load static %}
+{% load index %}
+
+{% include 'require_javascript.html' %}
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
+
+        <script src="{% static 'js/add_toko.js' %}"></script>
+        <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
+{#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
+
+        <link rel="stylesheet" href="{% static 'fonts/tisa/stylesheet.css' %}"/>
+        <link rel="stylesheet" href="{% static 'fonts/Quicksand/style-regular.css' %}"/>
+
+
+        <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+        <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/add_toko_layout.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/add_toko_component.css' %}"/>
+        <title>{{ company.nama_merek }}</title>
+    </head>
+    <body>
+        <script>
+           csrf_token = "{{ csrf_token  }}";
+        </script>
+
+        <div class="outter-most-wrapper">
+            <div class="form-content-wrapper white_box shadowed_box_1">
+
+                <form id="form-content" method="post" action="" enctype="multipart/form-data">
+
+                    <div class="dummy dummy-row"></div>
+
+                    <div class="nama-merk label {{ errors.does_problem_exist.nama_merek }}">
+                        <span class="form-content-label">Nama merek</span>
+                    </div>
+                    <div class="nama-merk input {{ errors.does_problem_exist.nama_merek }}">
+                        {{ form.nama_merek }}
+                        <span class="error-msg">{{ errors.nama_merek }}</span>
+                    </div>
+
+                    <div class="nama-perusahaan label {{ errors.does_problem_exist.nama_perusahaan }}">
+                        <span class="form-content-label">Nama perusahaan</span>
+                    </div>
+                    <div class="nama-perusahaan input {{ errors.does_problem_exist.nama_perusahaan }}">
+                        {{ form.nama_perusahaan }}
+                        <span class="error-msg">{{ errors.nama_perusahaan }}</span>
+                    </div>
+
+                    <div class="kode-saham label {{ errors.does_problem_exist.kode_saham }}">
+                        <span class="form-content-label">Kode saham</span>
+                    </div>
+                    <div class="kode-saham input {{ errors.does_problem_exist.kode_saham }}">
+                        {{ form.kode_saham }}
+                        <span class="error-msg">{{ errors.kode_saham }}</span>
+                    </div>
+
+                    <div class="alamat-perusahaan label {{ errors.does_problem_exist.alamat }}">
+                        <span class="form-content-label">Alamat perusahaan</span>
+                    </div>
+                    <div class="alamat-perusahaan input {{ errors.does_problem_exist.alamat }}">
+                        {{ form.alamat }}
+                        <span class="error-msg">{{ errors.alamat }}</span>
+                    </div>
+
+
+                    <div class="jumlah-lembar label {{ errors.does_problem_exist.jumlah_lembar }}">
+                        <span class="form-content-label">Jumlah lembar saham</span>
+                    </div>
+                    <div class="jumlah-lembar input {{ errors.does_problem_exist.jumlah_lembar }}">
+                        {{ form.jumlah_lembar }}
+                        <span class="error-msg">{{ errors.jumlah_lembar }}</span>
+                    </div>
+
+                    <div class="nilai-lembar-saham label {{ errors.does_problem_exist.nilai_lembar_saham }}">
+                        <span class="form-content-label">Nilai lembar saham (rupiah) </span>
+                    </div>
+                    <div class="nilai-lembar-saham input {{ errors.does_problem_exist.nilai_lembar_saham }}">
+                        {{ form.nilai_lembar_saham }}
+                        <span class="error-msg">{{ errors.nilai_lembar_saham }}</span>
+                    </div>
+
+                    <div class="dividen label {{ errors.does_problem_exist.dividen }}">
+                        <span class="form-content-label">Dividen (bulan) </span>
+                    </div>
+                    <div class="dividen input {{ errors.does_problem_exist.dividen }}">
+                        {{ form.dividen }}
+                        <span class="error-msg">{{ errors.dividen }}</span>
+                    </div>
+
+                    <div class="end-date label {{ errors.does_problem_exist.end_date }}">
+                        <span class="form-content-label">Batas waktu </span>
+                    </div>
+                    <div class="end-date input {{ errors.does_problem_exist.end_date }}">
+                        {{ form.end_date }}
+                        <span class="error-msg">{{ errors.end_date }}</span>
+                    </div>
+
+                    <div class="deskripsi label {{ errors.does_problem_exist.deskripsi }}">
+                        <span class="form-content-label">Deskripsi</span>
+                    </div>
+                    <div class="deskripsi-container input {{ errors.does_problem_exist.deskripsi }}">
+                        {{ form.deskripsi }}
+                        <span class="error-msg">{{ errors.deskripsi }}</span>
+                    </div>
+
+                    <div id="submit-container">
+                        {% csrf_token %}
+                        <input
+                                id="is_validate_only"
+                                type="hidden"
+                                name="is_validate_only"
+                                value="{{ validation_state }}" />
+
+                        <button
+                                id="form-submit-btn"
+                                type="button"
+                                class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <!-- Modal -->
+        <div
+               class="modal fade" id="confirm-submit"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+
+            <div class="modal-dialog submit-confirmation-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Submit confirmation
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body collapsable" style="text-align: justify;">
+                        Apakah Anda benar-benar ingin mengirim data? <br><br>
+                        Setelah Anda mengirim data, Anda tidak akan dapat menghapus maupun mengubah beberapa data
+                        yang telah Anda submit sampai batas waktu terakhir perusahaan ini.
+                    </div>
+                    <div class="modal-footer collapsable">
+                        <button id="confirm-submit-cancel-btn"
+                                type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="form-confirm-submit-btn"
+                                type="button" class="btn btn-primary">I understand. Please submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Modal -->
+        <div
+               class="modal fade" id="form-problems-modal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            Invalid Data
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: justify;">
+                        {% for field, errors in form.errors.items %}
+                            {{ errors_field_verbose_name|index:forloop.counter0 }}:
+                            <ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+
+                    {% if additional_problems %}
+                        Additional Problems:
+                        <ul>
+                            {% for error in additional_problems %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    <script>
+
+        {% if show_invalid_modal %}
+            {% comment %}
+            $(document).ready(function (){
+                $("#form-problems-modal").modal('show');
+            });
+            {% endcomment %}
+
+        {% elif validation_state == '0' %}
+            $(document).ready(function (){
+                $("#confirm-submit").modal('show');
+            });
+        {% endif %}
+
+    </script>
+
+
+    </body>
+</html>

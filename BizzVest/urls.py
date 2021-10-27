@@ -13,19 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib import admin
-from my_profile.views import ganti_profil
-from my_profile.views import index
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', index, name='ganti_profil'),
-    # path('faq/', include('faq.urls')),
-    # path('start-web/', include('start_web.urls')),
-    # path('mulai-invest/', include('mulai_invest.urls')),
-    # path('daftar-toko', include('daftar_toko.urls')),
-    # path('halaman-toko', include('halaman_toko.urls')),
+    re_path('admin/?', admin.site.urls),
+    path('', include('home_page.urls')),
+    path('faq/', include('faq.urls')),
+    path('start-web/', include('start_web.urls')),
+    path('mulai-invest/', include('mulai_invest.urls')),
+    path('daftar-toko', include('daftar_toko.urls')),
+
+    path('halaman-toko/', include('halaman_toko.urls')),
+    path('halaman-toko', RedirectView.as_view(url='halaman-toko/', permanent=False)),
+    path('add-toko', RedirectView.as_view(url='halaman-toko/add', permanent=False)),
+
     path('my-profile', include('my_profile.urls')),
-    path('ganti-profil', ganti_profil, name='ganti_profil'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

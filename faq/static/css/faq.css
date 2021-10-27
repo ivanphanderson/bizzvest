@@ -1,0 +1,72 @@
+body{
+    background-image:linear-gradient(#EFFCFF, #F4FDFF);
+}
+
+.wrapper {
+    background-image:linear-gradient(#ACEEFF, #BEF2FF, #CDF5FF, #DFF9FF);
+    margin: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+.judul{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 75px;
+    line-height: 70px;
+    text-align: center;
+    color: #0096C7;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-decoration: underline solid #0096C7;
+}
+
+.accordion{
+    padding-top: 30px;
+}
+
+.accordion-item{
+    margin: 30px;
+}
+
+.accstyle{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+h5{
+    text-align: center;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    padding-bottom: 20px;
+}
+
+h6{
+    padding-top: 10px;
+}
+
+h3{
+    margin-top: 10px;
+    padding-left: 30px;
+    text-align: center;
+}
+
+.form-group {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.inputstyle {
+    padding: 9px;
+}
+
+.card-body{
+    border: 1px solid #5DDFFF;
+    padding-bottom: 25px;
+}
+
+h6{
+    font-size: 20px;
+}

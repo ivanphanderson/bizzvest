@@ -1,0 +1,56 @@
+{% comment %}
+
+Specification:
+Receive parameters:
+ - company -> the Company model's object
+ - include_id ->    a unique identifier which will be used to separate different instance of
+                    photo_control/photo_manager so that we can instantiate multiple (more than 1) instance
+                    of photo_control/photo_manage in the same page
+ - error_handler [optional] -> the name of error handler function
+ - success_handler [optional] -> the name of success handler function
+{% endcomment %}
+
+
+{% load static %}
+
+{% include 'require_javascript.html' %}
+
+<link rel="stylesheet" href="{% static 'css/photo_control.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+<link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
+
+
+<div class="photo-manager {{ include_id }}">
+</div>
+
+
+<template id="photo-manager-items-template">
+    <div class="photo-manager-items">
+        <div class="photo-manager-items-blur-background">
+        </div>
+        <div class="photo-manager-items-photo">
+        </div>
+        <div class="delete-button double-click-mobile-friendly"
+                {% comment %}
+                    the double click event handler for mobile must be handled manually by the includer
+                {% endcomment %}
+             data-toggle="tooltip" data-placement="bottom" title="double click to delete this photo">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+    </div>
+</template>
+
+
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<script src="{% static 'js/photo_control.js' %}"></script>
+
+<script>
+    {{ include_id }} = photo_manager_component_instantiate(
+        "{{ include_id }}", {{ company.id }}, "{{ csrf_token }}"
+    );
+
+
+</script>

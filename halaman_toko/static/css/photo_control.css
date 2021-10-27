@@ -1,0 +1,136 @@
+:root{
+    --photo-manager-items-background-url:'';
+}
+
+
+
+
+.photo-manager{
+    grid-column-start: span 3;
+    grid-row-start: span 3;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+
+
+
+
+.photo-manager-items{
+    --photo-manager-items-blur-background-filter: blur(1px);
+    --photo-manager-items-photo-filter: blur(0);
+    --photo-manager-items-size: 140px;
+    --photo-manager-items-margin: 7px;
+    --photo-manager-items-border-radius: 3px;
+    --photo-manager-items-box-shadow: 1px 1px 0px 0px rgba(93, 93, 93, 0.4);
+
+    width: var(--photo-manager-items-size);
+    height: var(--photo-manager-items-size);
+    aspect-ratio: 1 / 1;
+
+    margin: var(--photo-manager-items-margin);
+    border-radius: var(--photo-manager-items-border-radius);
+    background-clip: padding-box;
+    overflow: hidden;
+
+    box-shadow: var(--photo-manager-items-box-shadow);
+    -webkit-box-shadow: var(--photo-manager-items-box-shadow);
+    -moz-box-shadow: var(--photo-manager-items-box-shadow);
+}
+
+.photo-manager-items{  /* for the layout */
+    --photo-manager-items-button-default-size: 22px;
+
+    /*border: 1px ridge #0dcaf0;*/
+    cursor: grab;
+    display:grid;
+    grid-template-columns: var(--photo-manager-items-button-default-size) 1fr var(--photo-manager-items-button-default-size);
+    grid-template-rows: var(--photo-manager-items-button-default-size) 1fr;
+}
+
+.photo-manager-items.dragging{
+    opacity: 0.5;
+}
+.photo-manager-items.dragging:active{
+    opacity: 0.5;
+    cursor: move;
+}
+
+
+
+
+.photo-manager-items-photo, .photo-manager-items-blur-background{
+    grid-row: 1 / span 3;
+    grid-column: 1 / span 3;
+}
+
+
+.photo-manager-items-blur-background{
+    filter: var(--photo-manager-items-blur-background-filter);
+    -ms-filter: var(--photo-manager-items-blur-background-filter);
+    -webkit-filter: var(--photo-manager-items-blur-background-filter);
+
+    /* filter: blur(); will also give the blur effect on the edges
+    (To see it, try to zoom it in in your browser very close, where the background ratio is not square
+    and the average color is contrast to the webpage background color).  This trick will prevent blur edges  */
+    transform: scale(1.05);
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    /* it will be passed from jquery for each different element */
+    background-image: var(--photo-manager-items-background-url);
+}
+
+
+.photo-manager-items-photo{
+    filter: var(--photo-manager-items-photo-filter);
+    -ms-filter: var(--photo-manager-items-photo-filter);
+    -webkit-filter: var(--photo-manager-items-photo-filter);
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    /* it will be passed from jquery for each different element */
+    background-image: var(--photo-manager-items-background-url);
+}
+
+
+.photo-manager .delete-button{
+    --photo-manager-items-delete-icon-text-shadow: 0 0 1px #000000;
+
+    grid-row: 1;
+    grid-column: 3;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-manager .delete-button i{
+    text-shadow: var(--photo-manager-items-delete-icon-text-shadow);
+    font-size: 15px;
+    cursor: pointer;
+    color: white;
+}
+
+@media only screen and (max-width: 470px){
+    .photo-manager-items{
+        --photo-manager-items-margin: 5px;
+    }
+
+    .photo-manager{
+        padding-left:20px;
+        padding-right:30px;
+    }
+}
+
+
+

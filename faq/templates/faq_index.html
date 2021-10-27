@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/faq.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+    <p class="judul">FREQUENTLY ASK QUESTION</p>
+    </div>
+
+    <div class="wrapper">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+          <button class="accordion-button accstyle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            Bagaimana cara mendaftarkan usaha di BizzVest?
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
+            <div class="container-fluid">
+              <h5>Alur Pendaftaran Usaha di BizzVest</h5>
+                <br>
+              <div class="row">
+                <div class="col-sm-3" style="background-color:#EFFCFF">
+                    <center>
+                        <h6>Langkah 1</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1176/1176390.png">
+                        <br>
+                        <p>Buat akun di BizzVest terlebih dahulu pada halaman <i>sign up</i>.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3">
+                    <center>
+                        <h6>Langkah 2</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2761/2761336.png">
+                        <br>
+                        <p>Masukkan data usaha yang anda miliki, seperti nama usaha, deskripsi usaha, proposal usaha, jumlah dan nilai lembar saham, serta dividen dan batas waktu.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3" style="background-color:#EFFCFF">
+                    <center>
+                        <h6>Langkah 3</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/326/326975.png">
+                        <br>
+                        <p>Tunggu usahamu selesai diverifikasi oleh administrator BizzVest selama 3-5 hari kerja.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3">
+                    <center>
+                        <h6>Langkah 4</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3286/3286363.png">
+                        <br>
+                        <p>Setelah usahamu diverifikasi, kamu dapat memasukkan foto-foto usaha agar nantinya dapat meyakinkan investor untuk berinvestasi.</p>
+                    </center>
+                </div>
+              </div>
+            </div>
+              <br>
+            <div align="center">
+
+<!--                TODO: data target button yang sudah dan belom login-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterDU2" style="float: center;">
+                Daftarkan Usaha
+                </button>
+
+                <!--  TODO: bikin kondisi untuk yang udah login  -->
+                <div class="modal fade" id="exampleModalCenterDU1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitleDU1">Daftarkan Usaha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Apakah Anda ingin mendaftarkan usaha yang Anda miliki?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Daftar Sekarang</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--  TODO: bikin kondisi untuk yang belom login  -->
+                <div class="modal fade" id="exampleModalCenterDU2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitleDU2">Daftarkan Usaha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Anda belum masuk ke dalam akun BizzVest. Silahkan <i>sign up</i> atau <i>sign in</i> terlebih dahulu sebelum mendaftarkan usaha.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Sign Up Sekarang</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+          <button class="accordion-button collapsed accstyle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+            Bagaimana cara berinvestasi di BizzVest?
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+          <div class="accordion-body">
+            <div class="container-fluid">
+              <h5>Alur Investasi di BizzVest</h5>
+                <br>
+              <div class="row">
+                <div class="col-sm-3" style="background-color:#EFFCFF">
+                    <center>
+                        <h6>Langkah 1</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1176/1176390.png">
+                        <br>
+                        <p>Buat akun di BizzVest terlebih dahulu pada halaman <i>sign up</i>.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3">
+                    <center>
+                        <h6>Langkah 2</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2720/2720755.png">
+                        <br>
+                        <p>Pilih usaha yang ingin anda berikan investasi dengan melihat deskripsi dan proposal dari usaha tersebut.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3" style="background-color:#EFFCFF">
+                    <center>
+                        <h6>Langkah 3</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1763/1763432.png">
+                        <br>
+                        <p>Berikan investasi sesuai dengan nominal nilai lembar saham dan banyaknya lembar saham yang Anda inginkan.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3">
+                    <center>
+                        <h6>Langkah 4</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/921/921591.png">
+                        <br>
+                        <p>Analisis laporan keuangan usaha sambil menantikan dividen yang akan anda terima pada batas waktu yang telah ditentukan.</p>
+                    </center>
+                </div>
+              </div>
+            </div>
+              <br>
+            <div align="center">
+
+<!--                TODO: data target button yang sudah dan belom login-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mulaiinvestguest" style="float: center;">
+                    Mulai Investasi
+                </button>
+
+                <!--  TODO: bikin kondisi untuk yang udah login  -->
+                <div class="modal fade" id="mulaiinvestlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="titledaftarusaha">Mulai Investasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Apakah Anda ingin memberikan investasi untuk pemilik UMKM/petani?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Investasi Sekarang</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--  TODO: bikin kondisi untuk yang belom login  -->
+                <div class="modal fade" id="mulaiinvestguest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="titlemulaiinvest">Mulai Investasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Anda belum masuk ke dalam akun BizzVest. Silahkan <i>sign up</i> atau <i>sign in</i> terlebih dahulu sebelum mendaftarkan usaha.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Sign Up Sekarang</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+          <button class="accordion-button collapsed accstyle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+            Berapa lama hasil investasi atau dividen didapatkan?
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+          <div class="accordion-body">
+              Hasil investasi pembagian keuntungan saham akan didapatkan sesuai dengan kesepakatan antara pelaku UMKM/petani dengan investor sejak awal.
+          </div>
+        </div>
+      </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+          <button class="accordion-button collapsed accstyle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+            Berapa lama menunggu investor memberikan modal?
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+          <div class="accordion-body">
+              Tidak dapat dipastikan lamanya waktu untuk mendapatkan modal dari investor. BizzVest hanya menjadi perantara antara pelaku UMKM/petani dengan investor.
+              Namun, pelaku UMKM/petani dapat memberikan video profil, proposal, atau penawaran keuntungan investasi yang menarik minat investor.
+              Usaha tersebut diharapkan dapat memperbesar kemungkinan mendapatkan modal dari investor.
+          </div>
+        </div>
+      </div>
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+          <button class="accordion-button collapsed accstyle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+            Kenapa harus bergabung dengan BizzVest?
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+          <div class="accordion-body">
+              BizzVest hadir sebagai perantara bagi pelaku bisnis seperti pemilik UMKM (Usaha Mikro, Kecil, dan Menengah) dan petani untuk mendapatkan modal usaha dari para investor agar dapat melanjutkan bisnis mereka.
+              Siapapun dapat bertindak sebagai penerima atau pemberi modal sesuai dengan ketentuan yang berlaku.
+              <ul>
+                <li><strong>Pelaku UMKM/petani</strong> akan mendapatkan tambahan modal untuk melanjutkan usaha mereka terutama di masa pandemi Covid-19 seperti ini.</li>
+                <li><strong>Investor</strong> dapat memilih tempat mereka akan berinvestasi saham dengan praktis di BizzVest dan mendapatkan pendapatan pasif sebagai hasil investasi tanpa harus terlibat dengan kegiatan operasional usaha.</li>
+               </ul>
+          </div>
+        </div>
+      </div>
+        <br>
+    </div>
+
+    <div class = "wrapper">
+        <div>
+            <h3>Pertanyaan dari Pengguna Lain</h3>
+        </div>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+        <br>
+        <div id = "data_pertanyaan">
+            {% for ask in tanya %}
+                <div class="card mt-1 mx-4">
+                  <div class="card-body">
+                    <h6 class="card-title">{{ ask.pertanyaan }}</h6>
+                    <p class="card-text">Pertanyaan dari <b>{{ ask.nama }}</b></p>
+                  </div>
+             </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <form
+        action=""
+        method="POST"
+    >
+
+        <div class="wrapper">
+
+            <div>
+                <h3>Ada Pertanyaan lainnya?</h3>
+            </div>
+
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+            {% csrf_token %}
+            <input type="hidden" name="tanya" id="tanya"/>
+            <div class="m-4">
+        <!--        TODO: ubah value dengan username saat login-->
+                <div class="form-group">
+                    <label for="nama"><h6>Nama:</h6></label>
+                    <input type="text" class="form-control inputstyle" id="nama" name="nama" value="Username">
+                </div>
+
+                <div class="form-group">
+                    <label for="pertanyaan"><h6>Pertanyaan:</h6></label>
+                    <textarea class="form-control inputstyle" id="pertanyaan" name="pertanyaan" rows="3" placeholder="Tuliskan Pertanyaanmu..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" class="btn btn-info" id="btnsave" value="Kirimkan Pertanyaan"/>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div id="msg" class="alert alert-danger" style="display: none"></div>
+
+    <script src="{% static 'js/faq_ajax.js' %}"></script>
+</body>
+</html>

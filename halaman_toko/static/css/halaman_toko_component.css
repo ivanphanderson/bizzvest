@@ -1,0 +1,177 @@
+@import url("color_palette.css");
+
+#nama_merek{
+    font-weight: bold;
+}
+
+#nama_perusahaan{
+    /*-webkit-text-fill-color: grey;*/
+    -webkit-text-stroke: 0.1px #c2eaff;
+}
+
+
+
+#edit_btn, #save_btn, #photo_edit_btn{
+    --edit-btn-box-shadow-x-offset: 1px;
+    --edit-btn-box-shadow-y-offset: 1px;
+    --edit-btn-box-shadow-color:  rgba(128, 128, 128, 0.72);
+
+
+    /*-webkit-text-fill-color: rgba(0,0,0,0);*/
+    /*-webkit-text-fill-color: white;*/
+    /*-webkit-text-stroke-width: 1px;*/
+    /*-webkit-text-stroke-color: white;*/
+    font-size: calc(var(--edit-btn-size) - 5px);
+
+    transition: opacity .1s, visibility .1s, transform 50ms, box-shadow 50ms;
+    box-shadow: var(--edit-btn-box-shadow-x-offset) var(--edit-btn-box-shadow-y-offset) var(--edit-btn-box-shadow-color);
+    height: var(--edit-btn-size);
+    width: var(--edit-btn-size);
+
+    /*border-width: 1px;*/
+    border-width: 0;
+    border-radius: 2px;
+    padding: 0;
+}
+
+#edit_btn{
+    background-color: limegreen;
+}
+
+#photo_edit_btn{
+    background-color: var(--bs-primary);
+    color: white;
+    margin-right: 7px;
+}
+
+
+#photo_edit_btn{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+#save_btn{
+    display: none;
+}
+
+.editing_mode #photo_edit_btn{
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.editing_mode #save_btn{
+    display: block;
+    background-color: #4b6587;  /* bg color when disabled*/
+    color: white;
+}
+
+.editing_mode #save_btn:enabled{
+    background-color: #2982ff;
+}
+
+
+.editing_mode #edit_btn{
+    display: none;
+}
+
+
+
+#edit_btn:active:enabled, #save_btn:active:enabled, #photo_edit_btn:active:enabled {
+    /*background-color: #3e8e41;*/
+    transform: translateX(var(--edit-btn-box-shadow-x-offset)) translateY(var(--edit-btn-box-shadow-y-offset));
+    box-shadow: 0 0 var(--edit-btn-box-shadow-color);
+}
+
+#company_photos_carousel{
+    width: 100%;
+    height: 100%;
+}
+
+#company_address{
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+#company_description{
+    margin-top: 10px;
+    padding-left: 20px;
+    white-space: pre-wrap;
+}
+
+.textarea_as_div{
+    background-color: transparent;
+    display: block;
+    border: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+
+#entrepreneur_photo_profile{
+    background-color: green;
+    background-image: var(--entrepreneur-photo-profile);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    cursor: pointer;
+    flex-grow: 1;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+.entrepreneur_name_wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.entrepreneur_username_wrapper{
+    display: flex;
+    align-items: center;
+}
+
+#entrepreneur_name{
+    max-width: 100%;
+    margin: 0;
+    padding-bottom: 4px;
+    display: block;
+    line-height: 1;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#entrepreneur_username{
+    margin: 0;
+    text-overflow: ellipsis;
+    color: dimgrey;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.toast{
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+#description_container .h5{
+    color: #07829f;
+}
+#description_container div{
+    color: #004d62;
+}
+
+#informasi_umum .bawah .header{
+    color: #07829f;
+}
+
+#informasi_umum .bawah .div-kiri, #informasi_umum .bawah .div-kanan{
+    color: #004d62;
+}
+#informasi_umum .tengah{
+    color: #004d62;
+}
