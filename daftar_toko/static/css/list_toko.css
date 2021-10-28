@@ -1,0 +1,128 @@
+:root{
+    counter-reset: body_child__y_grid_pos;
+}
+
+html{
+    background: linear-gradient(rgba(140,232,255,1), rgba(244,253,255,1)) no-repeat;
+    height: 100%;
+}
+
+
+/*noinspection CssOverwrittenProperties*/
+#content{
+    /*background-color: lightgrey;*/
+    transition: margin 500ms ease-in-out;
+    margin: 10px clamp(12px, 12vw, 200px);
+    margin: 10px calc(80px + 80 * (100vw - 992px) / (1350 - 992));
+}
+
+
+/* media_margin */
+@media only screen and (max-width: 992px) {
+    #content{
+        margin: 10px clamp(12px, 8vw, 150px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #content{
+        margin: 10px clamp(12px, 5vw, 150px);
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #content{
+        margin: 10px clamp(12px, 2vw, 150px);
+    }
+}
+
+
+#head{
+    /*background-color: darkgray;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+#body{
+    --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
+    /*--edit-btn-size: auto;*/
+
+    --min_row_col_1_size: 220px;
+    --max_row_col_1_size: 350px;
+    --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
+
+    --min_row_2_height: 60px;
+    --max_row_2_height: 115px;
+    --row_2_height-temp: clamp(var(--min_row_2_height), 17vh, var(--max_row_2_height));
+    --row_2_height: min(calc(var(--row_col_1_size) * 90 / 250),  var(--row_2_height-temp));
+
+    --row_3_height: clamp(35px, calc(var(--row_2_height) * 4 / 9), 45px);
+
+
+    /*background-color: #0c63e4;*/
+    display:grid;
+    grid-template-columns: var(--row_col_1_size) auto;
+    grid-template-rows: var(--edit-btn-size) var(--row_col_1_size) var(--row_2_height) var(--row_3_height);
+    grid-gap: 12px 12px;
+}
+
+#control_btn_container{
+    grid-column: span 2;
+    display: flex;
+    justify-content: right;
+}
+
+.rect-img-container {
+    position: relative;
+  }
+  
+  .rect-img-container::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+  
+  .rect-img {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  img {
+    max-width: 50%;
+    max-height: 50%; 
+    object-fit: cover;
+}
+
+.top-buffer { margin-top:20px; }
+
+.card-daftar-toko {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 25em;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+  }
+
+.foto-daftar-toko {
+    min-height: 10em;
+    padding: 1.25rem;
+}
+
+.card-daftar-toko-text {
+    min-height: 10em;
+    padding: 1.25rem;
+}
+
