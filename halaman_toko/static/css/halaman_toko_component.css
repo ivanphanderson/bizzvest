@@ -111,11 +111,12 @@
 
 
 #entrepreneur_photo_profile{
-    background-color: green;
+    background-color: var(--bs-primary);
     background-image: var(--entrepreneur-photo-profile);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
 
     cursor: pointer;
     flex-grow: 1;
