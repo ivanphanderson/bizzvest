@@ -398,14 +398,15 @@ body{
 
 .download_proposal_container{
     --default-display: grid;
+    --proposal-container-padding: 6px;
 
     background-color: #79e8ff;
     /*background-color: rgba(184, 221, 255, 0.67);*/
     cursor: pointer;
 
     display: var(--default-display);
-    padding: 6px;
-    grid-template-columns: auto 1fr;
+    padding: var(--proposal-container-padding);
+    grid-template-columns: minmax(auto, calc(var(--row_3_height) - 2 * var(--proposal-container-padding))) 1fr;
     grid-template-rows: 1fr;
     transition: background-color 300ms ease-in-out;
 }
