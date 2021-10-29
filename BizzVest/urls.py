@@ -24,9 +24,11 @@ urlpatterns = [
     re_path('admin/?', admin.site.urls),
     path('', include('home_page.urls')),
     path('faq/', include('faq.urls')),
+    path('start-web/', include('django.contrib.auth.urls')),
     path('start-web/', include('start_web.urls')),
     path('mulai-invest/', include('mulai_invest.urls')),
     path('daftar-toko', include('daftar_toko.urls')),
+    path('navbar-footer/', include('navbar_footer.urls')),
 
     path('halaman-toko/', include('halaman_toko.urls')),
     path('halaman-toko', RedirectView.as_view(url='halaman-toko/', permanent=False)),
