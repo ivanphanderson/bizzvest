@@ -2,37 +2,132 @@
     counter-reset: body_child__y_grid_pos;
 }
 
-html{
-    background: linear-gradient(rgba(140,232,255,1), rgba(244,253,255,1)) no-repeat;
+body{
+    background: linear-gradient(rgb(201, 244, 255), rgba(244,253,255,1)) fixed no-repeat;
     height: 100%;
 }
 
 
-/*noinspection CssOverwrittenProperties*/
-#content{
-    /*background-color: lightgrey;*/
-    transition: margin 500ms ease-in-out;
-    margin: 10px clamp(12px, 12vw, 200px);
-    margin: 10px calc(80px + 80 * (100vw - 992px) / (1350 - 992));
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
 }
 
 
-/* media_margin */
-@media only screen and (max-width: 992px) {
-    #content{
-        margin: 10px clamp(12px, 8vw, 150px);
+main {
+    display: grid;
+    grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
+    grid-gap: 40px;
+    padding: 60px;
+}
+
+.jumbotron {
+    background: rgb(0, 32, 71);
+    border-radius: 20px;
+    text-align: center;
+
+}
+
+.text--medium {
+    font-family:  'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #ecf0f1;
+}
+
+.text--jumbotron {
+    font-family:  'Open Sans', sans-serif;
+    line-height: 20px;
+    font-weight: 400;
+    color: #ecf0f1;
+}
+
+
+.cards {
+    grid-column: 2 / span 12;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(auto, 60px));
+    grid-gap: 40px;
+}
+
+.card {
+    grid-column-end: span 4;
+    display: flex;
+    flex-direction: column;
+    background: rgb(57, 57, 61);
+    transition: all 0.3s ease 0s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+}
+
+.card__image-container {
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    position: relative;
+}
+
+.card__image-container img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card__content {
+    padding: 20px;
+}
+
+.card__title {
+    margin-bottom: 20px;
+}
+
+.card__info {
+    display: flex;
+    align-self: end;
+    align-items: center;
+}
+
+.card__price {
+    margin-left: auto;
+    padding: 5px 20px;
+    background-color: #303032;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 1000px){
+    .card {
+        grid-column-end: span 6;
     }
 }
 
-@media only screen and (max-width: 800px) {
-    #content{
-        margin: 10px clamp(12px, 5vw, 150px);
+@media only screen and (max-width: 700px){
+    main {
+        grid-gap: 20px;
+    }
+    .card {
+        grid-column-end: span 12;
     }
 }
 
-@media only screen and (max-width: 700px) {
-    #content{
-        margin: 10px clamp(12px, 2vw, 150px);
+@media only screen and (max-width: 500px){
+    main {
+        grid-template-columns: 10px repeat(6, 1fr) 10px;
+        grid-gap: 20px;
+    }
+    .cards {
+        grid-column: 2 / span 6;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 20px;
+    }
+    .card {
+        grid-column-end: span 6;
     }
 }
 
@@ -45,30 +140,6 @@ html{
 }
 
 
-
-
-#body{
-    --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
-    /*--edit-btn-size: auto;*/
-
-    --min_row_col_1_size: 220px;
-    --max_row_col_1_size: 350px;
-    --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
-
-    --min_row_2_height: 60px;
-    --max_row_2_height: 115px;
-    --row_2_height-temp: clamp(var(--min_row_2_height), 17vh, var(--max_row_2_height));
-    --row_2_height: min(calc(var(--row_col_1_size) * 90 / 250),  var(--row_2_height-temp));
-
-    --row_3_height: clamp(35px, calc(var(--row_2_height) * 4 / 9), 45px);
-
-
-    /*background-color: #0c63e4;*/
-    display:grid;
-    grid-template-columns: var(--row_col_1_size) auto;
-    grid-template-rows: var(--edit-btn-size) var(--row_col_1_size) var(--row_2_height) var(--row_3_height);
-    grid-gap: 12px 12px;
-}
 
 #control_btn_container{
     grid-column: span 2;
@@ -94,8 +165,8 @@ html{
   }
 
   img {
-    max-width: 50%;
-    max-height: 50%; 
+    max-width: 100%;
+    height: 100%; 
     object-fit: cover;
 }
 
@@ -117,12 +188,13 @@ html{
   }
 
 .foto-daftar-toko {
-    min-height: 10em;
-    padding: 1.25rem;
+    height: 15em;
+    padding: 0.25rem;
 }
 
 .card-daftar-toko-text {
     min-height: 10em;
     padding: 1.25rem;
 }
+
 
