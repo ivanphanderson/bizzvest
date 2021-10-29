@@ -178,8 +178,6 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
             'company': company_obj
         })
 
-    elif req.method == "POST":
-        pass
 
 
 def get_photos_json(company_obj):
