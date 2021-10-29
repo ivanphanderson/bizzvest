@@ -36,8 +36,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="asdfg")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -50,8 +48,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="1234567890")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -64,8 +60,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="08138911")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -80,8 +74,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="0813891144674643")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -96,8 +88,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="0813891a674643")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -113,8 +103,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="081389136746434")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -129,8 +117,6 @@ class UserAccountPhoneNumberTest(TestCase):
             temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                    deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                    phone_number="081389136")
-            temp_acc.foto_ktp = mock_image_field()
-            temp_acc.selfie_ktp = mock_image_field()
             temp_acc.photo_profile = mock_image_field()
             temp_acc.full_clean()
             temp_acc.save()
@@ -147,8 +133,6 @@ class UserAccountTest(TestCase):
         temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
-        temp_acc.foto_ktp = mock_image_field()
-        temp_acc.selfie_ktp = mock_image_field()
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         self.id = temp_acc.id

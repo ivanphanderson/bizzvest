@@ -49,8 +49,6 @@ class HalamanTokoSudahLoginTest(TestCase):
         temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
-        temp_acc.foto_ktp = mock_image_field()
-        temp_acc.selfie_ktp = mock_image_field()
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
 
@@ -94,3 +92,38 @@ class HalamanTokoSudahLoginTest(TestCase):
 
         response = self.client.get('/halaman-toko/edit-photos?id=' + str(temp.id))
         self.assertEqual(response.status_code, 200)   # karena sudah terdaftar
+
+
+class ManagePhotosTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                               deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                               phone_number="08128845191")
+        temp_acc.photo_profile = mock_image_field()
+        temp_acc.save()
+
+        # TODO: login the temp_acc
+
+
+    def test_responses(self):
+        response = self.client.get('/halaman-toko/delete-photo')
+        self.assertEqual(response.status_code, 400)   # karena cuman GET request
+
+        response = self.client.get('/halaman-toko/photo-reorder')
+        self.assertEqual(response.status_code, 400)   # karena cuman GET request
+
+        response = self.client.get('/halaman-toko/upload-proposal')
+        self.assertEqual(response.status_code, 400)   # karena cuman GET request
+
+        response = self.client.get('/halaman-toko/request-for-verification')
+        self.assertEqual(response.status_code, 400)   # karena cuman GET request
+
+        response = self.client.post('/halaman-toko/add', {
+            'pemilik_usaha':'1234'
+        })
+        self.assertEqual(response.status_code, 400)   # karena POSTnya ada atribut terlarang 'pemilik_usaha'
+
+
+
+
