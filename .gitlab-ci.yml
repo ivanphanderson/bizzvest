@@ -59,7 +59,7 @@ Coverage:
     - coverage html
   artifacts:
     paths:
-      - htmlcov/
+      - bizzvest_artifact/
 
 
 Deployment:
