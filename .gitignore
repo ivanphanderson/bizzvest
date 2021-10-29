@@ -1,7 +1,17 @@
 # pycharm
 .idea/
+
+# venv
 venv/
+
+# database
 uploads/
+
+# others
+bat_*.bat
+
+
+
 
 # migrations
 **/migrations/**
@@ -72,3 +82,4 @@ staticfiles/
 
 # ignore virtual environment
 env/
+my-env/

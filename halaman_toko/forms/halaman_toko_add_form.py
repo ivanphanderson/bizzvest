@@ -41,14 +41,17 @@ class CompanyAddForm(forms.ModelForm):
 
         errors = {}
 
-        if (data['jumlah_lembar'] <= 0):
+        if ('jumlah_lembar' not in data or data['jumlah_lembar'] <= 0):
             errors['jumlah_lembar'] = ["jumlah lembar must be positive",]
-        if (data['nilai_lembar_saham'] <= 0):
+
+        if ('nilai_lembar_saham' not in data or data['nilai_lembar_saham'] <= 0):
             errors['nilai_lembar_saham'] = ["nilai lembar saham must be positive",]
-        if (data['dividen'] <= 0):
+
+        if ('dividen' not in data or data['dividen'] <= 0):
             errors['dividen'] = ["dividen must be positive",]
-        if (data['end_date'] <= date.today()):
-            errors['end_date'] = ["end date must be future dates",]
+
+        if ('end_date' not in data or data['end_date'] <= date.today()):
+            errors['end_date'] = ["end date must be in the future",]
 
         if len(errors) > 0:
             raise ValidationError(errors)

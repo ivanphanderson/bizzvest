@@ -9,69 +9,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/color_palette.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/manage_photos.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}"/>
+
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/toast.js' %}"></script>
     <script src="{% static 'js/manage_photo.js' %}"></script>
 
 </head>
 <body>
 
-    <a href="/halaman-toko/?id={{ company.id }}"
-       data-toggle="tooltip" data-placement="bottom" title="kembali ke halaman toko">
-        <div class="back-to-company-wrapper">
-            <div id="back-to-company-button" class="shadowed_box_2_clickable">
-                <i class="fas fa-arrow-left"></i>
+
+    <div class="back-to-company-wrapper" onclick="$('#back-to-company-link')[0].click();"
+         data-toggle="tooltip" data-placement="bottom" title="kembali ke halaman toko">
+        <div id="back-to-company-button" class="shadowed_box_2_clickable">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+    </div>
+    <a id="back-to-company-link" href="/halaman-toko/?id={{ company.id }}"></a>
+
+    <div class="photo-manager-wrapper">
+        <div id="photo-manager-container" class="white_box shadowed_box_1">
+            {% include 'photo_control.html' with company=company include_id="photo_manager_1" %}
+        </div>
+
+        <div class="add-photo-wrapper">
+            <i class="fas fa-plus"></i>
+        </div>
+    </div>
+
+
+    <form
+            id="add-new-photo-form"
+            style="display:none;"
+            method="post"
+            action="/halaman-toko/add-photo">
+
+        {% csrf_token %}
+        <input id="file-picker" type="file" name="img" accept=".gif,.jpg,.jpeg,.png,.svg" multiple>
+        <input type="text" name="company_id" value="{{ company.id }}">
+    </form>
+
+
+{% comment %}    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
+        <div class="toast-body">
+            <div class="toast-body-wrapper">
+                <div style="display: table;">
+                <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
+                    Hello, world! This is a toast message.
+                </div>
+                </div>
             </div>
         </div>
-    </a>
-
-<div class="photo-manager-wrapper">
-    <div id="photo-manager-container" class="white_box shadowed_box_1">
-        {% include 'photo_control.html' with company=company include_id="photo_manager_1" %}
-    </div>
-
-    <div class="add-photo-wrapper">
-        <i class="fas fa-plus"></i>
-    </div>
-</div>
-
-
-<form
-        id="add-new-photo-form"
-        style="visibility: hidden;"
-        method="post"
-        action="/halaman-toko/add-photo">
-
-    {% csrf_token %}
-    <input id="file-picker" type="file" name="img" accept=".gif,.jpg,.jpeg,.png,.svg" multiple>
-    <input type="text" name="company_id" value="{{ company.id }}">
-</form>
-
-
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
-    {% comment %}    <div class="toast-header">
-        <img src="..." class="rounded mr-2" alt="...">
-        <strong class="mr-auto">Bootstrap</strong>
-        <small class="text-muted">11 mins ago</small>
-
     </div>{% endcomment %}
-    <div class="toast-body">
-        <div class="toast-body-wrapper">
-            <div style="display: table;">
-            <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
-                Hello, world! This is a toast message.
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-
+        {% include 'toast.html' %}
 </body>
 </html>

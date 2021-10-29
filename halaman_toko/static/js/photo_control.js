@@ -89,7 +89,7 @@ function photo_manager_component_instantiate(photo_component_identifier, company
             return_obj.error_handler('busy', null,  busy_msg);
             return false;
         }
-        return_obj.misc_handler("reordering", "saving current photos position to the server");
+        return_obj.misc_handler("reordering", "saving current photos order to the server");
 
         let data = {
             'photo_order': JSON.stringify(get_photos_order()),

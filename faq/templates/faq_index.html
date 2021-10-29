@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>FAQ BizzVest</title>
 </head>
 <body>
     <div class="wrapper">
@@ -46,25 +47,25 @@
                         <br>
                         <img src="https://cdn-icons-png.flaticon.com/512/2761/2761336.png">
                         <br>
-                        <p>Masukkan data usaha yang anda miliki, seperti nama usaha, deskripsi usaha, proposal usaha, jumlah dan nilai lembar saham, serta dividen dan batas waktu.</p>
-                    </center>
-                </div>
-                <div class="col-sm-3" style="background-color:#EFFCFF">
-                    <center>
-                        <h6>Langkah 3</h6>
-                        <br>
-                        <img src="https://cdn-icons-png.flaticon.com/512/326/326975.png">
-                        <br>
-                        <p>Tunggu usahamu selesai diverifikasi oleh administrator BizzVest selama 3-5 hari kerja.</p>
+                        <p>Masukkan data usaha yang anda miliki, seperti nama usaha, deskripsi usaha, jumlah dan nilai lembar saham, serta dividen dan batas waktu.</p>
                     </center>
                 </div>
                 <div class="col-sm-3">
                     <center>
-                        <h6>Langkah 4</h6>
+                        <h6>Langkah 3</h6>
                         <br>
                         <img src="https://cdn-icons-png.flaticon.com/512/3286/3286363.png">
                         <br>
-                        <p>Setelah usahamu diverifikasi, kamu dapat memasukkan foto-foto usaha agar nantinya dapat meyakinkan investor untuk berinvestasi.</p>
+                        <p>Anda dapat memasukkan foto-foto dan proposal usaha pada halaman toko agar nantinya dapat meyakinkan investor untuk berinvestasi.</p>
+                    </center>
+                </div>
+                <div class="col-sm-3" style="background-color:#EFFCFF">
+                    <center>
+                        <h6>Langkah 4</h6>
+                        <br>
+                        <img src="https://cdn-icons-png.flaticon.com/512/326/326975.png">
+                        <br>
+                        <p>Tunggu usaha Anda selesai diverifikasi oleh administrator BizzVest selama 3-5 hari kerja.</p>
                     </center>
                 </div>
               </div>
@@ -72,13 +73,18 @@
               <br>
             <div align="center">
 
-<!--                TODO: data target button yang sudah dan belom login-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterDU2" style="float: center;">
-                Daftarkan Usaha
-                </button>
+                {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#daftartokologin" style="float: center;">
+                    Daftarkan Usaha
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#daftartokoguest" style="float: center;">
+                    Daftarkan Usaha
+                    </button>
+    `           {% endif %}
 
-                <!--  TODO: bikin kondisi untuk yang udah login  -->
-                <div class="modal fade" id="exampleModalCenterDU1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <!--  kondisi untuk user yang sudah login  -->
+                <div class="modal fade" id="daftartokologin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -92,14 +98,14 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Daftar Sekarang</button>
+                        <a class="btn btn-primary" href="/daftar-toko/" role="button">Daftar Sekarang</a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!--  TODO: bikin kondisi untuk yang belom login  -->
-                <div class="modal fade" id="exampleModalCenterDU2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <!--  kondisi untuk guest user  -->
+                <div class="modal fade" id="daftartokoguest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -113,7 +119,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Sign Up Sekarang</button>
+                        <a class="btn btn-primary" href="/start-web/" role="button">Sign Up Sekarang</a>
                       </div>
                     </div>
                   </div>
@@ -177,12 +183,17 @@
               <br>
             <div align="center">
 
-<!--                TODO: data target button yang sudah dan belom login-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mulaiinvestguest" style="float: center;">
-                    Mulai Investasi
-                </button>
+                {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mulaiinvestlogin" style="float: center;">
+                        Mulai Investasi
+                    </button>
+                {% else %}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mulaiinvestguest" style="float: center;">
+                        Mulai Investasi
+                    </button>
+    `           {% endif %}
 
-                <!--  TODO: bikin kondisi untuk yang udah login  -->
+                <!--  kondisi untuk user yang sudah login  -->
                 <div class="modal fade" id="mulaiinvestlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -197,13 +208,13 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Investasi Sekarang</button>
+                        <a class="btn btn-primary" href="/mulai-invest/" role="button">Investasi Sekarang</a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!--  TODO: bikin kondisi untuk yang belom login  -->
+                <!--  kondisi untuk guest user  -->
                 <div class="modal fade" id="mulaiinvestguest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -218,7 +229,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Sign Up Sekarang</button>
+                        <a class="btn btn-primary" href="/start-web/" role="button">Sign Up Sekarang</a>
                       </div>
                     </div>
                   </div>
@@ -304,7 +315,7 @@
         <div class="wrapper">
 
             <div>
-                <h3>Ada Pertanyaan lainnya?</h3>
+                <h3>Ada Pertanyaan Lainnya?</h3>
             </div>
 
             <hr style="height:2px;border-width:0;color:gray;background-color:gray">
@@ -312,10 +323,9 @@
             {% csrf_token %}
             <input type="hidden" name="tanya" id="tanya"/>
             <div class="m-4">
-        <!--        TODO: ubah value dengan username saat login-->
                 <div class="form-group">
                     <label for="nama"><h6>Nama:</h6></label>
-                    <input type="text" class="form-control inputstyle" id="nama" name="nama" value="Username">
+                    <input type="text" class="form-control inputstyle" id="nama" name="nama" placeholder="Tuliskan Namamu...">
                 </div>
 
                 <div class="form-group">
@@ -330,7 +340,6 @@
         </div>
     </form>
     <br>
-    <div id="msg" class="alert alert-danger" style="display: none"></div>
 
     <script src="{% static 'js/faq_ajax.js' %}"></script>
 </body>

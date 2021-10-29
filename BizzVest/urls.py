@@ -29,6 +29,8 @@ urlpatterns = [
     path('mulai-invest/', include('mulai_invest.urls')),
     path('daftar-toko', include('daftar_toko.urls')),
     path('navbar-footer/', include('navbar_footer.urls')),
+    path('daftar-toko/', include('daftar_toko.urls')),
+    path('daftar-toko', RedirectView.as_view(url='daftar-toko/', permanent=False)),
 
     path('halaman-toko/', include('halaman_toko.urls')),
     path('halaman-toko', RedirectView.as_view(url='halaman-toko/', permanent=False)),

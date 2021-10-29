@@ -5,6 +5,8 @@
 
 <html>
     <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'jquery-ui-1.13.0/jquery-ui.min.js' %}"></script>
@@ -12,6 +14,12 @@
         <script src="{% static 'js/add_toko.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 {#        <link rel="stylesheet" href="{% static 'fontawesome 4.7/css/font-awesome.min.css' %}"/>#}
+
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'fonts/tisa/stylesheet.css' %}"/>
+        <link rel="stylesheet" href="{% static 'fonts/Quicksand/style-regular.css' %}"/>
+
+
         <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'jquery-ui-1.13.0/jquery-ui.min.css' %}"/>
@@ -38,6 +46,7 @@
                     </div>
                     <div class="nama-merk input {{ errors.does_problem_exist.nama_merek }}">
                         {{ form.nama_merek }}
+                        <span class="error-msg">{{ errors.nama_merek }}</span>
                     </div>
 
                     <div class="nama-perusahaan label {{ errors.does_problem_exist.nama_perusahaan }}">
@@ -45,6 +54,7 @@
                     </div>
                     <div class="nama-perusahaan input {{ errors.does_problem_exist.nama_perusahaan }}">
                         {{ form.nama_perusahaan }}
+                        <span class="error-msg">{{ errors.nama_perusahaan }}</span>
                     </div>
 
                     <div class="kode-saham label {{ errors.does_problem_exist.kode_saham }}">
@@ -52,6 +62,7 @@
                     </div>
                     <div class="kode-saham input {{ errors.does_problem_exist.kode_saham }}">
                         {{ form.kode_saham }}
+                        <span class="error-msg">{{ errors.kode_saham }}</span>
                     </div>
 
                     <div class="alamat-perusahaan label {{ errors.does_problem_exist.alamat }}">
@@ -59,6 +70,7 @@
                     </div>
                     <div class="alamat-perusahaan input {{ errors.does_problem_exist.alamat }}">
                         {{ form.alamat }}
+                        <span class="error-msg">{{ errors.alamat }}</span>
                     </div>
 
 
@@ -67,6 +79,7 @@
                     </div>
                     <div class="jumlah-lembar input {{ errors.does_problem_exist.jumlah_lembar }}">
                         {{ form.jumlah_lembar }}
+                        <span class="error-msg">{{ errors.jumlah_lembar }}</span>
                     </div>
 
                     <div class="nilai-lembar-saham label {{ errors.does_problem_exist.nilai_lembar_saham }}">
@@ -74,6 +87,7 @@
                     </div>
                     <div class="nilai-lembar-saham input {{ errors.does_problem_exist.nilai_lembar_saham }}">
                         {{ form.nilai_lembar_saham }}
+                        <span class="error-msg">{{ errors.nilai_lembar_saham }}</span>
                     </div>
 
                     <div class="dividen label {{ errors.does_problem_exist.dividen }}">
@@ -81,6 +95,7 @@
                     </div>
                     <div class="dividen input {{ errors.does_problem_exist.dividen }}">
                         {{ form.dividen }}
+                        <span class="error-msg">{{ errors.dividen }}</span>
                     </div>
 
                     <div class="end-date label {{ errors.does_problem_exist.end_date }}">
@@ -88,6 +103,7 @@
                     </div>
                     <div class="end-date input {{ errors.does_problem_exist.end_date }}">
                         {{ form.end_date }}
+                        <span class="error-msg">{{ errors.end_date }}</span>
                     </div>
 
                     <div class="deskripsi label {{ errors.does_problem_exist.deskripsi }}">
@@ -95,6 +111,7 @@
                     </div>
                     <div class="deskripsi-container input {{ errors.does_problem_exist.deskripsi }}">
                         {{ form.deskripsi }}
+                        <span class="error-msg">{{ errors.deskripsi }}</span>
                     </div>
 
                     <div id="submit-container">
@@ -135,7 +152,7 @@
                 aria-labelledby="staticBackdropLabel"
                 aria-hidden="true">
 
-            <div class="modal-dialog">
+            <div class="modal-dialog submit-confirmation-modal">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
@@ -143,12 +160,12 @@
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" style="text-align: justify;">
+                    <div class="modal-body collapsable" style="text-align: justify;">
                         Apakah Anda benar-benar ingin mengirim data? <br><br>
                         Setelah Anda mengirim data, Anda tidak akan dapat menghapus maupun mengubah beberapa data
                         yang telah Anda submit sampai batas waktu terakhir perusahaan ini.
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer collapsable">
                         <button id="confirm-submit-cancel-btn"
                                 type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button id="form-confirm-submit-btn"
@@ -210,9 +227,12 @@
     <script>
 
         {% if show_invalid_modal %}
+            {% comment %}
             $(document).ready(function (){
                 $("#form-problems-modal").modal('show');
             });
+            {% endcomment %}
+
         {% elif validation_state == '0' %}
             $(document).ready(function (){
                 $("#confirm-submit").modal('show');

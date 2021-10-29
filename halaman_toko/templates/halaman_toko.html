@@ -3,18 +3,29 @@
 {% load humanize %}
 {% load string_utils %}
 {% load date_utils_tag %}
+{% load duplication %}
 
 {% include 'require_javascript.html' %}
+
+
+
+
+
+
+
 
 <html>
     <head>
         <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'js/toast.js' %}"></script>
         <script src="{% static 'js/halaman_toko.js' %}"></script>
+
         <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 
-        <link rel="stylesheet" href="{% static 'fonts/tisa/style.css' %}" />
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'fonts/tisa/stylesheet.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-regular.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-bold.css' %}" />
 {#        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />#}
@@ -23,6 +34,7 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/toast.css' %}"/>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ company.nama_merek }}</title>
@@ -37,7 +49,7 @@
         <div id="content">
             <div id="head">
                 <div id="nama-toko-dan-perusahaan">
-                    <span class="h2 d-block text-primary" id="nama_merk">
+                    <span class="h1 d-block text-primary" id="nama_merek">
                         {{ company.nama_merek }}
                     </span>
                     <span class="h4 d-block text-secondary" id="nama_perusahaan">
@@ -49,6 +61,9 @@
 
             <div id="body">
                 <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
+
+
+                    {% if company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
 
                     <a id="photo_edit_link"
                        href="{%  url 'halaman_toko:edit_photos' %}?id={{ company.id|urlencode  }}"
@@ -68,6 +83,8 @@
                             data-toggle="tooltip" data-placement="bottom" title="simpan perubahan pada deskripsi">
                         <i class="fas fa-save"></i>
                     </button>
+
+                    {% endif %}
                 </div>
 
 
@@ -148,6 +165,34 @@
                         <div class="dummy"></div>
                     </div>
 
+
+
+                    {% define_duplication 'proposal_download_btn' %}
+                        <div class="download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
+                            <div class="download_proposal_icon">
+{#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
+                                <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
+                            </div>
+                            <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
+                                <span class="download_proposal_text h5">
+                                    Download Proposal
+                                </span>
+                            </div>
+
+                            <a
+                                    {% if company.proposal %}
+                                        href="{{ company.proposal.url }}"
+                                    {% else %}
+                                        href="{% url 'halaman_toko:proposal_not_available' %}"
+                                    {% endif %}
+                                        id="download-proposal" target="_blank"></a>
+                        </div>
+                    {% end_define_duplication %}
+
+                    {% instantiate_duplication 'proposal_download_btn' 'proposal_download_mobile_mode' %}
+                    {% end_instantiate_duplication %}
+
+
                     <div class="tengah white_box shadowed_box_1">
                         <div class="dummy"></div>
 
@@ -157,7 +202,7 @@
                             {% if company.status_verifikasi == company.StatusVerifikasi.TERVERIFIKASI %}
                                 terverifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.VERIFIKASI_DITOLAK %}
-                                verifikasi ditolak
+                                <span style="color: red;">verifikasi ditolak</span>
                             {% elif company.status_verifikasi == company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI %}
                                 menunggu verifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
@@ -173,18 +218,22 @@
                                         data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
                             {% endif %}
                         </div>
+                        <div class="dummy dummy-between"></div>
+
 
                         <div>Berakhir pada </div>
                         <div>
                             {{ company.end_date|date:"d M Y" }}
                         </div>
-
+                        <div class="dummy dummy-between"></div>
 
 
                         <div>Jumlah lembar saham </div>
                         <div>
                             {{ company.jumlah_lembar|intcomma|chars_replace:",." }} lembar
                         </div>
+                        <div class="dummy dummy-between"></div>
+
 
                         <div>harga saham </div>
                         <div>
@@ -195,7 +244,7 @@
                     </div>
 
                     <div class="bawah white_box shadowed_box_1">
-                        <div>
+                        <div class="div-kiri">
                             <div class="dummy"></div>
                             <span class="header">Saham Tersisa</span>
                             <div class="dummy"></div>
@@ -212,7 +261,7 @@
                             </span>
                             <div class="dummy"></div>
                         </div>
-                        <div>
+                        <div class="div-kanan">
                             <div class="dummy"></div>
                             <span class="header">Saham Terjual</span>
                             <div class="dummy"></div>
@@ -230,6 +279,7 @@
                             <div class="dummy"></div>
                         </div>
 
+
                         <div class="progress position-relative">
                             <div class="progress-bar bg-info" role="progressbar"
                                  style="width: {{ informasi_saham.persentase_terjual_int }}%"
@@ -240,17 +290,6 @@
                             </small>
                         </div>
                     </div>
-
-{% comment %}
-                    <div>Berakhir pada: </div><div>
-                        {{ company.nilai_saham_dibutuhkan_total }}
-                    </div>
-
-                    <div>Berakhir pada: </div><div>
-                        {{ company.nilai_saham_terkumpulkan_total }}
-                    </div>
-{% endcomment %}
-
 
                 </div>
 
@@ -266,30 +305,22 @@
                     </div>
                     <div class="entrepreneur_additional_information_container">
                         <div class="entrepreneur_additional_information_wrapper">
-                            <span id="entrepreneur_name" class="h3">{{ owner_account.first_name }} {{ owner_account.last_name }}</span>
+                            <span id="entrepreneur_name" class="h4"
+                                  data-toggle="tooltip" data-placement="bottom"
+                                  title="{{ owner_account.full_name }}">
+
+                                {{ owner_account.full_name }}</span>
                             <span id="entrepreneur_username" class="h6">@{{ owner_account.username }}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="download_proposal_container red_box shadowed_box_2_clickable">
-                    <div class="download_proposal_icon">
-                        <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>
-                        <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
-                    </div>
-                    <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
-                        <span class="download_proposal_text h5">
-                            Download Proposal
-                        </span>
-                    </div>
-                    <a
-                            {% if company.proposal %}
-                                href="{{ company.proposal.url }}"
-                            {% else %}
-                                href="{% url 'halaman_toko:proposal_not_available' %}"
-                            {% endif %}
-                       id="download-proposal" target="_blank"></a>
-                </div>
+
+
+                {% instantiate_duplication 'proposal_download_btn' 'proposal_download_desktop_mode' %}
+                {% end_instantiate_duplication %}
+
+
 
 
                 <div id="description_container" class="white_box shadowed_box_1">
@@ -298,6 +329,9 @@
                     </span>
 
                     <div id="company_address">
+                        {% comment %}<span style="background-image: url('{% static "img/location_3.png" %}'); display:inline-block;
+                                width: 1em; height: 1em; background-size: contain; background-repeat: no-repeat;
+                                background-position: center center;"></span>{% endcomment %}
                         {{ company.alamat }}
                     </div>
 
@@ -315,11 +349,10 @@
             </div>
 
 
-            <div id="foot">
+            <div id="foot" class="{{ extra_class }}">
 
             </div>
         </div>
-
 
 
         {% comment %}
@@ -370,22 +403,6 @@
             </div>
         </div>
 
-
-    <!-- toast -->
-
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  onclick="$(this).toast('hide');">
-        <div class="toast-body">
-            <div class="toast-body-wrapper">
-                <div style="display: table;">
-                    <div id="toast-msg" style="vertical-align: middle; display: table-cell;">
-                        Hello, world! This is a toast message.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+    {% include 'toast.html' %}
     </body>
 </html>

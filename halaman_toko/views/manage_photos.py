@@ -61,7 +61,7 @@ def add_photo(req:WSGIRequest):
             if (form.is_valid()):
                 saved_obj:CompanyPhoto = form.save()
             else:
-                return HttpResponse("Sorry, the form you've given is invalid. ", status=400)
+                return HttpResponse("Sorry, the form you've given is invalid. <!--" + str(form.errors) + "-->", status=400)
         return get_photos_json(company)
     return HttpResponse("Invalid request", status=400)
 
@@ -125,7 +125,7 @@ def photo_reorder(req:WSGIRequest):
         try:
             photo_order = json.loads(photo_order_json_string)
             if not isinstance(photo_order, dict):
-                return HttpResponse("invalid json [not a dict]: photo_order", status=400)
+                return HttpResponse("invalid json [not a dict]: photo_order  ", status=400)
             for key, value in photo_order.items():
                 if not key.isnumeric():
                     return HttpResponse("invalid json [non-numeric dict key]: photo_order", status=400)
@@ -178,8 +178,6 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
             'company': company_obj
         })
 
-    elif req.method == "POST":
-        pass
 
 
 def get_photos_json(company_obj):

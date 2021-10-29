@@ -1,6 +1,5 @@
 :root{
     counter-reset: body_child__y_grid_pos;
-
 }
 
 body{
@@ -9,10 +8,10 @@ body{
 }
 
 
-
+/*noinspection CssOverwrittenProperties*/
 #content{
     /*background-color: lightgrey;*/
-    transition: margin 50ms ease-in-out;
+    transition: margin 500ms ease-in-out;
     margin: 10px clamp(12px, 12vw, 200px);
     margin: 10px calc(80px + 80 * (100vw - 992px) / (1350 - 992));
 }
@@ -22,6 +21,12 @@ body{
 @media only screen and (max-width: 992px) {
     #content{
         margin: 10px clamp(12px, 8vw, 150px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #content{
+        margin: 10px clamp(12px, 5vw, 150px);
     }
 }
 
@@ -41,7 +46,7 @@ body{
 
 #nama-toko-dan-perusahaan{
     text-align: center;
-    font-family: "FF Tisa Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Tisa Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 
@@ -49,7 +54,7 @@ body{
     --edit-btn-size: clamp(15px, max(5vh, 4vw), 30px);
     /*--edit-btn-size: auto;*/
 
-    --min_row_col_1_size: 200px;
+    --min_row_col_1_size: 220px;
     --max_row_col_1_size: 350px;
     --row_col_1_size: clamp(var(--min_row_col_1_size), 30vw, var(--max_row_col_1_size));
 
@@ -83,7 +88,7 @@ body{
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
     grid-gap: 12px 12px;
 }
 
@@ -106,7 +111,7 @@ body{
     color: #9b9b9b;
     font-size: 0.95em;
     font-weight: bold;
-    font-family: 'FF Tisa Sans Pro', Helvetica, Arial, sans-serif;
+    font-family: 'Tisa Sans Pro', Helvetica, Arial, sans-serif;
     /*font-family: 'Quicksand', Georgia, 'Times New Roman', Times, serif;*/
 }
 
@@ -133,22 +138,17 @@ body{
     transition: font-size 1s ease-in-out;
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr repeat(5, auto) 1fr;
-    grid-gap: 3px 17px;
+    grid-template-rows: 3fr auto 2fr auto 2fr auto 2fr auto 3fr;
+    grid-column-gap: 17px;
+    grid-row-gap: 2px;
 }
 
-#informasi_umum .tengah .progress{
-    grid-column: span 2;
-    margin-top: 5px;
-}
-#informasi_umum .tengah .progress .progress-label {
-    font-weight: bold;
-    text-shadow: 0 0 3px white;
-}
 
 #informasi_umum .tengah .dummy{
     grid-column: span 2;
 }
+
+
 
 #informasi_umum .bawah{
     transition: font-size 1s ease-in-out;
@@ -156,20 +156,30 @@ body{
     display: grid;
     padding: 10px;
     grid-template-columns: auto auto;
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr auto;
     grid-gap: 3px 10px;
     font-size: 15px;
 }
 
-#informasi_umum .bawah > div{
+
+#informasi_umum .bawah .div-kiri, #informasi_umum .bawah .div-kanan{
     --informasi_umum-bawah-column-1: auto;
     --informasi_umum-bawah-column-2: 1fr;
 
     display: grid;
     grid-template-columns: var(--informasi_umum-bawah-column-1) var(--informasi_umum-bawah-column-2);
-    grid-template-rows: 5fr 1.2em 4fr repeat(3, auto) 5fr;
+    grid-template-rows: 5fr 1.2em max(2px, 4fr) repeat(3, auto) 5fr;
     grid-gap: 3px 10px;
     font-size: 0.9em;
+}
+
+#informasi_umum .bawah .progress{
+    grid-column: span 2;
+    margin-top: 5px;
+}
+#informasi_umum .bawah .progress .progress-label {
+    font-weight: bold;
+    text-shadow: 0 0 3px white;
 }
 
 #informasi_umum .bawah span{
@@ -188,29 +198,10 @@ body{
 }
 
 
-@media only screen and (max-width: 800px) {
-    #informasi_umum .bawah > div{
-        grid-template-columns: 1fr;
-        grid-row-gap: 1px;
-    }
-
-    #informasi_umum .bawah .label{
-        display: none;
-    }
-
-    #informasi_umum .bawah .jumlah_lembar::after{
-        content: '  lembar';
-    }
-
-    #informasi_umum .bawah .dummy, #informasi_umum .bawah .header{
-        grid-column: span 1;
-    }
-}
 
 
-
-@media only screen and (max-width: 670px) {
-    #informasi_umum .bawah > div{
+@media only screen and (max-width: 740px) {
+    #informasi_umum .bawah .div-kiri, #informasi_umum .bawah .div-kanan{
         grid-template-columns: 1fr;
         grid-row-gap: 1px;
     }
@@ -235,7 +226,7 @@ body{
     --photo-profile-size: 30;
 
     display: grid;
-    grid-template-columns: clamp(40px, 30%, 85px) 1fr;
+    grid-template-columns: clamp(40px, 30%, 85px) minmax(0, 1fr);
     grid-template-rows: 1fr;
 }
 
@@ -258,7 +249,7 @@ body{
 
 
 .entrepreneur_additional_information_wrapper{
-
+    max-width: 100%;
 }
 
 
@@ -406,13 +397,25 @@ body{
 }
 
 .download_proposal_container{
+    --default-display: grid;
+    --proposal-container-padding: 6px;
+
     background-color: #79e8ff;
+    /*background-color: rgba(184, 221, 255, 0.67);*/
     cursor: pointer;
 
-    display: grid;
-    padding: 6px;
-    grid-template-columns: auto 1fr;
+    display: var(--default-display);
+    padding: var(--proposal-container-padding);
+    grid-template-columns: minmax(auto, calc(var(--row_3_height) - 2 * var(--proposal-container-padding))) 1fr;
     grid-template-rows: 1fr;
+    transition: background-color 300ms ease-in-out;
+}
+.download_proposal_container:hover{
+    background-color: #23d6ff;
+}
+
+.download_proposal_container.proposal_download_mobile_mode{
+    display: none;
 }
 
 .download_proposal_icon{
@@ -453,9 +456,17 @@ body{
 
 
 
+
 @media only screen and (max-width: 800px) {
     .download_proposal_text{
         font-size: calc(0.90 * 16px + (100vw - 550px) / (800 - 550) * 0.25 * 16);
+    }
+
+    #entrepreneur_account_information_container .h4{
+        font-size: calc(1em + 0.5vw);
+    }
+    #entrepreneur_account_information_container .h6{
+        font-size: calc(0.95em + 0.4vw);
     }
 }
 
@@ -474,5 +485,108 @@ body{
     }
     #informasi_umum .bawah{
         font-size: 13px;
+    }
+}
+
+
+
+
+/* Mobile parts */
+@media only screen and (max-width: 640px) {
+    #body{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    #body > div{
+        --mobile-bottom-margin: 2px;
+        margin-bottom: var(--mobile-bottom-margin);
+    }
+
+    #photos_container{
+        height: clamp(30vh, 90vw, 45vh);
+    }
+
+    .download_proposal_text{
+        font-size: 1.1em;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    #company_photos_carousel .carousel-inner{
+        aspect-ratio: 1 / 1;
+        height: 100%;
+        width: unset;
+        margin: auto;
+    }
+
+    .carousel-control-next,
+    .carousel-control-prev /*, .carousel-indicators */ {
+        filter: invert(100%);
+    }
+
+    #entrepreneur_account_information_container .h4{
+        font-size: calc(1.1em + 0.4vw);
+    }
+
+    #informasi_umum{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #informasi_umum > div{
+        margin: var(--mobile-bottom-margin);
+    }
+
+    #informasi_umum .atas{
+        grid-template-rows: auto auto;
+        align-items: center;
+    }
+
+
+    .download_proposal_container.proposal_download_mobile_mode{
+        display: var(--default-display);
+    }
+
+
+    .download_proposal_container.proposal_download_desktop_mode{
+        display: none;
+    }
+
+
+    /* Dibawah ini khusus untuk masalah urutan */
+    #photos_container{ /* carousel foto */
+        order: 1;
+    }
+
+    #entrepreneur_account_information_container{  /* informasi akun pengusaha */
+        order: 2;
+    }
+
+
+    #informasi_umum{
+        order: 4;
+    }
+
+    #description_container{
+        order: 5;
+    }
+}
+
+
+@media only screen and (max-width: 400px){
+    /*noinspection CssOverwrittenProperties*/
+    #informasi_umum .atas{
+        font-size: 12px;
+        font-size: calc(9px + 5 * (100vw - 250px) / (400 - 250));
+    }
+
+    #entrepreneur_account_information_container .h3{
+        font-size: calc(1em + 0.2vw);
+    }
+    #entrepreneur_account_information_container .h6{
+        font-size: calc(0.85em + 0.2vw);
     }
 }

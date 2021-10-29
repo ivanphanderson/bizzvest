@@ -1,6 +1,7 @@
-#nama_merk{
-    /*color: #0088ff;*/
-    /*text-shadow: 0px 0px 5px rgba(255,255,255,0.94);*/
+@import url("color_palette.css");
+
+#nama_merek{
+    font-weight: bold;
 }
 
 #nama_perusahaan{
@@ -38,7 +39,7 @@
 }
 
 #photo_edit_btn{
-    background-color: #25cff2;
+    background-color: var(--bs-primary);
     color: white;
     margin-right: 7px;
 }
@@ -110,11 +111,12 @@
 
 
 #entrepreneur_photo_profile{
-    background-color: green;
+    background-color: var(--bs-primary);
     background-image: var(--entrepreneur-photo-profile);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+
 
     cursor: pointer;
     flex-grow: 1;
@@ -133,9 +135,13 @@
 }
 
 #entrepreneur_name{
+    max-width: 100%;
     margin: 0;
+    padding-bottom: 4px;
     display: block;
     line-height: 1;
+    overflow:hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
@@ -150,4 +156,23 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
+}
+
+
+#description_container .h5{
+    color: #07829f;
+}
+#description_container div{
+    color: #004d62;
+}
+
+#informasi_umum .bawah .header{
+    color: #07829f;
+}
+
+#informasi_umum .bawah .div-kiri, #informasi_umum .bawah .div-kanan{
+    color: #004d62;
+}
+#informasi_umum .tengah{
+    color: #004d62;
 }

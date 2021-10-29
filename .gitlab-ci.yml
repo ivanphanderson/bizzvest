@@ -1,5 +1,67 @@
+image: python:3.8
 stages:
+  - test
+  - coverage_result
   - deploy
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+# Feel free to remove this in your generated project.
+.disable_on_template: &disable_on_template
+  rules:
+    - if: '$CI_COMMIT_REF_NAME != "template"'
+
+
+.django_before_script: &django_before_script |-
+  pip install -r requirements.txt
+  python manage.py collectstatic --no-input
+
+.coverage_artifacts: &coverage_artifacts
+  artifacts:
+    paths:
+      - .coverage*
+
+
+UnitTest:
+  <<: *disable_on_template
+  <<: *coverage_artifacts
+  stage: test
+  before_script:
+    - *django_before_script
+  script:
+    - coverage run --parallel --include="./*" --omit="manage.py,BizzVest/*"
+      manage.py test --exclude-tag=functional
+
+FunctionalTest:
+  <<: *disable_on_template
+  <<: *coverage_artifacts
+  stage: test
+  before_script:
+    - apt-get update -q && apt-get install -yq chromium-driver
+    - *django_before_script
+  script:
+    - coverage run --parallel --include="./*" --omit="manage.py,BizzVest/*"
+      manage.py test --tag=functional
+
+
+Coverage:
+  <<: *disable_on_template
+  stage: coverage_result
+  before_script:
+    - pip install coverage
+    - coverage combine
+  script:
+    - coverage report -m
+    - coverage html
+  artifacts:
+    paths:
+      - bizzvest_artifact/
+
 
 Deployment:
   image: ruby:2.4
@@ -10,8 +72,11 @@ Deployment:
   script:
     - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_APIKEY
     - export HEROKU_API_KEY=$HEROKU_APIKEY
+  when: always
   environment:
     name: production
     url: $HEROKU_APP_HOST
   only:
     - main
+    
+    
