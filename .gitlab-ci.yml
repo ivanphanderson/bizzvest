@@ -1,5 +1,23 @@
 stages:
+  - test
   - deploy
+
+UnitTest:
+  image: python:3.8
+  stage: test
+  before_script:
+    - pip install -r requirements.txt
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py collectstatic --no-input
+
+  when: on_success
+  script:
+    - coverage run --include='./*' manage.py test
+    - coverage report -m
+  only:
+    - main
+
 
 Deployment:
   image: ruby:2.4
