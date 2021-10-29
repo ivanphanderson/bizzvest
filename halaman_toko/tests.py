@@ -15,5 +15,5 @@ class HalamanTokoTest(TestCase):
 
     def test_add_toko(self):
         response = Client().get('/halaman-toko/add')
-        self.assertNotEqual(response.status_code, 302)  # karena belum login, diarahkan ke halaman login
+        self.assertEqual(response.status_code, 302)  # karena belum login, diarahkan ke halaman login
 
