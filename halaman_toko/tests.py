@@ -46,8 +46,9 @@ class HalamanTokoTest(TestCase):
 class HalamanTokoSudahLoginTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", first_name="sujhek",
-                               last_name="kheruk")
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                               deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                               phone_number="08128845191")
         temp_acc.foto_ktp = mock_image_field()
         temp_acc.selfie_ktp = mock_image_field()
         temp_acc.photo_profile = mock_image_field()

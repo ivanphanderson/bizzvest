@@ -29,7 +29,7 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     nama_merek = models.CharField(max_length=30, verbose_name='Nama merek')
     nama_perusahaan = models.CharField(max_length=35, verbose_name='Nama perusahaan')
-    alamat = models.CharField(max_length=140, default="", verbose_name='Alamat')
+    alamat = models.CharField(max_length=140, default="", verbose_name='Alamat')  # alamat toko
     deskripsi = models.TextField(max_length=3000, default="", verbose_name='Deskripsi')
 
 
