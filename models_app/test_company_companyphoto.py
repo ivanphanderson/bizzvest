@@ -1,23 +1,11 @@
-from io import BytesIO
 from itertools import permutations
-from random import randint, choices, choice, sample, shuffle
-from unittest import mock
-from unittest.mock import Mock
 
-from PIL import Image
-from django.core.files.images import ImageFile
 from django.test import Client, TestCase
-from django.urls import resolve
-from django.http import HttpRequest
-from django.core.files import File as django_file
 from models_app.models import *
 from halaman_toko.views import *
-from halaman_toko.forms import *
-from models_app.models_utility import *
 from django.core.files.uploadedfile import SimpleUploadedFile, TemporaryUploadedFile
 
 # Create your tests here.
-
 
 
 def mock_image_field(nama="gambar asal asalan.jpg"):
@@ -30,10 +18,9 @@ def mock_pdf_field(nama="pdf asal asalan.pdf"):
                               content_type='application/pdf')
 
 
-
-class UserAccountTest(TestCase):
+class Company_and_CompanyAccount_test(TestCase):
     def test_run(self) -> None:
-        temp_acc = UserAccount(username="huz_usrnm", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
         temp_acc.photo_profile = mock_image_field()
@@ -57,6 +44,3 @@ class UserAccountTest(TestCase):
         temp_comp.full_clean()
         temp_comp.save()
         self.comp_id = temp_comp.id
-        self.assertIn("Garamku", str(temp_comp))
-        self.assertIn("PT. Sugar Sugar", str(temp_comp))
-        self.assertIn("huz_usrnm", str(temp_comp))
