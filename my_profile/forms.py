@@ -1,13 +1,17 @@
 from django import forms
 
-from my_profile.models import Profil, Password
+from models_app.models.UserAccount import UserAccount
 
 class ProfileForm(forms.ModelForm) :
     class Meta:
-        model = Profil
-        fields = '__all__'
+        model = UserAccount
+        fields = {"email", "username", "photo_profile", "full_name",  "is_verified", "join_date",
+    "last_login",
+    "jenis_kelamin",
+    "phone",
+    "address",
+    "description", 
+    "password_user"}
+    
+    
 
-class PasswordForm(forms.ModelForm) :
-    class Meta:
-        model = Password
-        fields = '__all__'
