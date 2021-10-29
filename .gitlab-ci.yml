@@ -1,6 +1,7 @@
 image: python:3.8
 stages:
   - test
+  - coverage_result
   - deploy
 
 variables:
@@ -50,7 +51,7 @@ FunctionalTest:
 
 Coverage:
   <<: *disable_on_template
-  stage: deploy
+  stage: coverage_result
   before_script:
     - pip install coverage
     - coverage combine
