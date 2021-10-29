@@ -6,71 +6,136 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block head_title %}{% endblock %}</title>
+  <title></title>
   {% block extra_head %}
   {% endblock %}
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
-  <style type="text/css">
-    html,
-    body,
-    header,
-    .carousel {
-      height: 60vh;
-    }
-
-    @media (max-width: 740px) {
-
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
-
-    @media (min-width: 800px) and (max-width: 850px) {
-
-      html,
-      body,
-      header,
-      .carousel {
-        height: 100vh;
-      }
-    }
-
-  </style>
+  <link href="{% static 'css/mdb.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/list_toko.css' %}"/>
+  
 </head>
-
-{% include "navbar.html" %}
-
 <body>
+    <div class="container">
+      
+      <!--Navbar-->
+      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
 
-    <div class="mt-5 pt-4">
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Bizzvest</span>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+          <!-- Links -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Daftar Toko
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Mulai Invest</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/faq/">Faq</a>
+            </li>
+            
+
+          </ul>
+          <!-- Links -->
+
+          
         </div>
-        {% endfor %}
-    {% endif %}
+        <!-- Collapsible content -->
+
+      </nav>
+      <!--/.Navbar-->
+
+      <div class="jumbotron jumbotron-fluid">
+        <h1 class="display-4 text--jumbotron" >Daftar Toko</h1>
+      </div>
+
+      <!--Section: Products v.3-->
+      <div class="row">
+        <div class="col-md-4">
+            <input type="text" id="search-bar" class="form-control" placeholder="Cari merek atau perusahaan">
+        </div>
+        
+       </div>
+
+        <main>
+        <section class="cards">
+          {% for item in company_obj %}
+            <div class="card" style="cursor:pointer" >
+                <div class="card__image-container">
+                  <img  src="{{ item.companyphoto_set.all.0.img.url }}" alt="">
+                </div>
+                <div class="card__content">
+                    <p class="card__title text--medium">
+                        {{ item.nama_merek }}
+                    </p>
+                    <div class="card__info">
+                        <p class="text--medium">{{ item.nama_perusahaan }}</p> 
+                        <p onclick="location.href='/halaman-toko/?id={{ item.id }}'" class="card__price text--medium">Info</p>       
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </section>
+        </main>
+      
+
+      <!--Pagination-->
+      <nav>
+        {% if company_obj.has_other_pages %}
+          <ul class="pagination justify-content-center">
+            {% if company_obj.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ company_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true"></a>
+            </li>
+            {% endif %}
+
+            {% if company_obj.number|add:'-4' > 1 %}
+            <li class="page-item"><a class="page-link" href="?page={{ company_obj.number|add:'-5' }}">&hellip;</a></li>
+            {% endif %}
+
+            {% for i in company_obj.paginator.page_range %}
+              {% if company_obj.number == i %}
+                <li class="page-item active" aria-current="page"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% elif i > company_obj.number|add:'-5' and i < company_obj.number|add:'5' %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+
+            {% if company_obj.paginator.num_pages > company_obj.number|add:'4' %}
+              <li class="page-item"><a class="page-link" href="?page={{ company_obj.number|add:'5' }}">&hellip;</a></li>
+            {% endif %}
+
+            {% if company_obj.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ company_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true"></a>
+            </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+      </nav>
     </div>
-
-    {% block content %}
-    {% endblock content %}
-
-    {% block extra_body %}
-    {% endblock %}
-
-    {% include "footer.html" %}
-    {% include "scripts.html" %}
-
-    {% block extra_scripts %}
-    {% endblock extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/daftar_toko_ajax.js' %}" type="script/js"></script>
 </body>
 </html>

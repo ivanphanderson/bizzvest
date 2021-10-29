@@ -24,6 +24,7 @@
         <script src="{% static 'fontawesome 5.15/js/all.min.js' %}"></script>
         <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script>
 
+        <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
         <link rel="stylesheet" href="{% static 'fonts/tisa/stylesheet.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-regular.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'fonts/Quicksand/style-bold.css' %}" />
@@ -169,7 +170,7 @@
                     {% define_duplication 'proposal_download_btn' %}
                         <div class="download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
                             <div class="download_proposal_icon">
-                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>
+{#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
                                 <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
                             </div>
                             <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
@@ -177,6 +178,7 @@
                                     Download Proposal
                                 </span>
                             </div>
+
                             <a
                                     {% if company.proposal %}
                                         href="{{ company.proposal.url }}"
@@ -305,9 +307,9 @@
                         <div class="entrepreneur_additional_information_wrapper">
                             <span id="entrepreneur_name" class="h4"
                                   data-toggle="tooltip" data-placement="bottom"
-                                  title="{{ owner_account.first_name }} {{ owner_account.last_name }}">
+                                  title="{{ owner_account.full_name }}">
 
-                                {{ owner_account.first_name }} {{ owner_account.last_name }}</span>
+                                {{ owner_account.full_name }}</span>
                             <span id="entrepreneur_username" class="h6">@{{ owner_account.username }}</span>
                         </div>
                     </div>

@@ -73,14 +73,12 @@ def edit_proposal(req:WSGIRequest):
         form_instance:Company = form.instance
         return HttpResponse(form_instance.proposal.url, status=200)
 
-    try:
-        return HttpResponse(
-            # harusnya cuman ada 1 field yang error, karena memang cuman ada 1 field
-            form.errors.as_data()['proposal'][-1].message,
-            status=400
-        )
-    except:
-        return HttpResponse(str(form.errors), status=400)
+    return HttpResponse(
+        # harusnya cuman ada 1 field yang error, karena memang cuman ada 1 field
+        form.errors.as_data()['proposal'][-1].message,
+        status=400
+    )
+
 
 def proposal_not_available(req:WSGIRequest):
     return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)

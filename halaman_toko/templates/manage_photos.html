@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
 
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/color_palette.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
@@ -46,7 +47,7 @@
 
     <form
             id="add-new-photo-form"
-            style="visibility: hidden;"
+            style="display:none;"
             method="post"
             action="/halaman-toko/add-photo">
 
