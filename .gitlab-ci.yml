@@ -25,7 +25,7 @@ Deployment:
   before_script:
     - gem install dpl
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-  when: always
+  
   script:
     - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_APIKEY
     - export HEROKU_API_KEY=$HEROKU_APIKEY
