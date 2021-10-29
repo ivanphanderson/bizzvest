@@ -30,6 +30,117 @@ def mock_image_field(nama="gambar asal asalan.jpg"):
 
 
 
+class UserAccountPhoneNumberTest(TestCase):
+    def test_phone_number_1(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="asdfg")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+            self.assertTrue(False)  # harusnya ada Validation Error karena phone_number
+        except ValidationError:
+            return
+
+    def test_phone_number_2(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="1234567890")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+            self.assertTrue(False)  # harusnya ada Validation Error karena phone_number tidak dimulai dari 0
+        except ValidationError:
+            return
+
+    def test_phone_number_3(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="08138911")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+
+            # harusnya ada Validation Error karena phone_number, digit 0 tidak diikuti oleh minimal 8 digit
+            self.assertTrue(False)
+        except ValidationError:
+            return
+
+    def test_phone_number_4(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="0813891144674643")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+
+            # harusnya ada Validation Error karena TOTAL digit pada phone_number maksimal 15 digit
+            self.assertTrue(False)
+        except ValidationError:
+            return
+
+    def test_phone_number_5(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="0813891a674643")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+
+            # harusnya ada Validation Error karena ada huruf pada digit
+            self.assertTrue(False)
+        except ValidationError:
+            return
+
+
+    def test_phone_number_6(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="081389136746434")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+            temp_acc.delete()
+        except ValidationError:
+            # harusnya valid. tapi ini ga valid. ada bug.
+            self.assertTrue(False)
+
+
+    def test_phone_number_7(self) -> None:
+        try:
+            temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+                                   deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
+                                   phone_number="081389136")
+            temp_acc.foto_ktp = mock_image_field()
+            temp_acc.selfie_ktp = mock_image_field()
+            temp_acc.photo_profile = mock_image_field()
+            temp_acc.full_clean()
+            temp_acc.save()
+            temp_acc.delete()
+        except ValidationError:
+            # harusnya valid. tapi ini ga valid. ada bug.
+            self.assertTrue(False)
+
+
+
 class UserAccountTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
