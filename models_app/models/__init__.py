@@ -1,4 +1,3 @@
-from .Comment import *
 from .Company import *
 from .CompanyPhoto import *
 from .EntrepreneurAccount import *
