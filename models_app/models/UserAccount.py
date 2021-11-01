@@ -1,19 +1,39 @@
+from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.db import models
 
 
 class UserAccount(models.Model):
-    username = models.CharField(max_length=14, unique=True, db_index=True, null=True,
-                                validators=[
-                                    RegexValidator(regex='^[a-z0-9_]+$',
-                                                   message='Must consists only lowercase alphanumeric and underscore '
-                                                           'characters',
-                                                   code='nomatch')])
-    email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
+    USERNAME_VALIDATORS = [RegexValidator(regex='^[a-z0-9_]{4,14}$',
+                                          message='Must consists only lowercase alphanumeric characters '
+                                                  'and underscore. The length should be 4 to 14 characters',
+                                          code='nomatch')]
 
-    photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)
-    phone_number = models.CharField(null=False, blank=False, unique=True, max_length=15,
+    user_model = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # username = models.CharField(max_length=14, unique=True, db_index=True, null=True,
+    #                             validators=USERNAME_VALIDATORS)
+    # email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
+
+    @property
+    def username(self):
+        return self.user_model.username
+
+    @username.setter
+    def username(self, value):
+        self.user_model.username = value
+
+    @property
+    def email(self):
+        return self.user_model.email
+
+    @email.setter
+    def email(self, value):
+        self.user_model.email = value
+
+    photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", default="default_user_photoprofile.jpg", blank=True)
+    phone_number = models.CharField(default="00000000", blank=True, unique=True, max_length=15,
                                     validators=[
                                         RegexValidator(regex='^0[0-9]{8,14}$',
                                                        message='Must consists only digits started by zero, then'
@@ -70,5 +90,6 @@ class UserAccount(models.Model):
     def __str__(self):
         return f"<{self.username} {self.email}>"
 
-
-
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.user_model.save()
