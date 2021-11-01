@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from models_app.models.UserAccount import UserAccount
+from models_app.models.InvestorAccount import InvestorAccount
+from models_app.models.EntrepreneurAccount import EntrepreneurAccount
 from my_profile.forms import ProfileForm
 from django.http.response import HttpResponseRedirect
 
 # Create your views here.
 def index(request):
     profil = UserAccount.objects.all().values()
+    akun_investor = InvestorAccount.objects.all.values()
+    akun_enterpreneur = EntrepreneurAccount.objects.all.values()
     response = {'profil':profil}
     return render(request, 'tampilan_profil.html', response);
 
