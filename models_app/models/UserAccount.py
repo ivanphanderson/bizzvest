@@ -1,10 +1,41 @@
+import warnings
+
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.db import models
+from random import choices
+import string
+
+
+
+def random_password():
+    temp1 = choices(string.ascii_uppercase)
+    temp2 = choices(string.ascii_lowercase)
+    temp3 = choices(string.digits)
+    return f"{temp1}{temp2}{temp3}"
 
 
 class UserAccount(models.Model):
+    FORWARD_ATTR = {'username', 'email'}
+
+    def __init__(self, *args, **kwargs):
+
+        keys = ('username', 'email')
+        key_result = {}
+        for key in keys:
+            if key in kwargs:
+                key_result[key] = kwargs.pop(key)
+
+        if 'user_model' in kwargs and kwargs['user_model'] is User:
+            warnings.warn('user_model is not specified with User() object. A new user object with '
+                          'random password will be created')
+            temp = User(password=random_password(), **key_result)
+            kwargs['user_model'] = temp
+            temp.save()
+
+        super().__init__(*args, **kwargs)
+
     USERNAME_VALIDATORS = [RegexValidator(regex='^[a-z0-9_]{4,14}$',
                                           message='Must consists only lowercase alphanumeric characters '
                                                   'and underscore. The length should be 4 to 14 characters',
@@ -16,21 +47,26 @@ class UserAccount(models.Model):
     #                             validators=USERNAME_VALIDATORS)
     # email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
 
-    @property
-    def username(self):
-        return self.user_model.username
 
-    @username.setter
-    def username(self, value):
-        self.user_model.username = value
 
-    @property
-    def email(self):
-        return self.user_model.email
+    # @property
+    # def username(self):
+    #     return self.user_model.username
+    #
+    # @username.setter
+    # def username(self, value):
+    #     print('setting')
+    #     self.user_model.username = value
+    #
+    # @property
+    # def email(self):
+    #     return self.user_model.email
+    #
+    # @email.setter
+    # def email(self, value):
+    #     self.user_model.email = value
 
-    @email.setter
-    def email(self, value):
-        self.user_model.email = value
+
 
     photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", default="default_user_photoprofile.jpg", blank=True)
     phone_number = models.CharField(default="00000000", blank=True, max_length=15,
@@ -88,8 +124,32 @@ class UserAccount(models.Model):
 
 
     def __str__(self):
-        return f"<{self.username} {self.email}>"
+        return f"<{self.user_model.username} {self.user_model.email}>"
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         self.user_model.save()
+        super().save(*args, **kwargs)
+
+    # def __getattribute__(self, item):
+    #     sself = self
+    #
+    #     class custom_objects():
+    #         def filter(self, *args, **kwargs):
+    #             if len(set(kwargs.keys()) & UserAccount.FORWARD_ATTR) != 0:
+    #                 return sself.user_model.objects.filter(*args, **kwargs)
+    #             return sself.objects.filter(*args, **kwargs)
+    #
+    #         def __getattribute__(self, item):
+    #             if item != 'filter':
+    #                 return getattr(sself.objects, item)
+    #             return self.filter
+    #
+    #     if item in UserAccount.FORWARD_ATTR:
+    #         return custom_objects()
+    #     return super().__getattribute__(item)
+    #
+    # def __setattr__(self, key, value):
+    #     if key in UserAccount.FORWARD_ATTR:
+    #         return self.user_model.__setattr__(key, value)
+    #     return super().__setattr__(key, value)
+
