@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'daftar_toko',
     'mulai_invest',
     'start_web',
-
+    'navbar_footer',
     'models_app',
 ]
 
@@ -111,8 +111,6 @@ if PRODUCTION:
     #ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'NAMA_APP.herokuapp.com']
     #DATABASES['default'] = dj_database_url.config()
     SECURE_SSL_REDIRECT = True
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

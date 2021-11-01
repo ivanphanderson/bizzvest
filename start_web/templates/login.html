@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+    <script>
+        $(document).ready(function(e) {
+            $('#myModal').on('hidden.bs.modal', function(e) {
+                window.location.href = '/navbar-footer/home'
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container"></div>
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="" method=POST>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control mt-3 py-2" placeholder="Username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control mt-3 py-2" placeholder="Password" name="password">
+                            </div>
+                            <center>
+                            <button type="submit" class="btn btn-lg border-0 mt-3 px-5">Masuk</button>
+                            <p class="mt-1"><small>Belum punya akun? <a href="{% url 'sign-up' %}">Daftar disini</a></small></p>
+                            <p><small><a href="#">Lupa Password?</a></small></p>
+                            </center>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
