@@ -8,15 +8,15 @@ from models_app.models.InvestorAccount import InvestorAccount
 
 class ProfileForm(forms.ModelForm) :
     class Meta:
-        model = UserAccount, EntrepreneurAccount, InvestorAccount
-        fields = {"email", "username", "photo_profile", "full_name",
-    "last_login",
-    "jenis_kelamin",
-    "phone",
-    "alamat",
-    "deskripsi_diri", 
-    "password_user", 
-    "i"}
+        model = UserAccount
+        fields = ("email", "username", "photo_profile", "full_name",
+            "gender",
+            "phone_number",
+            "alamat",
+            "deskripsi_diri",  
+            # "enterpreneur_account",
+            # "investor_account"
+        )
     
     
 

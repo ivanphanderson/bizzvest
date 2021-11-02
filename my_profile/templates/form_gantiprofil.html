@@ -78,6 +78,8 @@
       
 </head>
 <body>
+  <form action="" method="post">{% csrf_token %}
+    {%csrf_token %}
     <h1></h1>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
@@ -99,306 +101,338 @@
           </div>
         </div>
       </div>
-
-  <div class="col">
-    <div class="row">
-      <div class="col mb-3">
-        <div class="card">
-          <div class="card-body">
-            <div class="e-profile">
-              <div class="row">
-                <div class="col-12 col-sm-5 mb-3">
-                  <!-- <div class="mx-auto" style="width: 140px;">
-                    <div class="d-flex justify-content-center align-items-center rounded" id="tempat-foto" style="height: 140px; background-color: rgb(233, 236, 239);">
-                      <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
-                    </div>
-                  </div> -->
-                  <div class="profile-pic">
-                    <label class="-label" for="file">
-                      <span class="glyphicon glyphicon-camera"></span>
-                      <span>Change Images</span>
-                    </label>
-                    
-                    <input name="photo_profile"id="file" type="file" onchange="loadFile(event)"/>
-                    <img src="https://www.gyanvihar.org:3001/uploads/1623494185474dummy.jpg" id="output" width="200" />
-                  </div>
-                </div>
-                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" id="name-head">
-                  <div class="text-center text-sm-left mb-2 mb-sm-0 mt-3">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">Bang Uyog</h4>
-                    <p class="mb-0">@raihansyahyogaxx</p>
-                    <div class="text-muted"><small>Last login 2 hours ago</small></div>
-                    <div class="mt-2">
-                      <!-- <button class="btn btn-primary" type="button" id=ganti-foto>
-                        <i class="fa fa-fw fa-camera"></i>
-                        <span>Change Photo</span>
-                      </button> -->
-                    </div>
-                  </div>
-                  <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary">Terverifikasi</span>
-                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
-                  </div>
-                </div>
-              </div>
-              <!-- <ul class="nav nav-tabs">
-                <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-              </ul> -->
-              <div class="tab-content pt-5">
-                <div class="tab-pane active">
-                  <form class="form" novalidate="">
+      
+        <div class="col">
+          <div class="row">
+            <div class="col mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="e-profile">
                     <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Nama Lengkap</label>
-                              <input name="full-name" class="form-control" type="text" placeholder="Nama Lengkap" value="Raihansyah Yoga Adhitama">
-                            </div>
-                          </div>
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>Username</label>
-                              <input class="form-control" type="text" name="username" placeholder="ex: stevenraditya12" value="raihansyahyoga">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-4">
-                              <div class="form-group">
-                                <label for="kelamin">Jenis kelamin</label>
-                                    <select name="jenis_kelamin" id="inputJenisKelamin" class="form-control" data-bs-toggle="dropdown" >
-                                        <option selected>Pilih jenis kelamin...</option>
-                                        <option>Laki-Laki</option>
-                                        <option>Perempuan</option>
-                                    </select>
-                                <!-- <input class="form-control" type="text" placeholder="user@example.com"> -->
-                              </div>
-                            </div>
-                          </div>
-                        <div class="row">
-                          <div class="col mb-4">
-                            <div class="form-group">
-                              <label>Email</label>
-                              <input name="email" class="form-control" type="text" name="email" placeholder="user@example.com">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="col mb-4">
-                              <div class="form-group">
-                                <label>Nomor Handphone</label>
-                                <input name="phone" class="form-control" type="text" name="phone" placeholder="08xxxxxxxxxx">
-                              </div>
-                            </div>
-                          </div>
-                        <div class="row">
-                          <div class="col mb-4">
-                            <div class="form-group">
-                              <label>Alamat</label>
-                              <input name="address" class="form-control" type="text" placeholder="Jalan xxxx No.xx">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col mb-4">
-                            <div class="form-group">
-                              <label>Deskripsi diri</label>
-                              <textarea name="description" class="form-control" rows="5" placeholder="Tentang diriku"></textarea>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <!-- <div class="col-12 col-sm-6 mb-3">
-                        <div class="mb-2"><b>Ganti Password</b></div>
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>Password saat ini</label>
-                              <input class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col mb-3">
-                            <div class="form-group">
-                              <label>Password baru</label>
-                              <input class="form-control" type="password" placeholder="••••••">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="form-group">
-                              <label>Pastikan <span class="d-none d-xl-inline">password baru</span></label>
-                              <input class="form-control" type="password" placeholder="••••••"></div>
-                          </div>
-                        </div>
-                      </div> -->
-                      <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                        <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
-                        <div class="row">
-                          <div class="col">
-                            <label>Email Notifications</label>
-                            <div class="custom-controls-stacked px-2">
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                              </div>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                              </div>
-                            </div>
+                      <div class="col-12 col-sm-5 mb-3">
+                        <!-- <div class="mx-auto" style="width: 140px;">
+                          <div class="d-flex justify-content-center align-items-center rounded" id="tempat-foto" style="height: 140px; background-color: rgb(233, 236, 239);">
+                            <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
                           </div>
                         </div> -->
+                        <div class="profile-pic">
+                          <label class="-label" for="file" id="khususform">
+                            <span class="glyphicon glyphicon-camera" ></span>
+                            <span>Change Images</span>
+                          </label>
+                          
+                          <input name="photo_profile"id="file" type="file" onchange="loadFile(event)"/>
+                           {% if profil.photo_profile %}
+                          <img src={{ profil.photo_profile.url }} id="output" width="200"  />
+                           {% else %}
+                           <img src="https://www.gyanvihar.org:3001/uploads/1623494185474dummy.jpg" id="output" width="200" />
+                        {% endif %}
+                          </div>
+                      </div>
+                      <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" id="name-head">
+                        <div class="text-center text-sm-left mb-2 mb-sm-0 mt-3">
+                          <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">
+                            {% if profil.full_name %}
+                            {{ profil.full_name }}
+
+                            {% else %}
+                            Belum ada nama lengkap
+                            {% endif %}
+                          </h4>
+                          <p class="mb-0">@{{ profil.username }}</p>  
+                          <!-- profil.user_model.username -->
+
+                          <div class="mt-2">
+                            <!-- <button class="btn btn-primary" type="button" id=ganti-foto>
+                              <i class="fa fa-fw fa-camera"></i>
+                              <span>Change Photo</span>
+                            </button> -->
+                          </div>
+                        </div>
+                        <div class="text-center text-sm-right">
+                            {% if profil.is_entrepreneur and profil.is_investor %}
+                            <span class="badge badge-secondary">Enterpreneur  </span>
+                            <span class="badge badge-secondary">Investor </span>
+                            
+                            {% elif profil.is_entrepreneur %}
+                            <span class="badge badge-secondary">Enterpreneur  </span>
+
+                            {% elif profil.is_investor %}
+                            <span class="badge badge-secondary">Investor </span>
+                            
+                            {% else %}
+                            <span class="badge badge-secondary">Belum terverifikasi </span>
+                            
+                            {% endif %}
+                            
+                          
+                        </div>
                       </div>
                     </div>
-                    <div class="row">
-                        <div class="col d-flex justify-content-center mb-3" id="button-simpan">
-                            <button class="btn btn-primary justify-content-center " type="button" onclick="window.location.href='../my-profile/' " id="tombol-simpan">Simpan perubahan</button>
+                    <!-- <ul class="nav nav-tabs">
+                      <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
+                    </ul> -->
+                    <div class="tab-content pt-5">
+                      <div class="tab-pane active">
+                        <form class="form" novalidate="">
+                          <div class="row">
+                            <div class="col">
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                    <label>Nama Lengkap</label>
+                                    {% if profil.full_name %}
+                                    <input name="full_name" class="form-control" type="text" placeholder="Nama Lengkap" value="{{ profil.full_name }}">
+                                    {% else %}     
+                                    <input name="full_name" class="form-control" type="text" placeholder="Tambahkan nama lengkap anda">
+                                    {% endif %}
+                                    
+                                  </div>
+                                </div>
+                                <div class="col mb-3">
+                                  <div class="form-group">
+                                    <label>Username</label>
+                                    <input name="username" class="form-control" type="text" value={{ profil.username }}>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-4">
+                                  <div class="form-group">
+                                    <label for="kelamin">Jenis kelamin</label>
+                                    <select id="inputJenisKelamin" class="form-control" data-bs-toggle="dropdown" name="gender">
+                                      <option value="jenis_kelamin" selected="">Pilih jenis kelamin</option>
+                                      <option value="laki_laki">Laki-laki</option>
+                                      <option value="perempuan">Perempuan</option>             
+                                    </select>
+                                    <!-- <input class="form-control" type="text" placeholder="user@example.com"> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-4">
+                                  <div class="form-group">
+                                    <label>Email</label>
+                                    <input name="email" class="form-control" type="text" name="email" placeholder="user@example.com" value="{{ profil.email }}">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-4">
+                                  <div class="form-group">
+                                    <label>Nomor Handphone</label>
+                                    <input name="phone" class="form-control" type="text" name="phone" placeholder="08xxxxxxxxxx" value="{{ profil.phone_number }}">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-4">
+                                  <div class="form-group">
+                                    <label>Alamat</label>
+                                    <input name="address" class="form-control" type="text" placeholder="Jalan xxxx No.xx" value="{{ profil.alamat }}">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-4">
+                                  <div class="form-group">
+                                    <label>Deskripsi diri</label>
+                                    <textarea name="description" class="form-control" rows="5" placeholder="Tentang diriku">{{ profil.deskripsi_diri }}</textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <!-- <div class="col-12 col-sm-6 mb-3">
+                              <div class="mb-2"><b>Ganti Password</b></div>
+                              <div class="row">
+                                <div class="col mb-3">
+                                  <div class="form-group">
+                                    <label>Password saat ini</label>
+                                    <input class="form-control" type="password" placeholder="••••••">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col mb-3">
+                                  <div class="form-group">
+                                    <label>Password baru</label>
+                                    <input class="form-control" type="password" placeholder="••••••">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                    <label>Pastikan <span class="d-none d-xl-inline">password baru</span></label>
+                                    <input class="form-control" type="password" placeholder="••••••"></div>
+                                  </div>
+                                </div>
+                              </div> -->
+                              <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                <!-- <div class="mb-2"><b>Keeping in Touch</b></div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <label>Email Notifications</label>
+                                      <div class="custom-controls-stacked px-2">
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                          <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                          <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                          <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div> -->
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col d-flex justify-content-center mb-3" id="button-simpan">
+                                  <button class="btn btn-primary justify-content-center " type="button" onclick="window.location.href='../my-profile/' " id="tombol-simpan">Simpan perubahan</button>
+                                </div>
+                                <div class="col d-flex justify-content-end mb-3" style="float: right" id="button-batalkan">  
+                                  <button class="btn btn-primary" type="button" onclick="window.location.href='../my-profile/' " id="tombol-batalkan">Batalkan perubahan</button>
+                                </div>
+                              </div>
+                              <div class="row mt-4"></div>
+                            </form>
+                            
+                          </div>
                         </div>
-                        <div class="col d-flex justify-content-end mb-3" style="float: right" id="button-batalkan">  
-                            <button class="btn btn-primary" type="button" onclick="window.location.href='../my-profile/' " id="tombol-batalkan">Batalkan perubahan</button>
-                        </div>
+                      </div>
                     </div>
-                    <div class="row mt-4"></div>
-                  </form>
-
+                  </div>
                 </div>
+                
+                <div class="col-12 col-md-3 mb-3">
+                  <div class="card mb-3" id="kotak-log-out">
+                    <div class="card-body mb-1 mt-1" id="tombol-log-out">
+                      <div class="px-xl-3">
+                        <button class="btn btn-block btn-secondary" id="warna-log-out">
+                          <i class="fa fa-sign-out"></i>
+                          <span>Log out</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bold">Merasa kurang aman?</h6>
+                        <p class="card-text" id="kini-anda">Kini anda dapat dengan mudah mengubah password anda dengan menekan tombol di bawah ini</p>
+                        <button type="button" class="btn btn-primary" id="tombol-ganti-password" href="#signupModal" data-toggle="modal">Ganti Password</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      
-      <div class="col-12 col-md-3 mb-3">
-        <div class="card mb-3" id="kotak-log-out">
-          <div class="card-body mb-1 mt-1" id="tombol-log-out">
-            <div class="px-xl-3">
-              <button class="btn btn-block btn-secondary" id="warna-log-out">
-                <i class="fa fa-sign-out"></i>
-                <span>Log out</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title font-weight-bold">Merasa kurang aman?</h6>
-            <p class="card-text" id="kini-anda">Kini anda dapat dengan mudah mengubah password anda dengan menekan tombol di bawah ini</p>
-            <button type="button" class="btn btn-primary" id="tombol-ganti-password" href="#signupModal" data-toggle="modal">Ganti Password</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-</div>
-<div class="modal" id="signupModal"
-         role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-  
-        <div class="modal-dialog">
+          <div class="modal" id="signupModal"
+          role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true">
+          
+          <div class="modal-dialog">
             <div class="modal-content">
-  
-                <!-- Modal root -->
-                <div class="m-header">
-                  <!-- harus direset dulu datanya -->
-                    <button class="close" data-dismiss="modal">   
-                        ×
-                    </button>
-                    <h2 class="myModalLabel">Ganti Password</h2>
+              
+              <!-- Modal root -->
+              <div class="m-header">
+                <!-- harus direset dulu datanya -->
+                <button class="close" data-dismiss="modal">   
+                  ×
+                </button>
+                <h2 class="myModalLabel">Ganti Password</h2>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="inputs mt-2">
+                
+                <!-- username input -->
+                <div class="form-group input-group">
+                  <label for="username" class="sr-only">
+                    Password saat ini
+                  </label>
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <input type="password" class="form-control" 
+                  id="current-password" placeholder="Password anda sekarang">
                 </div>
-  
-                <!-- Modal body -->
-                <div class="inputs mt-2">
-  
-                    <!-- username input -->
-                    <div class="form-group input-group">
-                        <label for="username" class="sr-only">
-                          Password saat ini
-                        </label>
-                        <span class="input-group-addon">
-                          <i class="fa fa-lock"></i>
-                        </span>
-                        <input type="password" class="form-control" 
-                               id="current-password" placeholder="Password anda sekarang">
-                    </div>
-  
-                    <!-- Email input -->
-                    <!-- <div class="form-group input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-envelope"></i>
-                        </span>
-                        <label for="email" class="sr-only">
-                          Email
-                        </label>
-                        <input type="email" class="form-control" 
-                               id="email" placeholder="Email Address">
-                    </div> -->
-  
-                    <!-- Password -->
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-lock"></i>
-                        </span>
-                        <label for="password" class="sr-only">
-                          Masukkan password baru
-                        </label>
-                        <input type="password" class="form-control"
-                               id="new-password" placeholder="Password baru anda">
-                    </div>
-  
-                    <!-- Confirm Password -->
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-lock"></i>
-                        </span>
-                        <label for="password2" class="sr-only">
-                          Konfirmasi password baru
-                        </label>
-                        <input type="password" class="form-control" 
-                               id="confirm-new-password" placeholder="Konfirmasi password baru anda">
-                    </div>
+                
+                <!-- Email input -->
+                <!-- <div class="form-group input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <label for="email" class="sr-only">
+                    Email
+                  </label>
+                  <input type="email" class="form-control" 
+                  id="email" placeholder="Email Address">
+                </div> -->
+                
+                <!-- Password -->
+                <div class="form-group input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <label for="password" class="sr-only">
+                    Masukkan password baru
+                  </label>
+                  <input type="password" class="form-control"
+                  id="new-password" placeholder="Password baru anda">
                 </div>
-  
-                <!-- MOdal footer -->
-                <div class="footer">
-                    <button type="submit" id="tombol-ubah-password">Ubah password</button>
-                    <!-- <p>
-                        Already have an account?!
-                        <a href="#loginModal" data-toggle="modal"
-                           data-dismiss="modal">
-                           Login!
-                        </a>
-                    </p> -->
+                
+                <!-- Confirm Password -->
+                <div class="form-group input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <label for="password2" class="sr-only">
+                    Konfirmasi password baru
+                  </label>
+                  <input type="password" class="form-control" 
+                  id="confirm-new-password" placeholder="Konfirmasi password baru anda">
                 </div>
-  
+              </div>
+              
+              <!-- MOdal footer -->
+              <div class="footer">
+                <button type="submit" id="tombol-ubah-password">Ubah password</button>
+                <!-- <p>
+                  Already have an account?!
+                  <a href="#loginModal" data-toggle="modal"
+                  data-dismiss="modal">
+                  Login!
+                </a>
+              </p> -->
             </div>
+            
+          </div>
         </div>
-    </div>
-  
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
-   
-  </body>
+      </div>
+    </form>
+      
+      
+      
+      <!-- Optional JavaScript; choose one of the two! -->
+      
+      <!-- Option 1: Bootstrap Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      
+      <!-- Option 2: Separate Popper and Bootstrap JS -->
+      
+      <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
+        
+      </body>
   
     
 </html>

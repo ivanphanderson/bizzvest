@@ -156,7 +156,7 @@ html {
   margin-top: 38px;
 }
 
-.profile-pic:hover .-label {    
+.profile-pic:hover #khususform {    
   /* kalo dihover bakal mennciut sedikir, dan muncul shadow pada frame picture*/
   display: -webkit-box;
   display: -ms-flexbox;

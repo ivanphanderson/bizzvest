@@ -2,6 +2,11 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.db import models
 
+gender_choices = (
+    ('jenis_kelamin', 'Pilih jenis kelamin'),
+    ('laki_laki', 'Laki-laki'),
+    ('perempuan', 'Perempuan'),
+)
 
 class UserAccount(models.Model):
     username = models.CharField(max_length=14, unique=True, db_index=True, null=True,
@@ -10,6 +15,8 @@ class UserAccount(models.Model):
                                                    message='Must consists only lowercase alphanumeric and underscore '
                                                            'characters',
                                                    code='nomatch')])
+
+    gender = models.CharField(max_length=20, choices=gender_choices, default='jenis-kelamin')
     email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
 
     photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)
@@ -20,9 +27,9 @@ class UserAccount(models.Model):
                                                                'followed by 8 to 14 digits',
                                                        code='nomatch')])
 
-    full_name = models.CharField(max_length=30,
+    full_name = models.CharField(max_length=30, default="", blank=True,
                                  validators=[
-                                     RegexValidator(regex='^[a-zA-Z][a-z]*( [a-zA-Z][a-z]*)*$',
+                                     RegexValidator(regex='^[a-zA-Z]?[a-z]*( [a-zA-Z][a-z]*)*$',
                                                     message='Must consists only alphabets. Only first letters in each '
                                                             'word are allowed to be uppercase. No two consecutive '
                                                             'spaces are allowed',

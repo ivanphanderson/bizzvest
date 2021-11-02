@@ -6,11 +6,15 @@ from my_profile.forms import ProfileForm
 from django.http.response import HttpResponseRedirect
 
 # Create your views here.
+
 def index(request):
-    profil = UserAccount.objects.all().values()
-    akun_investor = InvestorAccount.objects.all.values()
-    akun_enterpreneur = EntrepreneurAccount.objects.all.values()
+    
+    profil = UserAccount.objects.all().first()
+    # akun_investor = InvestorAccount.objects.all.values()
+    # akun_enterpreneur = EntrepreneurAccount.objects.all.values()
     response = {'profil':profil}
+
+  
     return render(request, 'tampilan_profil.html', response);
 
 # def ganti_password(request):
@@ -29,8 +33,9 @@ def index(request):
 #     return render(request, 'form_gantipassword.html', context)
 
 def ganti_profil(request):
-    context ={}
-  
+    # print("asdfgskjhdfs")
+    profil = UserAccount.objects.all().first()
+    context ={"profil" : profil}
     # create object of form
     form = ProfileForm(request.POST or None, request.FILES or None)
       
@@ -41,4 +46,6 @@ def ganti_profil(request):
         return HttpResponseRedirect('')
   
     context['form']= form
+    # print(profil)
+    # print(profil.is_entrepreneur)
     return render(request, 'form_gantiprofil.html', context)

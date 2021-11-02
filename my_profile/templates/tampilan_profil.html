@@ -121,16 +121,24 @@
                       <span class="glyphicon glyphicon-camera"></span>
                       <span>Change Image</span>
                     </label>
-                    
-                    <input id="file" type="file" onchange="loadFile(event)"/>
+                    <input name="photo_profile"id="file" type="file" onchange="loadFile(event)"/>
+                    {% if profil.photo_profile %}
+                  <img src="{{ profil.photo_profile.url }}" id="output" width="200" />
+                    {% else %}
                     <img src="https://www.gyanvihar.org:3001/uploads/1623494185474dummy.jpg" id="output" width="200" />
+                  {% endif %}
                   </div>
                 </div>
                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" id="name-head">
                   <div class="text-center text-sm-left mb-2 mb-sm-0 mt-3">
-                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">Bang Uyog</h4>
-                    <a class="mb-0">@raihansyahyoga</a>
-                    <div class="text-muted"><small>Last login 2 hours ago</small></div>
+                    {% if profil.full_name %}
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">{{ profil.full_name }}</h4>
+                    {% else %}     
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">Belum ada nama lengkap</h4>
+                    {% endif %}
+                 
+                    <a class="mb-0"> @{{ profil.username }}</a>
+                    <!-- <div class="text-muted"><small>Last login 2 hours ago</small></div> -->
                     <div class="mt-2">
                       <!-- <button class="btn btn-primary" type="button" id=ganti-foto>
                         <i class="fa fa-fw fa-camera"></i>
@@ -139,8 +147,21 @@
                     </div>
                   </div>
                   <div class="text-center text-sm-right">
-                    <span class="badge badge-secondary">Terverifikasi</span>
-                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                    {% if profil.is_entrepreneur and profil.is_investor %}
+                            <span class="badge badge-secondary">Enterpreneur  </span>
+                            <span class="badge badge-secondary">Investor </span>
+                            
+                            {% elif profil.is_entrepreneur %}
+                            <span class="badge badge-secondary">Enterpreneur  </span>
+
+                            {% elif profil.is_investor %}
+                            <span class="badge badge-secondary">Investor </span>
+                            
+                            {% else %}
+                            <span class="badge badge-secondary">Belum terverifikasi </span>
+                            
+                            {% endif %}
+                    <!-- <div class="text-muted"><small>Joined 09 Dec 2017</small></div> -->
                   </div>
                 </div>
               </div>
@@ -156,13 +177,18 @@
                           <div class="col">
                             <div class="form-group">
                               <label id='label-nama'>Nama Lengkap</label>
-                              <p id='isi-data'> Raihansyah Yoga Adhitama </p>
+                              {% if profil.full_name %}
+                              <p id='isi-data'> {{ profil.full_name }} </p>
+                              {% else %}     
+                              <p id='isi-data'>Belum ada nama lengkap</p>
+                              {% endif %}
+                              
                             </div>
                           </div>
                           <div class="col mb-3">
                             <div class="form-group">
                               <label id='labe-user'>Username</label>
-                              <p id='isi-data'> raihansyahyoga </p>
+                              <p id='isi-data'> {{ profil.username }} </p>
                             </div>
                           </div>
                         </div>
@@ -170,7 +196,7 @@
                             <div class="col mb-4">
                               <div class="form-group">
                                 <label for="kelamin" id="label-kelamin">Jenis kelamin</label>
-                                   <p id='isi-data'>Laki-Laki</p>
+                                   <p id='isi-data'>{{ profil.gender }}</p>
                                 <!-- <input class="form-control" type="text" placeholder="user@example.com"> -->
                               </div>
                             </div>
@@ -178,7 +204,7 @@
                             <div class="col mb-4">
                               <div class="form-group">
                                 <label>Email</label>
-                                <p id='isi-data'>raihansyahyoga@gmail.com</p>
+                                <p id='isi-data'>{{ profil.email }}</p>
                               </div>
                             </div>
                           </div>
@@ -188,7 +214,7 @@
                             <div class="col mb-4">
                               <div class="form-group">
                                 <label id="label-phone">Nomor Handphone</label>
-                                <p id='isi-data'>081567893455</p>
+                                <p id='isi-data'>{{ profil.phone_number }}</p>
                               </div>
                             </div>
                           
@@ -196,7 +222,7 @@
                           <div class="col mb-4">
                             <div class="form-group">
                               <label id="label-alamat">Alamat</label>
-                              <p id="isi-data"> Jalan rangka asmara no.5 kelurahan bajo, parangtritids cipanas adem ayem aja</p>
+                              <p id="isi-data"> {{ profil.alamat }}</p>
                             </div>
                           </div>
                         </div>
@@ -205,7 +231,7 @@
                           <div class="col mb-4">
                             <div class="form-group">
                               <label id="label-desk">Deskripsi diri</label>
-                              <p rows="5" id="isi-desk"> aku adalah pencari kerja yang suka menari dan tertawa, namun bila saat berpisah telah tiba, kuingin kau menjadi bajing srot asidugaldiu adiua sdiluas diusda skdhal sudalsdha jksdhasdhasd asljd akusd aihajß</p>  
+                              <p rows="5" id="isi-desk">  {{ profil.deskripsi_diri }}</p>  
                             </div>
                           </div>
                         </div>
