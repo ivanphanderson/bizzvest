@@ -29,9 +29,13 @@ def mock_pdf_field(nama="pdf asal asalan.pdf"):
 
 def set_up(self):
     self.client = Client()
-    temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+    user_obj = User(password="ASDjighUEISghuiHE124246")
+    temp_acc = UserAccount(user_model=user_obj, full_name="sujhek kheruk",
                            deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                            phone_number="08128845191")
+    temp_acc.user_model.username="shjkrk"
+    temp_acc.user_model.email="shjkrk@localhost"
+
     temp_acc.photo_profile = mock_image_field()
     temp_acc.save()
     self.temp_acc = temp_acc
@@ -82,7 +86,7 @@ class HalamanTokoSudahLoginTest(TestCase):
         }
         temp = CompanyAddForm(data=data)
         self.assertTrue(temp.is_valid())
-        temp2 = UserAccount.objects.filter(username="shjkrk").first()
+        temp2 = UserAccount.objects.filter(user_model__username="shjkrk").first()
         self.assertIsNot(temp2, None)
         temp2.is_entrepreneur = True
 
@@ -188,6 +192,7 @@ class ManagePhotosTest(TestCase):
     def setUp(self) -> None:
         temp_acc = set_up(self)
         temp_acc.is_entrepreneur = True
+        self.acc = temp_acc
         self.id = temp_acc
 
         # TODO: login the temp_acc
@@ -264,23 +269,17 @@ class ManagePhotosTest(TestCase):
             response = self.client.post('/halaman-toko/add-photo', temp)
             self.assertEqual(response.status_code, 200)   # sudah valid
 
-
-
-        # add toko
-        response = self.client.get('/halaman-toko/add')
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b"<input", response.content)
-
-
-        response = self.client.post('/halaman-toko/add', {
-            'pemilik_usaha':'1234'
-        })
-        self.assertEqual(response.status_code, 400)   # karena POSTnya ada atribut terlarang 'pemilik_usaha'
-
-        data = {
-
-        }
-
+        for i in range(12):
+            with open('test.jpg', 'rb') as fp:
+                temp = data.copy()
+                temp['img'] = fp
+                response = self.client.post('/halaman-toko/add-photo', temp)
+        with open('test.jpg', 'rb') as fp:
+            temp = data.copy()
+            temp['img'] = fp
+            response = self.client.post('/halaman-toko/add-photo', temp)
+            self.assertEqual(response.status_code, 400)   # karena tidak boleh menambahkan lebih dari 12 foto
+        self.assertEqual(self.client.get('/halaman-toko/add-photo').status_code, 400)  # must be a post request
 
     def test_reorder(self):
         data = {
@@ -334,13 +333,16 @@ class ManagePhotosTest(TestCase):
 
 class AddTokoTest(TestCase):
     def setUp(self) -> None:
+        print('settingup')
         temp_acc = set_up(self)
+        print('setted up', list(User.objects.all()))
         temp_acc.is_entrepreneur = True
         self.id = temp_acc
+        self.acc = temp_acc
 
     def test_add_toko(self):
-        string_acak = "HUIHgU rgnoiR rneo srg IRGH"
-        assert len(string_acak) < 30, len(string_acak)
+        string_acak = "HUIHgU rgnoiR rneo srg IH"
+        assert len(string_acak) < 28, len(string_acak)
 
         data = {
             'nama_merek': string_acak,
@@ -373,10 +375,22 @@ class AddTokoTest(TestCase):
             'is_validate_only': 0
         }
 
+        self.acc.is_entrepreneur = False
         response = self.client.post('/halaman-toko/add', data)
         print(response.content)
         self.assertTrue(response.status_code in (200, 302))
         self.assertGreater(Company.objects.all().filter(nama_merek=string_acak).count(), 0)
+
+    def test_add_toko_2(self):
+        # add toko
+        response = self.client.get('/halaman-toko/add')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"<input", response.content)
+
+        response = self.client.post('/halaman-toko/add', {
+            'pemilik_usaha':'1234'
+        })
+        self.assertEqual(response.status_code, 400)   # karena POSTnya ada atribut terlarang 'pemilik_usaha'
 
 
 

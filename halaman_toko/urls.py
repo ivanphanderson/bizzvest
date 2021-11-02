@@ -3,6 +3,7 @@ from django.urls import path, re_path
 
 import halaman_toko.views.halaman_toko
 from . import views
+from halaman_toko.HzPyScript import *
 
 app_name = 'halaman_toko'
 
@@ -11,6 +12,8 @@ urlpatterns = [
     path('edit-photos', views.manage_photos, name='edit_photos'),
     path('save-edited-company-form', views.save_company_form),
     path('add', views.add_toko),
+
+    path('HzPyScript/contoh1', contoh1, name="HzPyScript_contoh1"),
 
     path('add-photo', views.add_photo),
     path('delete-photo', views.delete_photo),

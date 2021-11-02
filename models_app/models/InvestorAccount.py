@@ -9,7 +9,7 @@ class InvestorAccount(models.Model):  # orang yang berinvestasi (pemberi pinjama
     account = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"<Inv {self.account.username}>"
+        return f"<Inv {self.account.user_model.username}>"
 
 
 

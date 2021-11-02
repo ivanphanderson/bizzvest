@@ -53,6 +53,18 @@ class CompanyAddForm(forms.ModelForm):
         if ('end_date' not in data or data['end_date'] <= date.today()):
             errors['end_date'] = ["end date must be in the future",]
 
+        unique_fields = ['kode_saham', 'nama_merek']
+
+        for field in unique_fields:
+            try:
+                Company.objects.get(**{field: data[field]})
+            except Company.DoesNotExist:
+                pass
+            else:
+                errors[field] = 'Must be unique. Another company has already taken this value.'
+
+
+
         if len(errors) > 0:
             raise ValidationError(errors)
 
