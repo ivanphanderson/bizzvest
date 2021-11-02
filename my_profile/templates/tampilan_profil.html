@@ -137,7 +137,7 @@
                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap mt-4">Belum ada nama lengkap</h4>
                     {% endif %}
                  
-                    <a class="mb-0"> @{{ profil.username }}</a>
+                    <a class="mb-0"> @{{ profil.user_model.username}}</a>
                     <!-- <div class="text-muted"><small>Last login 2 hours ago</small></div> -->
                     <div class="mt-2">
                       <!-- <button class="btn btn-primary" type="button" id=ganti-foto>
@@ -188,7 +188,7 @@
                           <div class="col mb-3">
                             <div class="form-group">
                               <label id='labe-user'>Username</label>
-                              <p id='isi-data'> {{ profil.username }} </p>
+                              <p id='isi-data'> {{ profil.user_model.username}} </p>
                             </div>
                           </div>
                         </div>
@@ -196,7 +196,7 @@
                             <div class="col mb-4">
                               <div class="form-group">
                                 <label for="kelamin" id="label-kelamin">Jenis kelamin</label>
-                                   <p id='isi-data'>{{ profil.gender }}</p>
+                                   <p id='isi-data'>{{ profil.get_gender_display}}</p>
                                 <!-- <input class="form-control" type="text" placeholder="user@example.com"> -->
                               </div>
                             </div>
@@ -204,7 +204,7 @@
                             <div class="col mb-4">
                               <div class="form-group">
                                 <label>Email</label>
-                                <p id='isi-data'>{{ profil.email }}</p>
+                                <p id='isi-data'>{{ profil.user_model.email }}</p>
                               </div>
                             </div>
                           </div>
