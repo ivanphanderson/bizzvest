@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 # Create your views here.
-def home(request):
-    return render(request, "navbar.html")
+def index(request):
+    return render(request, "base.html")
