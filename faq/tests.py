@@ -5,6 +5,8 @@ from .views import *
 
 
 class FAQTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
 
     def test_faq_is_exist(self):
         response = Client().get('/faq/')
@@ -25,8 +27,15 @@ class FAQTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_post_faq(self):
-        response = self.client.post('/faq/')
+        response = self.client.post('/faq/save/')
         self.assertEqual(response.status_code, 200)
+
+    def test_valid_faq(self):
+        dictio = {"nama": "Nandhita Zefania Maharani", "pertanyaan": "Ini uji coba"}
+        response = self.client.post('/faq/save/', dictio)
+        self.assertEqual(response.status_code, 200)
+
+
 
 
 
