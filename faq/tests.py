@@ -18,3 +18,15 @@ class FAQTest(TestCase):
         obj1 = Faq.objects.create(nama='Nandhita Zefana Maharani', pertanyaan='Apakah keuntungan dari mengikuti BizzVest?')
         self.assertEqual(obj1.nama, 'Nandhita Zefana Maharani')
         self.assertEqual(obj1.pertanyaan, 'Apakah keuntungan dari mengikuti BizzVest?')
+
+    def test_json(self):
+        Faq.objects.create(nama='Nandhita Zefana Maharani', pertanyaan='Apakah keuntungan dari mengikuti BizzVest?')
+        response = self.client.post('/faq/', {'nama': 'Nandhita Zefania Maharani', 'pertanyaan': 'Apakah keuntungan dari mengikuti BizzVest?'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_post_faq(self):
+        response = self.client.post('/faq/')
+        self.assertEqual(response.status_code, 200)
+
+
+
