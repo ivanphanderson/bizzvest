@@ -1,6 +1,19 @@
+import warnings
+
+from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.db import models
+from random import choices
+import string
+
+
+
+def random_password():
+    temp1 = choices(string.ascii_uppercase)
+    temp2 = choices(string.ascii_lowercase)
+    temp3 = choices(string.digits)
+    return f"{temp1}{temp2}{temp3}"
 
 gender_choices = (
     ('jenis_kelamin', 'Pilih jenis kelamin'),
@@ -9,18 +22,59 @@ gender_choices = (
 )
 
 class UserAccount(models.Model):
-    username = models.CharField(max_length=14, unique=True, db_index=True, null=True,
-                                validators=[
-                                    RegexValidator(regex='^[a-z0-9_]+$',
-                                                   message='Must consists only lowercase alphanumeric and underscore '
-                                                           'characters',
-                                                   code='nomatch')])
+    FORWARD_ATTR = {'username', 'email'}
 
-    gender = models.CharField(max_length=20, choices=gender_choices, default='jenis-kelamin')
-    email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
+    def __init__(self, *args, **kwargs):
 
-    photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", null=True)
-    phone_number = models.CharField(null=False, blank=False, unique=True, max_length=15,
+        keys = ('username', 'email')
+        key_result = {}
+        for key in keys:
+            if key in kwargs:
+                key_result[key] = kwargs.pop(key)
+
+        if 'user_model' in kwargs and kwargs['user_model'] is User:
+            warnings.warn('user_model is not specified with User() object. A new user object with '
+                          'random password will be created')
+            temp = User(password=random_password(), **key_result)
+            kwargs['user_model'] = temp
+            temp.save()
+
+        super().__init__(*args, **kwargs)
+
+    USERNAME_VALIDATORS = [RegexValidator(regex='^[a-z0-9_]{4,14}$',
+                                          message='Must consists only lowercase alphanumeric characters '
+                                                  'and underscore. The length should be 4 to 14 characters',
+                                          code='nomatch')]
+
+    user_model = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    # username = models.CharField(max_length=14, unique=True, db_index=True, null=True,
+    #                             validators=USERNAME_VALIDATORS)
+    # email = models.EmailField(max_length=254, unique=True, null=True, db_index=True)
+
+
+
+    # @property
+    # def username(self):
+    #     return self.user_model.username
+    #
+    # @username.setter
+    # def username(self, value):
+    #     print('setting')
+    #     self.user_model.username = value
+    #
+    # @property
+    # def email(self):
+    #     return self.user_model.email
+    #
+    # @email.setter
+    # def email(self, value):
+    #     self.user_model.email = value
+
+
+
+    photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", default="default_user_photoprofile.jpg", blank=True)
+    phone_number = models.CharField(default="00000000", blank=True, max_length=15,
                                     validators=[
                                         RegexValidator(regex='^0[0-9]{8,14}$',
                                                        message='Must consists only digits started by zero, then'
@@ -37,7 +91,7 @@ class UserAccount(models.Model):
 
     alamat = models.CharField(max_length=140, default="")
     deskripsi_diri = models.TextField(max_length=3000, default="")
-
+    gender = models.CharField(max_length=20, choices=gender_choices, default='jenis-kelamin')
     ### sepertinya tidak perlu
     # join_date = models.DateField(default=timezone.now)
     # last_login = models.DateTimeField(default=timezone.now)
@@ -75,7 +129,32 @@ class UserAccount(models.Model):
 
 
     def __str__(self):
-        return f"<{self.username} {self.email}>"
+        return f"<{self.user_model.username} {self.user_model.email}>"
 
+    def save(self, *args, **kwargs):
+        self.user_model.save()
+        super().save(*args, **kwargs)
 
+    # def __getattribute__(self, item):
+    #     sself = self
+    #
+    #     class custom_objects():
+    #         def filter(self, *args, **kwargs):
+    #             if len(set(kwargs.keys()) & UserAccount.FORWARD_ATTR) != 0:
+    #                 return sself.user_model.objects.filter(*args, **kwargs)
+    #             return sself.objects.filter(*args, **kwargs)
+    #
+    #         def __getattribute__(self, item):
+    #             if item != 'filter':
+    #                 return getattr(sself.objects, item)
+    #             return self.filter
+    #
+    #     if item in UserAccount.FORWARD_ATTR:
+    #         return custom_objects()
+    #     return super().__getattribute__(item)
+    #
+    # def __setattr__(self, key, value):
+    #     if key in UserAccount.FORWARD_ATTR:
+    #         return self.user_model.__setattr__(key, value)
+    #     return super().__setattr__(key, value)
 

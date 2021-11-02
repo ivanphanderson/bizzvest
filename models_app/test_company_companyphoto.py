@@ -20,9 +20,11 @@ def mock_pdf_field(nama="pdf asal asalan.pdf"):
 
 class Company_and_CompanyAccount_test(TestCase):
     def test_run(self) -> None:
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(full_name="sujhek kheruk", user_model=User,
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
+        temp_acc.user_model.username="shjkrk"
+        temp_acc.user_model.email="shjkrk@localhost"
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         temp_acc.is_entrepreneur = True
