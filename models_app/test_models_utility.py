@@ -33,7 +33,8 @@ def mock_pdf_field(nama="pdf asal asalan.pdf"):
 
 class UserAccountTest(TestCase):
     def test_run(self) -> None:
-        temp_acc = UserAccount(username="huz_usrnm", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="huz_usrnm", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
         temp_acc.photo_profile = mock_image_field()

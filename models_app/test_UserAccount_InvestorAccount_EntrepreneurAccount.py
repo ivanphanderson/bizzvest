@@ -24,7 +24,8 @@ def mock_image_field(nama="gambar asal asalan.jpg"):
 class UserAccountPhoneNumberTest(TestCase):
     def test_phone_number_1(self) -> None:
 
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="asdfg")
         temp_acc.photo_profile = mock_image_field()
@@ -36,7 +37,8 @@ class UserAccountPhoneNumberTest(TestCase):
 
 
     def test_phone_number_2(self) -> None:
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="1234567890")
         temp_acc.photo_profile = mock_image_field()
@@ -60,7 +62,8 @@ class UserAccountPhoneNumberTest(TestCase):
 
     def test_phone_number_4(self) -> None:
 
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="0813891144674643")
         temp_acc.photo_profile = mock_image_field()
@@ -74,7 +77,8 @@ class UserAccountPhoneNumberTest(TestCase):
 
     def test_phone_number_5(self) -> None:
 
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="0813891a674643")
         temp_acc.photo_profile = mock_image_field()
@@ -86,7 +90,8 @@ class UserAccountPhoneNumberTest(TestCase):
 
 
     def test_phone_number_6(self) -> None:
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="081389136746434")
         temp_acc.photo_profile = mock_image_field()
@@ -96,7 +101,8 @@ class UserAccountPhoneNumberTest(TestCase):
 
 
     def test_phone_number_7(self) -> None:
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="081389136")
         temp_acc.photo_profile = mock_image_field()
@@ -108,13 +114,13 @@ class UserAccountPhoneNumberTest(TestCase):
 class UserAccountTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         self.id = temp_acc.id
-        # TODO: login the temp_acc
 
 
     def initial_test(self):
@@ -210,13 +216,13 @@ class UserAccountTest(TestCase):
 class EntrepreneurInvestorAccountTest(TestCase):
     def test_run(self) -> None:
         self.client = Client()
-        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", full_name="sujhek kheruk",
+        temp_acc = UserAccount(username="shjkrk", email="shjkrk@localhost", user_model=User,
+                               full_name="sujhek kheruk",
                                deskripsi_diri="Aku tidak punya deskripsi", alamat="apakah aku punya rumah",
                                phone_number="08128845191")
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         self.id = temp_acc.id
-        # TODO: login the temp_acc
 
         temp_inv = InvestorAccount(account=temp_acc)
         temp_inv.save()

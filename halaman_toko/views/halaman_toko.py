@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import render
 
+from halaman_toko.authentication_and_authorization import get_logged_in_user_account
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
@@ -35,6 +36,10 @@ def halaman_toko(req:WSGIRequest):
         return ret_obj
 
     company_obj:Company = ret_obj[0]
+    logged_in_acc = get_logged_in_user_account(req)
+    is_company_owner_account = logged_in_acc is not None and (
+            logged_in_acc.user_model.username == company_obj.pemilik_usaha.account.user_model.username
+    )
 
 
     return render(req, "halaman_toko.html", {
@@ -45,6 +50,7 @@ def halaman_toko(req:WSGIRequest):
         'django_csrf_token': csrf.get_token(req),
         'owner_account': company_obj.pemilik_usaha.account,
         'informasi_saham': InformasiSaham(company_obj),
+        'tunjukkan_tombol_edit': is_company_owner_account
     })
 
 
@@ -64,7 +70,12 @@ def edit_proposal(req:WSGIRequest):
         return HttpResponse('Proposal must be submitted', status=400)
 
     company_obj:Company = ret_obj[0]
-    # TODO: authentication and authorization
+
+    user_object = get_logged_in_user_account(req)
+    if user_object is None:
+        return HttpResponse('please log in', status=403)
+    if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
+        return HttpResponse('you are not the owner of this company', status=403)
 
     form = CompanyAddProposalForm(req, req.FILES, instance=company_obj)
 
@@ -73,14 +84,12 @@ def edit_proposal(req:WSGIRequest):
         form_instance:Company = form.instance
         return HttpResponse(form_instance.proposal.url, status=200)
 
-    try:
-        return HttpResponse(
-            # harusnya cuman ada 1 field yang error, karena memang cuman ada 1 field
-            form.errors.as_data()['proposal'][-1].message,
-            status=400
-        )
-    except:
-        return HttpResponse(str(form.errors), status=400)
+    return HttpResponse(
+        # harusnya cuman ada 1 field yang error, karena memang cuman ada 1 field
+        form.errors.as_data()['proposal'][-1].message,
+        status=400
+    )
+
 
 def proposal_not_available(req:WSGIRequest):
     return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)
@@ -97,7 +106,7 @@ def save_company_form(req:WSGIRequest):
     if (temp:=is_available('id', req.POST)) is not True:
         return temp
 
-    # TODO: authentication and authorization
+    # TO DO: authentication and authorization
     id = req.POST['id']
 
     is_company_valid, obj = validate_toko_id(id)
@@ -105,6 +114,14 @@ def save_company_form(req:WSGIRequest):
         return obj
 
     company_object = obj.first()  # get the first query. I think it should only have one item tho
+
+
+    user_object = get_logged_in_user_account(req)
+    if user_object is None:
+        return HttpResponse('please log in', status=403)
+    if user_object.user_model.username != company_object.pemilik_usaha.account.user_model.username:
+        return HttpResponse('you are not the owner of this company', status=403)
+
     if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
         return HttpResponse("verification status must be 'not submitted yet' to alter any information", status=400)
 
@@ -128,15 +145,19 @@ def ajukan_verifikasi(req:WSGIRequest):
 
     if (temp:=is_available('id', req.POST)) is not True:
         return temp
-    # TODO: authentication and authorization
 
     id = req.POST['id']
 
     is_valid, obj = validate_toko_id(id)
     if not is_valid:
         return obj
-
     company_object:Company = obj[0]
+
+    user_object = get_logged_in_user_account(req)
+    if user_object is None:
+        return HttpResponse('please log in', status=403)
+    if user_object.user_model.username != company_object.pemilik_usaha.account.user_model.username:
+        return HttpResponse('you are not the owner of this company', status=403)
 
     if (company_object.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
         return HttpResponse("Invalid verification status", status=400)

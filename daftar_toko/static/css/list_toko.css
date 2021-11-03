@@ -25,17 +25,24 @@ main {
 
 .jumbotron {
     background: rgb(0, 32, 71);
-    border-radius: 20px;
     text-align: center;
 
 }
 
-.text--medium {
+.text--big {
     font-family:  'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 23px;
     line-height: 20px;
     font-weight: 400;
-    color: #ecf0f1;
+    color: #133138;
+}
+
+.text--medium {
+    font-family:  'Open Sans', sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #3a5b63;
 }
 
 .text--jumbotron {
@@ -57,7 +64,7 @@ main {
     grid-column-end: span 4;
     display: flex;
     flex-direction: column;
-    background: rgb(57, 57, 61);
+    background-color: transparent;
     transition: all 0.3s ease 0s;
 }
 
@@ -66,8 +73,9 @@ main {
 }
 
 .card__image-container {
+    height: 200px;
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: 10%;
     overflow: hidden;
     position: relative;
 }
@@ -82,10 +90,12 @@ main {
 
 .card__content {
     padding: 20px;
+    background-color: transparent;
 }
 
 .card__title {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    
 }
 
 .card__info {

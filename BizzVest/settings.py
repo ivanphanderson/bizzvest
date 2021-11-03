@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'daftar_toko',
     'mulai_invest',
     'start_web',
-
+    'navbar_footer',
     'models_app',
 ]
 
@@ -112,8 +112,6 @@ if PRODUCTION:
     #DATABASES['default'] = dj_database_url.config()
     SECURE_SSL_REDIRECT = True
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -131,6 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+print("SETTINGS PY  ", DEBUG, PRODUCTION)
+if DEBUG and not PRODUCTION:
+    AUTH_PASSWORD_VALIDATORS = []
+    print("auth password validators off")
+
+
 
 
 # Internationalization

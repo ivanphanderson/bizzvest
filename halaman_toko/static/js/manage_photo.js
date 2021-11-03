@@ -124,6 +124,8 @@ $(document).ready(function (){
         var photo_manager = $(".photo-manager");
 
         var photo_manager_item = $(".photo-manager-items").get(0);
+        if (photo_manager_item == null)
+            return;
         var computed_photo_item = getComputedStyle(photo_manager_item);
 
         var photo_item_width = computed_photo_item.getPropertyValue('--photo-manager-items-size');
