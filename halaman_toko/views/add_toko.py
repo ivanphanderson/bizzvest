@@ -52,10 +52,6 @@ def add_toko(req:WSGIRequest):
     if (logged_in_account is None):
         return HttpResponseRedirect(get_login_url())
 
-    # ga tau perlu atau engga. TODO
-    # if not logged_in_account.is_verified:
-    #     return HttpResponse("Sorry. Your account must be verified to be able to register a new company", status=400)
-
     if (req.method == 'POST'):
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')

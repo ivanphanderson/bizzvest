@@ -121,7 +121,6 @@ class UserAccountTest(TestCase):
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         self.id = temp_acc.id
-        # TODO: login the temp_acc
 
 
     def initial_test(self):
@@ -224,7 +223,6 @@ class EntrepreneurInvestorAccountTest(TestCase):
         temp_acc.photo_profile = mock_image_field()
         temp_acc.save()
         self.id = temp_acc.id
-        # TODO: login the temp_acc
 
         temp_inv = InvestorAccount(account=temp_acc)
         temp_inv.save()

@@ -65,6 +65,7 @@
                 <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
 
 
+                    {% if tunjukkan_tombol_edit %}
                     {% if company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
 
                     <a id="photo_edit_link"
@@ -86,6 +87,7 @@
                         <i class="fas fa-save"></i>
                     </button>
 
+                    {% endif %}
                     {% endif %}
                 </div>
 
@@ -211,6 +213,7 @@ disabled
                                 menunggu verifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
                                 belum mengajukan verifikasi
+                                {% if tunjukkan_tombol_edit %}
                                 &nbsp; <i
                                         class="choose_proposal_btn fas fa-file-upload"
                                         style="cursor:pointer;"
@@ -220,6 +223,7 @@ disabled
                                         class="request_for_verification fas fa-file-export"
                                         style="cursor:pointer;"
                                         data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <div class="dummy dummy-between"></div>

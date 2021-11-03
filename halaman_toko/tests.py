@@ -70,7 +70,6 @@ class HalamanTokoTest(TestCase):
 class HalamanTokoSudahLoginTest(TestCase):
     def setUp(self) -> None:
         set_up(self)
-        # TODO: login the temp_acc
 
 
     def test_add_toko(self):
@@ -120,7 +119,6 @@ class HalamanTokoLagi(TestCase):
         temp_acc.is_entrepreneur = True
         self.id = temp_acc
 
-        # TODO: login the temp_acc
         self.comp = Company(pemilik_usaha=temp_acc.entrepreneuraccount, jumlah_lembar=10000, nilai_lembar_saham=12000,
                             deskripsi="Ini garam terlezat yang pernah ada", nama_merek="Garamku",
                             nama_perusahaan="PT. Sugar Sugar", alamat="Jl. Sirsak", kode_saham="ABCD",
@@ -207,7 +205,6 @@ class ManagePhotosTest(TestCase):
         self.acc = temp_acc
         self.id = temp_acc
 
-        # TODO: login the temp_acc
         self.comp = Company(pemilik_usaha=temp_acc.entrepreneuraccount, jumlah_lembar=10000, nilai_lembar_saham=12000,
                             deskripsi="Ini garam terlezat yang pernah ada", nama_merek="Garamku",
                             nama_perusahaan="PT. Sugar Sugar", alamat="Jl. Sirsak", kode_saham="ABCD",
