@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import dateformat, timezone
 
-from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
+from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
-from models_app.models import Company
+from models_app.models import Company, EntrepreneurAccount
 
 
 class DoesProblemExist():
@@ -48,25 +48,24 @@ def add_toko(req:WSGIRequest):
     show_invalid_modal = False
     additional_problems = []
 
-    if (get_logged_in_user_account() is None):
+    logged_in_account = get_logged_in_user_account(req)
+    if (logged_in_account is None):
         return HttpResponseRedirect(get_login_url())
 
-    # TODO: Cek apakah akun pengguna sudah terverifikasi (KTP dsb) atau belum
-
     if (req.method == 'POST'):
-
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
-
-        temp = get_logged_in_user_account()
-        if not hasattr(temp, 'entrepreneuraccount'):
-            return HttpResponse("Your account hasn't been registered as an entrepreneur yet", status=400)
-        temp = temp.entrepreneuraccount
-        form.instance.pemilik_usaha = temp
 
         if ('pemilik_usaha' in req.POST):
             return HttpResponse("Illegal attribute: 'pemilik_usaha' ", status=400)
 
+        if not logged_in_account.is_entrepreneur:
+            logged_in_account.entrepreneuraccount = EntrepreneurAccount(account=logged_in_account)
+            logged_in_account.entrepreneuraccount.save()
+            logged_in_account.save()
+
+        temp = logged_in_account.entrepreneuraccount
+        form.instance.pemilik_usaha = temp
 
 
         if ('is_validate_only' not in req.POST):

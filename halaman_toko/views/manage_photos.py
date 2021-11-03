@@ -4,7 +4,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
+from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_foto import CompanyPhotoAddForm
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
 from models_app.models import Company, CompanyPhoto
@@ -16,7 +16,7 @@ from models_app.models_utility.company_utility import recalculate_img_index, rec
 
 
 def add_photo(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
@@ -31,7 +31,11 @@ def add_photo(req:WSGIRequest):
             return object
 
         company:Company = object[0]
-        # TODO: Authorization
+        user_object = get_logged_in_user_account(req)
+        if user_object is None:
+            return HttpResponse('please log in', status=403)
+        if user_object.user_model.username != company.pemilik_usaha.account.user_model.username:
+            return HttpResponse('you are not the owner of this company', status=403)
 
         if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
@@ -61,13 +65,13 @@ def add_photo(req:WSGIRequest):
             if (form.is_valid()):
                 saved_obj:CompanyPhoto = form.save()
             else:
-                return HttpResponse("Sorry, the form you've given is invalid. ", status=400)
+                return HttpResponse("Sorry, the form you've given is invalid. <!--" + str(form.errors) + "-->", status=400)
         return get_photos_json(company)
     return HttpResponse("Invalid request", status=400)
 
 
 def delete_photo(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
@@ -86,7 +90,11 @@ def delete_photo(req:WSGIRequest):
         photo_obj:CompanyPhoto = object
         photo_index = photo_obj.img_index
         company_obj:Company = photo_obj.company
-        # TODO: Authorization
+        user_object = get_logged_in_user_account(req)
+        if user_object is None:
+            return HttpResponse('please log in', status=403)
+        if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
+            return HttpResponse('you are not the owner of this company', status=403)
 
         if (company_obj.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
@@ -105,7 +113,7 @@ def delete_photo(req:WSGIRequest):
 
 
 def photo_reorder(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
@@ -117,7 +125,12 @@ def photo_reorder(req:WSGIRequest):
             return object
         
         company:Company = object.first()
-        # TODO: Authorization
+        user_object = get_logged_in_user_account(req)
+        if user_object is None:
+            return HttpResponse('please log in', status=403)
+        if user_object.user_model.username != company.pemilik_usaha.account.user_model.username:
+            return HttpResponse('you are not the owner of this company', status=403)
+
         if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
@@ -125,7 +138,7 @@ def photo_reorder(req:WSGIRequest):
         try:
             photo_order = json.loads(photo_order_json_string)
             if not isinstance(photo_order, dict):
-                return HttpResponse("invalid json [not a dict]: photo_order", status=400)
+                return HttpResponse("invalid json [not a dict]: photo_order  ", status=400)
             for key, value in photo_order.items():
                 if not key.isnumeric():
                     return HttpResponse("invalid json [non-numeric dict key]: photo_order", status=400)
@@ -167,9 +180,12 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
         if not is_valid:
             return ret_obj
 
-        # TODO: authentication and authorization
-
         company_obj:Company = ret_obj[0]
+        user_object = get_logged_in_user_account(req)
+        if user_object is None:
+            return HttpResponse('please log in', status=403)
+        if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
+            return HttpResponse('you are not the owner of this company', status=403)
 
         if "ajax_get_json" in req.GET:
             return get_photos_json(company_obj)
@@ -178,8 +194,6 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
             'company': company_obj
         })
 
-    elif req.method == "POST":
-        pass
 
 
 def get_photos_json(company_obj):

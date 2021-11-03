@@ -40,6 +40,8 @@
         <title>{{ company.nama_merek }}</title>
     </head>
     <body>
+        {% include 'bizzvest_navbar.html' %}
+
         <script>
             company_id = {{ company.id }};
             csrf_token = "{{ csrf_token  }}";
@@ -63,6 +65,7 @@
                 <div id="control_btn_container" class=""> <!--go_to_edit_mode, go_to_save_mode-->
 
 
+                    {% if tunjukkan_tombol_edit %}
                     {% if company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
 
                     <a id="photo_edit_link"
@@ -84,6 +87,7 @@
                         <i class="fas fa-save"></i>
                     </button>
 
+                    {% endif %}
                     {% endif %}
                 </div>
 
@@ -168,7 +172,9 @@
 
 
                     {% define_duplication 'proposal_download_btn' %}
-                        <div class="download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
+                        <div class="{% if not company.proposal %}
+disabled
+{% endif %} download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
                             <div class="download_proposal_icon">
 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
                                 <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
@@ -207,6 +213,7 @@
                                 menunggu verifikasi
                             {% elif company.status_verifikasi == company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI %}
                                 belum mengajukan verifikasi
+                                {% if tunjukkan_tombol_edit %}
                                 &nbsp; <i
                                         class="choose_proposal_btn fas fa-file-upload"
                                         style="cursor:pointer;"
@@ -216,6 +223,7 @@
                                         class="request_for_verification fas fa-file-export"
                                         style="cursor:pointer;"
                                         data-toggle="tooltip" data-placement="bottom" title="ajukan verifikasi"></i>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <div class="dummy dummy-between"></div>
@@ -307,10 +315,10 @@
                         <div class="entrepreneur_additional_information_wrapper">
                             <span id="entrepreneur_name" class="h4"
                                   data-toggle="tooltip" data-placement="bottom"
-                                  title="{{ owner_account.first_name }} {{ owner_account.last_name }}">
+                                  title="{{ owner_account.full_name }}">
 
-                                {{ owner_account.first_name }} {{ owner_account.last_name }}</span>
-                            <span id="entrepreneur_username" class="h6">@{{ owner_account.username }}</span>
+                                {{ owner_account.full_name }}</span>
+                            <span id="entrepreneur_username" class="h6">@{{ owner_account.user_model.username }}</span>
                         </div>
                     </div>
                 </div>
@@ -328,14 +336,14 @@
                         Alamat
                     </span>
 
-                    <div id="company_address">
+                    <div id="company_address" style="min-height: 100px;">
                         {% comment %}<span style="background-image: url('{% static "img/location_3.png" %}'); display:inline-block;
                                 width: 1em; height: 1em; background-size: contain; background-repeat: no-repeat;
                                 background-position: center center;"></span>{% endcomment %}
                         {{ company.alamat }}
                     </div>
 
-                    <div style="height: 3em;"></div>
+                    <div style="height: 2em;"></div>
 
                     <span class="h5">
                         Deskripsi
@@ -344,7 +352,10 @@
                     {% comment %}
                     no need |linebreaksbr because we have handled it in the css
                     harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut       {% endcomment %}
-                    <div id="company_description" onfocusout="company_description_KeyPress();">{{ company.deskripsi }}</div>
+                    <div id="company_description"
+                         onfocusout="company_description_KeyPress();"
+                         style="min-height: 100px;">{{ company.deskripsi }}</div>
+                    <div style="height: 2em;"></div>
                 </div>
             </div>
 
@@ -404,5 +415,6 @@
         </div>
 
     {% include 'toast.html' %}
+    {% include 'bizzvest_footer.html' %}
     </body>
 </html>

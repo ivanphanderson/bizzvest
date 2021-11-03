@@ -17,7 +17,6 @@ class CompanyPhoto(models.Model):  # dengan nama lain: Toko
 
     id = models.BigAutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    # img = models.ImageField(upload_to="uploads/company_photos/%Y/%m/", validators=[validate_image])
     img = models.ImageField(upload_to="uploads/company_photos/%Y/%m/")
 
     img_index = models.IntegerField()
