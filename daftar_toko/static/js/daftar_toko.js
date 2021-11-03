@@ -1,28 +1,3 @@
-$('.btn-action').click(function(){
-    var url = $(this).data("url"); 
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        success: function(res) {
-
-            // get the ajax response data
-            var data = res.body;
-
-            // update modal content here
-            // you may want to format data or 
-            // update other modal elements here too
-            $('.modal-body').text(data);
-
-            // show modal
-            $('#myModal').modal('show');
-
-        },
-        error:function(request, status, error) {
-            console.log("ajax call went wrong:" + request.responseText);
-        }
-    });
-});
-
 $("#search").keyup(function() {
 
     // Retrieve the input field text and reset the count to zero
@@ -30,7 +5,7 @@ $("#search").keyup(function() {
       count = 0;
 
     // Loop through the comment list
-    $('#card-company div').each(function() {
+    $('#cards').each(function() {
 
 
       // If the list item does not contain the text phrase fade it out
@@ -47,8 +22,8 @@ $("#search").keyup(function() {
 
   });
 
-  $('#search').keyup(function (event) {
-    var query =($('#search').val());
+  $('#search-bar').keyup(function (event) {
+    var query =($('#search-bar').val());
 
     if (query != '' || query != ' ') {  
       $.ajax({
@@ -59,7 +34,7 @@ $("#search").keyup(function() {
            'q': query
          },
          success: function(data) {
-            $('#main-results-search').html(data);
+            $('#cards').html(data);
          },
          error: function(data) {
             console.log(data);
@@ -72,12 +47,12 @@ $("#search").keyup(function() {
   // and when user clicked another/outside of this element below.
 
   $(document).click(function(event) {
-    $is_inside = $(event.target).closest('#main-results-search').length;
+    $is_inside = $(event.target).closest('#cards').length;
 
     if( event.target.id == 'search-bar' || $is_inside ) {
       return;
     }else {
-      $('#results-bar').remove();
+      $('#rcards').remove();
     }
   });
 

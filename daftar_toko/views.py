@@ -3,6 +3,8 @@ from django.db.models import Q
 from models_app.models import Company
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http.response import HttpResponse
+from django.core import serializers
 
 # Create your views here.
 
@@ -31,3 +33,6 @@ def search(request):
         return render(request, '/snippets/index_daftar_toko.html', {'company_obj': company_obj})
     return render(request, '/snippets/index_daftar_toko.html')
 
+def experiment(request):
+    data = serializers.serialize('json', Company.objects.all())
+    return HttpResponse(data, content_type="application/json")

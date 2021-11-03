@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title></title>
+  
   {% block extra_head %}
   {% endblock %}
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
@@ -15,7 +15,8 @@
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/mdb.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/list_toko.css' %}"/>
-  
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+  <title>Daftar Toko</title>
 </head>
 <body>
     <div class="container">
@@ -75,17 +76,22 @@
         <main>
         <section class="cards">
           {% for item in company_obj %}
-            <div class="card" style="cursor:pointer" >
+            <div class="card" style="cursor:pointer" onclick="location.href='/halaman-toko/?id={{ item.id }}'">
                 <div class="card__image-container">
                   <img  src="{{ item.companyphoto_set.all.0.img.url }}" alt="">
                 </div>
                 <div class="card__content">
-                    <p class="card__title text--medium">
+                    <span class="card__title">
+                      <p class="text--big">
                         {{ item.nama_merek }}
                     </p>
+                    </span>
                     <div class="card__info">
                         <p class="text--medium">{{ item.nama_perusahaan }}</p> 
-                        <p onclick="location.href='/halaman-toko/?id={{ item.id }}'" class="card__price text--medium">Info</p>       
+                        <p  class="card__price text--medium">Info</p>       
+                    </div>
+                    <div>
+
                     </div>
                 </div>
             </div>
@@ -136,6 +142,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/daftar_toko_ajax.js' %}" type="script/js"></script>
+    <script src="{% static 'js/daftar_toko.js' %}" type="script/js"></script>
 </body>
 </html>
