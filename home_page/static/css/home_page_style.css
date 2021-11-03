@@ -1,0 +1,178 @@
+:root {
+    --color-title: #0096C7;
+    --color-light: #f4fdff;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, p {
+    font-family: 'Oswald', sans-serif;
+}
+
+#title{
+    color: var(--color-title);
+    font-size: 2em;
+}
+
+#about{
+    color: var(--color-title);
+    font-size: 3em;
+}
+
+#light{
+    color: var(--color-light);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h4 {
+    font-weight: 300;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ct-fullheight {
+    height: 100%; width: 100%;
+}
+
+.first-part{
+    background: rgb(140,232,255);
+    background: linear-gradient(180deg, #8ce8ff , #b3efff);
+}
+
+.second-part{
+    background: #f4fdff;
+    position: relative;
+}
+
+.third-part{
+    background: rgb(140,232,255);
+    background: linear-gradient(180deg, #cdf4ff, #f4fdff);
+    position: relative;
+}
+
+.ct-columns{
+    height: 100%;
+    columns: 2 384px;
+    column-gap: 0;
+}
+
+.ct-content{
+    height:100%;
+    width: 100%;
+    position: relative;
+}
+
+.ct-txtbox{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    bottom: 0;
+    margin: auto;
+}
+
+.ct-content2{
+    /*background: pink;*/
+    height: 85%;
+    width: 85%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.ct-containertxt{
+    /*background: red;*/
+    height: 40%;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-txtbox2{
+    /*background: teal;*/
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.ct-containerfnc{
+    /*background: grey;*/
+    height: 60%;
+    width: 100%;
+    columns: 3;
+    column-gap: 1em;
+}
+
+.ct-boxfnc{
+    background: #8ce8ff;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.ct-childbox50{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-logofnc{
+    background: #f4fdff;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-txtfnc{
+    width: 80%;
+    height: 100%;
+    text-align: center;
+}
+
+@media all and (max-width: 767px) {
+    .ct-content{
+        height: 50%;
+    }
+    .ct-txtbox{
+        right: 0;
+        left: 0;
+    }
+    .ct-txtbox2{
+        width: 100%;
+    }
+    .ct-containertxt{
+        height: 20%;
+    }
+    .ct-containerfnc{
+        height: 80%;
+        columns: 1;
+    }
+    .ct-boxfnc{
+        width: 100%;
+        height: 30%;
+        margin-top: 3%;
+    }
+}
