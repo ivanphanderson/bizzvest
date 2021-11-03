@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import dateformat, timezone
 
-from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
+from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
 from models_app.models import Company, EntrepreneurAccount
 
@@ -48,7 +48,7 @@ def add_toko(req:WSGIRequest):
     show_invalid_modal = False
     additional_problems = []
 
-    logged_in_account = get_logged_in_user_account()
+    logged_in_account = get_logged_in_user_account(req)
     if (logged_in_account is None):
         return HttpResponseRedirect(get_login_url())
 

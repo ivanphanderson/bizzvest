@@ -4,7 +4,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
-from halaman_toko.authentication_and_authorization import get_logged_in_user_account, get_login_url
+from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_foto import CompanyPhotoAddForm
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
 from models_app.models import Company, CompanyPhoto
@@ -16,7 +16,7 @@ from models_app.models_utility.company_utility import recalculate_img_index, rec
 
 
 def add_photo(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
@@ -67,7 +67,7 @@ def add_photo(req:WSGIRequest):
 
 
 def delete_photo(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
@@ -105,7 +105,7 @@ def delete_photo(req:WSGIRequest):
 
 
 def photo_reorder(req:WSGIRequest):
-    if (get_logged_in_user_account() is None):
+    if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):

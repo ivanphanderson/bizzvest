@@ -63,8 +63,6 @@ class CompanyAddForm(forms.ModelForm):
             else:
                 errors[field] = 'Must be unique. Another company has already taken this value.'
 
-
-
         if len(errors) > 0:
             raise ValidationError(errors)
 

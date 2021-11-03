@@ -58,7 +58,7 @@ class Company(models.Model):  # dengan nama lain: Toko
 
     def save(self, *args, **kwargs):
         if (self.pemilik_usaha is None):
-            self.pemilik_usaha = get_logged_in_user_account().entrepreneuraccount
+            raise RuntimeError("Pemilik usaha none")
 
         super().save(*args, **kwargs)
 

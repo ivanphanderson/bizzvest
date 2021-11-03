@@ -40,6 +40,8 @@
         <title>{{ company.nama_merek }}</title>
     </head>
     <body>
+        {% include 'bizzvest_navbar.html' %}
+
         <script>
             company_id = {{ company.id }};
             csrf_token = "{{ csrf_token  }}";
@@ -168,7 +170,9 @@
 
 
                     {% define_duplication 'proposal_download_btn' %}
-                        <div class="download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
+                        <div class="{% if not company.proposal %}
+disabled
+{% endif %} download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
                             <div class="download_proposal_icon">
 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
                                 <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
@@ -328,14 +332,14 @@
                         Alamat
                     </span>
 
-                    <div id="company_address">
+                    <div id="company_address" style="min-height: 100px;">
                         {% comment %}<span style="background-image: url('{% static "img/location_3.png" %}'); display:inline-block;
                                 width: 1em; height: 1em; background-size: contain; background-repeat: no-repeat;
                                 background-position: center center;"></span>{% endcomment %}
                         {{ company.alamat }}
                     </div>
 
-                    <div style="height: 3em;"></div>
+                    <div style="height: 2em;"></div>
 
                     <span class="h5">
                         Deskripsi
@@ -344,7 +348,10 @@
                     {% comment %}
                     no need |linebreaksbr because we have handled it in the css
                     harus dalam baris yang sama karena whitespace tidak diabaikan oleh css tersebut       {% endcomment %}
-                    <div id="company_description" onfocusout="company_description_KeyPress();">{{ company.deskripsi }}</div>
+                    <div id="company_description"
+                         onfocusout="company_description_KeyPress();"
+                         style="min-height: 100px;">{{ company.deskripsi }}</div>
+                    <div style="height: 2em;"></div>
                 </div>
             </div>
 
@@ -404,5 +411,6 @@
         </div>
 
     {% include 'toast.html' %}
+    {% include 'bizzvest_footer.html' %}
     </body>
 </html>

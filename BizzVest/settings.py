@@ -130,6 +130,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+print("SETTINGS PY  ", DEBUG, PRODUCTION)
+if DEBUG and not PRODUCTION:
+    AUTH_PASSWORD_VALIDATORS = []
+    print("auth password validators off")
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

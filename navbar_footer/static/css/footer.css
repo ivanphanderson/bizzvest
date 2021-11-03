@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
-body{
+body.footer_tito{
     background-color: #8CE8FF;
-} 
+}
 
-a{
+.footer_tito a{
     font-family: 'DM Sans', sans-serif;
 }
