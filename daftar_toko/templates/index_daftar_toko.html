@@ -16,64 +16,39 @@
   <link href="{% static 'css/mdb.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/list_toko.css' %}"/>
   <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+
+  
   <title>Daftar Toko</title>
 </head>
 <body>
     <div class="container">
       
-      <!--Navbar-->
-      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
-
-        <!-- Navbar brand -->
-        <span class="navbar-brand">Bizzvest</span>
-
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-          aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse" id="basicExampleNav">
-
-          <!-- Links -->
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Daftar Toko
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Mulai Invest</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/faq/">Faq</a>
-            </li>
-            
-
-          </ul>
-          <!-- Links -->
-
-          
-        </div>
-        <!-- Collapsible content -->
-
-      </nav>
-      <!--/.Navbar-->
+      {% include 'bizzvest_navbar.html' %}
 
       <div class="jumbotron jumbotron-fluid">
         <h1 class="display-4 text--jumbotron" >Daftar Toko</h1>
-      </div>
 
-      <!--Section: Products v.3-->
+        
+      </div>     
       <div class="row">
         <div class="col-md-4">
+          {% csrf_token %}
             <input type="text" id="search-bar" class="form-control" placeholder="Cari merek atau perusahaan">
-        </div>
+            <button id="search-button">Cari</button>
+            
+              <ul id="search-results">
+                {% block content %}
+                {% endblock %}
+              </ul>
+             
+          </div>
+          
         
-       </div>
-
+     </div>
+     
         <main>
+          <!-- Search Section-->
+        
         <section class="cards">
           {% for item in company_obj %}
             <div class="card" style="cursor:pointer" onclick="location.href='/halaman-toko/?id={{ item.id }}'">
@@ -88,7 +63,6 @@
                     </span>
                     <div class="card__info">
                         <p class="text--medium">{{ item.nama_perusahaan }}</p> 
-                        <p  class="card__price text--medium">Info</p>       
                     </div>
                     <div>
 
@@ -139,9 +113,10 @@
         {% endif %}
       </nav>
     </div>
+    {% include 'bizzvest_footer.html' %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/daftar_toko.js' %}" type="script/js"></script>
+    <script src="{% static 'js/daftar_toko.js' %}"></script>
 </body>
 </html>
