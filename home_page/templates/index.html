@@ -22,6 +22,11 @@
                 <div class="ct-content">
                     <div class="ct-txtbox">
                         <div>
+                            {% if user.is_authenticated %}
+                            <h2 id="title">Selamat datang kembali!</h2>
+                            {% else %}
+
+                `           {% endif %}
                             <h1 id="title">
                                 <b>BizzVest, Solusi untuk Perkembangan Bisnis Anda di Masa Pandemi COVID-19</b>
                             </h1>
@@ -106,15 +111,16 @@
                           <h2><b>Kirim Pesan</b></h2>
                         </div>
                         <form id="new_message_form" action="" method='POST'>
-                        <div class="ct-modal-body">
-                            <label for="email">Alamat Email yang bisa dihubungi:</label><br>
-                            <input type="text" class="form-control inputstyle" id="email" name="email" placeholder="Tuliskan emailmu...">
-                            <label for="title">Pesan:</label><br>
-                            <textarea class="form-control inputstyle" id="pesan" name="pesan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
-                        </div>
-                        <div class="ct-modal-footer">
-                            <input class="btn btn-primary" type="button" id="savemsg" value="Kirim" style="margin-top:1em">
-                        </div>
+                            {% csrf_token %}
+                            <div class="ct-modal-body">
+                                <label for="email">Alamat Email yang bisa dihubungi:</label><br>
+                                <input type="text" class="form-control inputstyle" id="email" name="email" placeholder="Tuliskan emailmu...">
+                                <label for="title">Pesan:</label><br>
+                                <textarea class="form-control inputstyle" id="pesan" name="pesan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
+                            </div>
+                            <div class="ct-modal-footer">
+                                <input class="btn btn-primary" type="button" id="savemsg" value="Kirim" style="margin-top:1em">
+                            </div>
                         </form>
                       </div>
                     </div>
