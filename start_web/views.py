@@ -20,8 +20,8 @@ def sign_up(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("Registration Successful!"))
-            return HttpResponseRedirect('')
+            # messages.success(request, ("Registration Successful!"))
+            return HttpResponseRedirect('/')
         print(form.errors)
     else:
         form = RegisterUserForm()
@@ -36,9 +36,11 @@ def log_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return HttpResponseRedirect('/')
+            # next = request.POST.get('next', '/')
+            # return HttpResponseRedirect(next)
         else:
-            messages.success(request, ("There Was An Error Logging In, Try Again..."))
+            # messages.success(request, ("There Was An Error Logging In, Try Again..."))
             return redirect('login')
 
     else:
@@ -46,5 +48,5 @@ def log_in(request):
 
 def log_out(request):
     logout(request)
-    messages.success(request, ("You Were Logged Out!"))
-    return redirect('home')
+    # messages.success(request, ("You Were Logged Out!"))
+    return HttpResponseRedirect('/')

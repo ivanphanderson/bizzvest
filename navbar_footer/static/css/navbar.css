@@ -1,13 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 
+.navbar_tito .logo_navbar {
+    width: 98px !important; 
+    height: 60px !important;
+    padding-bottom: 0px !important;
+}
+
+.navbar_tito .profil_navbar {
+    width: 30px !important; 
+    height: 30px !important;
+    padding-bottom: 0px !important;
+}
+
 .navbar_tito a{
     color: #0096C7 !important;
-    font-family: 'Oswald', sans-serif;
-    font-size: 25px;
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 25px !important;
 }
 
 nav.navbar_tito{
-    background-color: #8CE8FF;
+    background-color: #8CE8FF !important;
+    padding: 0px 0px
 }
 
 .navbar_tito .btn{
@@ -20,12 +33,12 @@ nav.navbar_tito{
 }
 
 .navbar_tito .dropdown-menu[data-bs-popper] {
-    left: unset;
-    top: 100%;
-    right: 0;
-    margin-top: 0.9rem;
+    left: unset !important;
+    top: 100% !important;
+    right: 0 !important;
+    margin-top: 0.9rem !important;
 }
 
 .navbar_tito .dropdown-menu {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.25) !important;
 }

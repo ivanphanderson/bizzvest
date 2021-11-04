@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
+.footer_tito .logo_footer{
+    width: 98px !important; 
+    height: 60px !important;
+    padding-bottom: 0px !important;
+}
+
 body.footer_tito{
     background-color: #8CE8FF;
 }
