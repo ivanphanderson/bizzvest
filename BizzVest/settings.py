@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['*', 'localhost', 'bizzvest.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 print("SETTINGS PY  ", DEBUG, PRODUCTION)
-if DEBUG and not PRODUCTION:
+if DEBUG and not PRODUCTION or True:
     AUTH_PASSWORD_VALIDATORS = []
     print("auth password validators off")
 

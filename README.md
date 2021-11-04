@@ -1,4 +1,7 @@
+[![pipeline status](https://gitlab.com/immanuel01/bizzvest/badges/main/pipeline.svg)](https://gitlab.com/immanuel01/bizzvest/commits/main)
+
 # BizzVest
+
 “Let’s invest toward your business”
 
 
