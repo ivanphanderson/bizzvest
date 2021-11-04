@@ -30,9 +30,9 @@ def search(request):
     else:
         search_text = ''
 
-    company_search = Company.objects.filter(nama_perusahaan__contains=search_text, nama_merek__contains=search_text)
+    company_search = list(Company.objects.filter(Q(nama_perusahaan__contains=search_text)|Q(nama_merek__contains=search_text)|Q(kode_saham__contains=search_text)).values())
 
-    return render(request, 'search.html', {'company_obj' : company_search})
+    return JsonResponse({'company_search' : company_search})
 
 def experiment(request):
     data = serializers.serialize('json', Company.objects.all())

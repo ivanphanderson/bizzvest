@@ -33,43 +33,17 @@
       <div class="row">
         <div class="col-md-4">
           {% csrf_token %}
-            <input type="text" id="search-bar" class="form-control" placeholder="Cari merek atau perusahaan">
-            <button id="search-button">Cari</button>
-            
+            <input type="text" id="search-bar" method="POST" class="form-control" placeholder="Cari merek, perusahaan, atau kode saham">
               <ul id="search-results">
-                {% block content %}
-                {% endblock %}
-              </ul>
-             
-          </div>
-          
-        
+              </ul>  
+        </div> 
      </div>
      
-        <main>
+        <main i>
           <!-- Search Section-->
         
-        <section class="cards">
-          {% for item in company_obj %}
-            <div class="card" style="cursor:pointer" onclick="location.href='/halaman-toko/?id={{ item.id }}'">
-                <div class="card__image-container">
-                  <img  src="{{ item.companyphoto_set.all.0.img.url }}" alt="">
-                </div>
-                <div class="card__content">
-                    <span class="card__title">
-                      <p class="text--big">
-                        {{ item.nama_merek }}
-                    </p>
-                    </span>
-                    <div class="card__info">
-                        <p class="text--medium">{{ item.nama_perusahaan }}</p> 
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-            </div>
-          {% endfor %}
+        <section class="cards" id="cards-results">
+          
         </section>
         </main>
       
