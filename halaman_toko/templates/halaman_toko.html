@@ -175,7 +175,7 @@
 
                     {% define_duplication 'proposal_download_btn' %}
                         <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}
-{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI%}proposal_only{% endif %}">
+{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI %}proposal_only{% endif %}">
 
                         <div class="{% if not company.proposal %}disabled{% endif %} download_proposal_container red_box"
                              style=""

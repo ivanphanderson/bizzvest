@@ -1,1 +1,0 @@
-from .contoh1 import *

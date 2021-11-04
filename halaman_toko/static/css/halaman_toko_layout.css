@@ -444,10 +444,13 @@ body{
 .proposal_only.proposal_startinvest_container .download_proposal_container{
     /*background-color: #23d6ff;*/
     z-index: 100;
-    filter: brightness(1.17);
-    cursor: pointer;
     /*clip-path: url(#clip_path_1--animate);*/
     clip-path: ellipse(140% 110% at 0% 50%);;
+}
+
+.download_proposal_container:hover {
+    filter: brightness(1.17);
+    cursor: pointer;
 }
 
 .halaman-invest-hover .download_proposal_container{
