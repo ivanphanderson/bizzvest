@@ -159,17 +159,17 @@
                           
                           <div class="text-center text-sm-right">
                             {% if profil.is_entrepreneur and profil.is_investor %}
-                            <span class="badge badge-secondary">Enterpreneur  </span>
-                            <span class="badge badge-secondary">Investor </span>
+                            <span class="badge badge-secondary" style="background-color: blue;">Enterpreneur  </span>
+                            <span class="badge badge-secondary" style="background-color: chartreuse;">Investor </span>
                             
                             {% elif profil.is_entrepreneur %}
-                            <span class="badge badge-secondary">Enterpreneur  </span>
+                            <span class="badge badge-secondary" style="background-color: blue;">Enterpreneur  </span>
                             
                             {% elif profil.is_investor %}
-                            <span class="badge badge-secondary">Investor </span>
+                            <span class="badge badge-secondary" style="background-color: chartreuse;">Investor </span>
                             
                             {% else %}
-                            <span class="badge badge-secondary">Belum terverifikasi </span>
+                            <span class="badge badge-secondary" style="background-color:goldenrod">Belum terverifikasi </span>
                             
                             {% endif %}
                             
@@ -297,8 +297,8 @@
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title font-weight-bold">Merasa kurang aman?</h6>
-                          <p class="card-text" id="kini-anda">Kini anda dapat dengan mudah mengubah password anda dengan menekan tombol di bawah ini</p>
-                          <button type="button" class="btn btn-primary" id="tombol-ganti-password" href="#signupModal" data-toggle="modal">Ganti Password</button>
+                          <p class="card-text" id="kini-anda">Tenang saja, kami menjamin semua data yang anda masukkan tidak jatuh ke pihak luar di luar Bizzvest.</p>
+                          <!-- <button type="button" class="btn btn-primary" id="tombol-ganti-password" href="#signupModal" data-toggle="modal">Ganti Password</button> -->
                       </div>
                     </div>
                     <!-- </form> -->

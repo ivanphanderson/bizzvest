@@ -15,16 +15,8 @@ class DoesProblemExist():
 class FormErrors():
     def __init__(self, errors):
         dictionary = errors.as_data()
-        fields_list =  ['proposal',
-                        'nama_merek',
-                        'nama_perusahaan',
-                        'alamat',
-                        'deskripsi',
-                        'jumlah_lembar',
-                        'nilai_lembar_saham',
-                        'kode_saham',
-                        'dividen',
-                        'end_date',
+        fields_list =  ['usermail',
+                       'email'
                         ]
 
         self.does_problem_exist = DoesProblemExist()
@@ -34,13 +26,14 @@ class FormErrors():
             temp:ValidationError = dictionary.get(attr_name, no_error)[-1]
             setattr(self, attr_name, temp.message)
             setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
+
 def index(request):
     
     profil = UserAccount.objects.all().first()
     # akun_investor = InvestorAccount.objects.all.values()
     # akun_enterpreneur = EntrepreneurAccount.objects.all.values()
     response = {'profil':profil}
-    return render(request, 'tampilan_profil.html', response);
+    return render(request, 'tampilan_profil.html', response)
 
 # def ganti_password(request):
 #     context ={}
@@ -74,6 +67,9 @@ def ganti_profil(request):
             form.save()
             form_khusus.save()
             return HttpResponseRedirect('/my-profile/')
+
+        else:
+            print("email tidak unik")
         
             
         

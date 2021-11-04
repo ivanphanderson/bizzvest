@@ -15,8 +15,6 @@ class ProfileForm(forms.ModelForm) :
             "phone_number",
             "alamat",
             "deskripsi_diri",  
-            # "enterpreneur_account",
-            # "investor_account"
         )
 
 class FormSpesial(forms.ModelForm) :
@@ -45,5 +43,4 @@ class PhotoForm(forms.ModelForm) :
     class Meta:
         model = UserAccount
         fields = ("photo_profile",)  
-            # "enterpreneur_account",
-            # "investor_account"
+            

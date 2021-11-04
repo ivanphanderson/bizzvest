@@ -148,19 +148,19 @@
                   </div>
                   <div class="text-center text-sm-right">
                     {% if profil.is_entrepreneur and profil.is_investor %}
-                            <span class="badge badge-secondary">Enterpreneur  </span>
-                            <span class="badge badge-secondary">Investor </span>
-                            
-                            {% elif profil.is_entrepreneur %}
-                            <span class="badge badge-secondary">Enterpreneur  </span>
-
-                            {% elif profil.is_investor %}
-                            <span class="badge badge-secondary">Investor </span>
-                            
-                            {% else %}
-                            <span class="badge badge-secondary">Belum terverifikasi </span>
-                            
-                            {% endif %}
+                    <span class="badge badge-secondary" style="background-color: blue;">Enterpreneur  </span>
+                    <span class="badge badge-secondary" style="background-color: chartreuse;">Investor </span>
+                    
+                    {% elif profil.is_entrepreneur %}
+                    <span class="badge badge-secondary" style="background-color: blue;">Enterpreneur  </span>
+                    
+                    {% elif profil.is_investor %}
+                    <span class="badge badge-secondary" style="background-color: chartreuse;">Investor </span>
+                    
+                    {% else %}
+                    <span class="badge badge-secondary" style="background-color:goldenrod">Belum terverifikasi </span>
+                    
+                    {% endif %}
                     <!-- <div class="text-muted"><small>Joined 09 Dec 2017</small></div> -->
                   </div>
                 </div>
