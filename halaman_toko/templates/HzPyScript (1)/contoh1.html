@@ -1,0 +1,40 @@
+{% load HzPyScript %}
+
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>pesan 1:</h1>
+        <div>
+            {% HzPyScript %}
+cout("Hello world!")
+            {% end_HzPyScript %}
+        </div> <br>
+
+        <h1>pesan 2:</h1>
+        <div>
+            {% HzPyScript %}
+
+temp = 1
+for i in range(1, 10):
+    cout("Halo dunia!", i, ',', temp,  "<br>")
+    temp *= 2
+
+
+            {% end_HzPyScript %}
+        </div> <br>
+
+        <h1>pesan 3:</h1>
+        <div>
+            {% HzPyScript %}
+
+cout(variabel_dari_views_py)
+cout("<br><br><br>")
+cout("Halo")
+
+            {% end_HzPyScript %}
+        </div>
+    </body>
+</html>

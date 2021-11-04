@@ -342,9 +342,7 @@ class ManagePhotosTest(TestCase):
 
 class AddTokoTest(TestCase):
     def setUp(self) -> None:
-        print('settingup')
         temp_acc = set_up(self)
-        print('setted up', list(User.objects.all()))
         temp_acc.is_entrepreneur = True
         self.id = temp_acc
         self.acc = temp_acc
@@ -368,7 +366,6 @@ class AddTokoTest(TestCase):
 
         response = self.client.post('/halaman-toko/add', data)
         # print(response.content)
-        print("ASSDGRE", response.context)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Company.objects.filter(nama_merek=string_acak).count(), 0)
 
@@ -387,7 +384,6 @@ class AddTokoTest(TestCase):
 
         self.acc.is_entrepreneur = False
         response = self.client.post('/halaman-toko/add', data)
-        print(response.content)
         self.assertTrue(response.status_code in (200, 302))
         self.assertGreater(Company.objects.all().filter(nama_merek=string_acak).count(), 0)
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum
 from django.http import HttpResponse
@@ -29,7 +30,7 @@ class InformasiSaham():
         self.persentase_tersisa = 100 - self.persentase_terjual
 
 
-
+@login_required(login_url='/start-web/login')
 def halaman_toko(req:WSGIRequest):
     is_valid, ret_obj = validate_toko_id_by_GET_req(req)
     if not is_valid:
@@ -128,7 +129,6 @@ def save_company_form(req:WSGIRequest):
     form = CompanyEditForm(req.POST, instance=company_object)
 
     if (form.is_valid()):
-        print(form)
         form.save()
         return HttpResponse('saved successfully!', status=200)
     else:

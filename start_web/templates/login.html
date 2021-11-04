@@ -35,10 +35,10 @@
                             <div class="form-group">
                                 <input type="password" class="form-control mt-3 py-2" placeholder="Password" name="password">
                             </div>
+                            <input type="hidden" name="next" value="{{ request.path }}">
                             <center>
                             <button type="submit" class="btn btn-lg border-0 mt-3 px-5">Masuk</button>
                             <p class="mt-1"><small>Belum punya akun? <a href="{% url 'sign-up' %}">Daftar disini</a></small></p>
-                            <p><small><a href="#">Lupa Password?</a></small></p>
                             </center>
                           </form>
                     </div>

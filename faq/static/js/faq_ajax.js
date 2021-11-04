@@ -3,7 +3,7 @@ $("#btnsave").on('click', function() {
     let output = "";
     let question = $("#pertanyaan").val();
     let name = $("#nama").val();
-    let csr = $("input[name=csrfmiddlewaretoken").val();
+    let csr = $("input[name=csrfmiddlewaretoken]").val();
 
     if (nama != "" & pertanyaan != "") {
         dataFaq = { nama: name, pertanyaan: question, csrfmiddlewaretoken: csr };
@@ -13,7 +13,7 @@ $("#btnsave").on('click', function() {
             data: dataFaq,
             dataType: "json",
             success: function (data) {
-                ask = data.pertanyaan_data
+                ask = data.pertanyaan_data;
                 if(data.status == "Save"){
                     $("#data_pertanyaan").empty();
                     for (i=0; i<ask.length; i++){

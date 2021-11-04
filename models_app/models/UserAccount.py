@@ -15,6 +15,11 @@ def random_password():
     temp3 = choices(string.digits)
     return f"{temp1}{temp2}{temp3}"
 
+gender_choices = (
+    ('jenis_kelamin', 'Pilih jenis kelamin'),
+    ('laki_laki', 'Laki-laki'),
+    ('perempuan', 'Perempuan'),
+)
 
 class UserAccount(models.Model):
     FORWARD_ATTR = {'username', 'email'}
@@ -76,17 +81,17 @@ class UserAccount(models.Model):
                                                                'followed by 8 to 14 digits',
                                                        code='nomatch')])
 
-    full_name = models.CharField(max_length=30,
+    full_name = models.CharField(max_length=30, default="", blank=True,
                                  validators=[
-                                     RegexValidator(regex='^[a-zA-Z][a-z]*( [a-zA-Z][a-z]*)*$',
+                                     RegexValidator(regex='^[a-zA-Z]?[a-z]*( [a-zA-Z][a-z]*)*$',
                                                     message='Must consists only alphabets. Only first letters in each '
                                                             'word are allowed to be uppercase. No two consecutive '
                                                             'spaces are allowed',
                                                     code='nomatch')])
 
-    alamat = models.CharField(max_length=140, default="")
-    deskripsi_diri = models.TextField(max_length=3000, default="")
-
+    alamat = models.CharField(max_length=140, default="", blank=True)
+    deskripsi_diri = models.TextField(max_length=3000, default="", blank=True)
+    gender = models.CharField(max_length=20, choices=gender_choices, default='jenis-kelamin', blank=True)
     ### sepertinya tidak perlu
     # join_date = models.DateField(default=timezone.now)
     # last_login = models.DateTimeField(default=timezone.now)
