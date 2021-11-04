@@ -1,0 +1,359 @@
+:root {
+    --color-title: #0096C7;
+    --color-light: #f4fdff;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, p {
+    font-family: 'Oswald', sans-serif;
+}
+
+#title{
+    color: var(--color-title);
+    font-size: 2em;
+}
+
+#about{
+    color: var(--color-title);
+    font-size: 3em;
+}
+
+#light{
+    color: var(--color-light);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h4 {
+    font-weight: 300;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ct-fullheight {
+    height: 100%; width: 100%;
+}
+
+.first-part{
+    background: rgb(140,232,255);
+    background: linear-gradient(180deg, #8ce8ff , #b3efff);
+}
+
+.second-part{
+    background: var(--color-light);
+    position: relative;
+}
+
+.third-part{
+    background: rgb(140,232,255);
+    /*background: linear-gradient(180deg, #cdf4ff, #f4fdff);*/
+    background: linear-gradient(180deg, #cdf4ff, #ffffff);
+    position: relative;
+}
+
+.ct-columns{
+    height: 100%;
+    columns: 2 384px;
+    column-gap: 0;
+}
+
+.ct-content{
+    height:100%;
+    width: 100%;
+    position: relative;
+}
+
+.ct-txtbox{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    bottom: 0;
+    margin: auto;
+}
+
+.ct-imgbox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-content2{
+    /*background: pink;*/
+    height: 85%;
+    width: 84%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.ct-containertxt{
+    /*background: red;*/
+    height: 40%;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-txtbox2{
+    /*background: teal;*/
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.ct-containerfnc{
+    /*background: grey;*/
+    height: 60%;
+    width: 100%;
+    columns: 3;
+    column-gap: 1em;
+}
+
+.ct-boxfnc{
+    background: #8ce8ff;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.ct-childbox50{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-logofnc{
+    background: var(--color-light);
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-txtfnc{
+    width: 80%;
+    height: 100%;
+    text-align: center;
+}
+
+.ct-containertxt2{
+    /*background: red;*/
+    height: 30%;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-containerbutt{
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#ct-button{
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    background: var(--color-light);
+    width: 250px;
+    height: 70px;
+    border: none;
+    border-color: var(--color-light); 
+    border-radius: 35px;
+    box-shadow: 3px 5px 10px grey;
+}
+
+#ct-button:hover,
+#ct-button:focus{
+    background-color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ct-containerfnc2{
+    /*background: grey;*/
+    height: 40%;
+    width: 100%;
+    columns: 3;
+    column-gap: 1em;
+}
+
+.ct-boxlogo{
+    width: 100%;
+    height: 100%;
+    display: grid;
+}
+
+.ct-circlelogo{
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img#sosmed{
+    width: 70%;
+}
+
+@media all and (max-width:500px) {
+    .ct-logofnc{
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+    }
+    img #sosmed{
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .ct-content{
+        height: 50%;
+    }
+    .ct-txtbox{
+        right: 0;
+        left: 0;
+    }
+    .ct-txtbox2{
+        width: 100%;
+    }
+    .ct-containertxt{
+        height: 20%;
+    }
+    .ct-containerfnc{
+        height: 80%;
+        columns: 1;
+    }
+    .ct-boxfnc{
+        width: 70%;
+        height: 30%;
+        margin-top: 3%;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    .ct-containertxt2{
+        /*background: red;*/
+        height: 20%;
+        width
+    }
+    .ct-containerbutt{
+        height: 10%;
+    }
+    .ct-containerfnc2{
+        height: 70%;
+        columns: 1;
+    }
+    .ct-boxlogo{
+        height: 30%;
+        margin-top: 3%;
+    }
+    img#sosmed{
+        height: 70%;
+    }
+}
+
+
+/* modal */
+/* The Modal (background) */
+.ct-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.ct-modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    /*
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.7s;
+    animation-name: animatetop;
+    animation-duration: 0.7s
+    */
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.ct-close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.ct-close:hover,
+.ct-close:focus {
+    color: var(--color-light);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ct-modal-header {
+    padding: 2px 16px;
+    background-color: #8ce8ff;
+    color: var(--color-title);
+    font-weight: 700;
+}
+
+.ct-modal-body {
+    padding: 2px 16px;
+    background-color: var(--color-light);
+}
+
+.ct-modal-footer {
+    padding: 2px 16px;
+    background-color: var(--color-light);
+}
