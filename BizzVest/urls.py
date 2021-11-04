@@ -36,5 +36,5 @@ urlpatterns = [
     path('halaman-toko', RedirectView.as_view(url='halaman-toko/', permanent=False)),
     path('add-toko', RedirectView.as_view(url='halaman-toko/add', permanent=False)),
 
-    path('my-profile', include('my_profile.urls')),
+    path('my-profile/', include('my_profile.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

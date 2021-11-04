@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render
 
 def index(request):
@@ -10,3 +11,9 @@ def index(request):
 #         return HttpResponseRedirect('/lab-4')
 #     response = {'form': form}
 #     return render(request, 'lab4_form.html', response)
+=======
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'index.html')
+>>>>>>> yoga_my_profile
