@@ -129,7 +129,6 @@ def save_company_form(req:WSGIRequest):
     form = CompanyEditForm(req.POST, instance=company_object)
 
     if (form.is_valid()):
-        print(form)
         form.save()
         return HttpResponse('saved successfully!', status=200)
     else:
