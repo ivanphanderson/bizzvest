@@ -1,0 +1,71 @@
+<svg width="0" height="0" class="proposal_startinvest_svg_clippath">
+    {#        <svg xmlns="http://www.w3.org/2000/svg" height="400" width="700">#}
+    <defs>
+        <clipPath id="clip_path_1--animate" class="animating" clipPathUnits="objectBoundingBox">
+            <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z">
+                <animate attributeType="XML"
+                         attributeName="d"
+                         from="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z"
+                         to="M 0,1
+                              L 0,0
+                              L 1,0
+                              C 1 1, 1 1, 1 1
+                              Z"
+                         dur="300ms"
+                         fill="freeze"
+                         repeatCount="1"
+                         restart="always"/>
+            </path>
+        </clipPath>
+
+        <clipPath id="clip_path_1--start" clipPathUnits="objectBoundingBox">
+            <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+
+                              Z" />
+        </clipPath>
+
+        <clipPath id="clip_path_2--animate" clipPathUnits="objectBoundingBox">
+            <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z">
+                <animate attributeType="XML"
+                         attributeName="d"
+                         from="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z"
+                         to="M 1,0
+                              L 1,1
+                              L 0,1
+                              C 0 0, 0 0, 0 0
+                              Z"
+                         dur="300ms"
+                         fill="freeze"
+                         repeatCount="1"
+                         restart="always"/>
+            </path>
+        </clipPath>
+        <clipPath id="clip_path_2--start" clipPathUnits="objectBoundingBox">
+            <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+
+                              Z" />
+        </clipPath>
+    </defs>
+</svg>

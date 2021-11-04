@@ -171,19 +171,29 @@
 
 
 
+
+
                     {% define_duplication 'proposal_download_btn' %}
+                        <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}"
+                             >
                         <div class="{% if not company.proposal %}
 disabled
-{% endif %} download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
+{% endif %} download_proposal_container red_box"
+                             style=""
+                             onclick="$('#download-proposal')[0].click();"
+                             onmouseenter="$('#clip_path_1--animate').find('animate').get(0).beginElement();console.log('zz');">
+
+
                             <div class="download_proposal_icon">
 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
                                 <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
                             </div>
-                            <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
+                            <div class="download_proposal_text_wrapper"">
                                 <span class="download_proposal_text h5">
                                     Download Proposal
                                 </span>
                             </div>
+
 
                             <a
                                     {% if company.proposal %}
@@ -192,6 +202,37 @@ disabled
                                         href="{% url 'halaman_toko:proposal_not_available' %}"
                                     {% endif %}
                                         id="download-proposal" target="_blank"></a>
+                        </div>
+                        <div class="{% if not company.proposal %}
+disabled
+{% endif %} start_invest_container red_box shadowed_box_2_clickable"
+                             style=""
+                             onclick="$('#pergi-ke-halaman-invest')[0].click();"
+                             onmouseenter="$('#clip_path_2--animate').find('animate').get(0).beginElement();console.log('zz');">
+
+
+                            <div class="download_proposal_icon">
+                                {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
+                                <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
+                            </div>
+                            <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
+                            <span class="download_proposal_text h5">
+                                Download Proposal
+                            </span>
+                            </div>
+
+
+                            <a
+                                    {% if company.proposal %}
+                                        href="{{ company.proposal.url }}"
+                                    {% else %}
+                                        href="{% url 'halaman_toko:proposal_not_available' %}"
+                                    {% endif %}
+                                        id="download-pergi-ke-halaman-invest"></a>
+                        </div>
+
+
+
                         </div>
                     {% end_define_duplication %}
 
@@ -413,6 +454,78 @@ disabled
                 </div>
             </div>
         </div>
+
+        <svg width="0" height="0" class="proposal_startinvest_svg_clippath">
+{#        <svg xmlns="http://www.w3.org/2000/svg" height="400" width="700">#}
+            <defs>
+                <clipPath id="clip_path_1--animate" class="animating" clipPathUnits="objectBoundingBox">
+                    <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z">
+                        <animate attributeType="XML"
+                                 attributeName="d"
+                                 from="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z"
+                                 to="M 0,1
+                              L 0,0
+                              L 1,0
+                              C 1 1, 1 1, 1 1
+                              Z"
+                                 dur="300ms"
+                                 fill="freeze"
+                                 repeatCount="1"
+                                 restart="always"/>
+                    </path>
+                </clipPath>
+
+                <clipPath id="clip_path_1--start" clipPathUnits="objectBoundingBox">
+                    <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+
+                              Z" />
+                </clipPath>
+
+                <clipPath id="clip_path_2--animate" clipPathUnits="objectBoundingBox">
+                    <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z">
+                        <animate attributeType="XML"
+                                 attributeName="d"
+                                 from="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z"
+                                 to="M 1,0
+                              L 1,1
+                              L 0,1
+                              C 0 0, 0 0, 0 0
+                              Z"
+                                 dur="300ms"
+                                 fill="freeze"
+                                 repeatCount="1"
+                                 restart="always"/>
+                    </path>
+                </clipPath>
+                <clipPath id="clip_path_2--start" clipPathUnits="objectBoundingBox">
+                    <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+
+                              Z" />
+                </clipPath>
+            </defs>
+        </svg>
 
     {% include 'toast.html' %}
     {% include 'bizzvest_footer.html' %}

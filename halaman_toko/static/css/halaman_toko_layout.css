@@ -396,32 +396,86 @@ body{
     -webkit-filter: var(--filter);
 }
 
-.download_proposal_container{
+
+.proposal_startinvest_container{
     --default-display: grid;
     --proposal-container-padding: 6px;
+
+    padding: 0;
+    background-color: unset;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+}
+/*.proposal_startinvest_container > div{*/
+/*    filter: drop-shadow(var(--shadowed-box-2-complete));*/
+/*}*/
+
+
+.download_proposal_container{
+    grid-row: 1;
+    grid-column: 1;
 
     /*background-color: rgb(255, 188, 164);*/
     /*background-color: var(--bs-info);*/
 
     color: whitesmoke;
     background-color: var(--bs-primary);
+    clip-path: url(#clip_path_1--static);
+    /*clip-path: circle(20px);*/
 
     /*background-color: #79e8ff;*/
     /*background-color: rgba(184, 221, 255, 0.67);*/
     cursor: pointer;
 
+    z-index: 9;
+    display: var(--default-display);
+    padding: var(--proposal-container-padding);
+    grid-template-columns: minmax(auto, calc(var(--row_3_height) - 2 * var(--proposal-container-padding))) 1fr;
+    grid-template-rows: 1fr;
+    transition: background-color 300ms ease-in-out, filter 300ms ease-in-out, 1s ease;
+    /*transition: clip-path 1s;*/
+}
+.download_proposal_container:hover{
+    /*background-color: #23d6ff;*/
+    z-index: 100;
+    filter: brightness(1.17);
+    cursor: pointer;
+    clip-path: url(#clip_path_1--animate);
+}
+
+.start_invest_container{
+
+    grid-row: 1;
+    grid-column: 1;
+    --default-display: grid;
+    --proposal-container-padding: 6px;
+
+    color: black;
+    background-color: #9bff8a;
+    clip-path: url(#clip_path_2--start);
+    cursor: pointer;
+
+    z-index: 10;
     display: var(--default-display);
     padding: var(--proposal-container-padding);
     grid-template-columns: minmax(auto, calc(var(--row_3_height) - 2 * var(--proposal-container-padding))) 1fr;
     grid-template-rows: 1fr;
     transition: background-color 300ms ease-in-out, filter 300ms ease-in-out;
 }
-.download_proposal_container:hover{
+.start_invest_container:hover{
     /*background-color: #23d6ff;*/
+    z-index: 100;
     filter: brightness(1.17);
+    clip-path: url(#clip_path_2--animate);
 }
 
-.download_proposal_container.proposal_download_mobile_mode{
+
+
+
+
+
+.proposal_startinvest_container.proposal_download_mobile_mode{
     display: none;
 }
 
@@ -553,12 +607,12 @@ body{
     }
 
 
-    .download_proposal_container.proposal_download_mobile_mode{
+    .proposal_startinvest_container.proposal_download_mobile_mode{
         display: var(--default-display);
     }
 
 
-    .download_proposal_container.proposal_download_desktop_mode{
+    .proposal_startinvest_container.proposal_download_desktop_mode{
         display: none;
     }
 
