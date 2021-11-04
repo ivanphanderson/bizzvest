@@ -1,6 +1,8 @@
 # BizzVest
 “Let’s invest toward your business”
 
+[![pipeline status](https://gitlab.com/immanuel01/bizzvest/badges/main/pipeline.svg)](https://gitlab.com/immanuel01/bizzvest/commits/main)
+
 
 ## Kelompok C02
 **Nama Anggota:**

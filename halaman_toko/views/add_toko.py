@@ -85,7 +85,6 @@ def add_toko(req:WSGIRequest):
     else:
         form = CompanyAddForm(None)
 
-    print(dict(form.errors))
 
     return render(req, "add_toko.html", {
         'form':form,

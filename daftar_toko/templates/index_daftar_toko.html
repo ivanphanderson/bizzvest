@@ -21,30 +21,35 @@
   <title>Daftar Toko</title>
 </head>
 <body>
+  
+  {% include 'bizzvest_navbar.html' %}
+
+  <div class="jumbotron jumbotron-fluid">
+    <h1 class="display-4 text--jumbotron" >Daftar Toko</h1>
+  </div> 
+
     <div class="container">
+      {% csrf_token %}
+            </div>
       
-      {% include 'bizzvest_navbar.html' %}
-
-      <div class="jumbotron jumbotron-fluid">
-        <h1 class="display-4 text--jumbotron" >Daftar Toko</h1>
-
-        
-      </div>     
-      <div class="row">
-        <div class="col-md-4">
-          {% csrf_token %}
-            <input type="text" id="search-bar" method="POST" class="form-control" placeholder="Cari merek, perusahaan, atau kode saham">
-              <ul id="search-results">
-              </ul>  
-        </div> 
-     </div>
-     
-        <main i>
+        <div id="div-search">
+            
+                <div class="search">
+                   <i class="fa fa-search"></i> 
+                  <input type="text" id="search-bar" method="POST" placeholder="Cari merek, perusahaan, dan kode saham" onkeydown ="if(event.keyCode == 13){document.getElementById('search-button').click()}">
+                  <button id="clear-button" onclick="clearSearch()"><i class="fa fa-times"></i> </button>
+                  <button id="search-button">Cari</button> 
+                </div>
+            
+        </div>
+        <section id="not-found"></section>
+        <main>
           <!-- Search Section-->
         
-        <section class="cards" id="cards-results">
+        <section class="cards">
           
         </section>
+       
         </main>
       
 
@@ -85,6 +90,7 @@
             {% endif %}
           </ul>
         {% endif %}
+
       </nav>
     </div>
     {% include 'bizzvest_footer.html' %}
