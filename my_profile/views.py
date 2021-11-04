@@ -51,6 +51,8 @@ def index(request):
   
 #     context['form']= form
 #     return render(request, 'form_gantipassword.html', context)
+
+
 @login_required
 def ganti_profil(request):
     # print("asdfgskjhdfs")
@@ -81,7 +83,7 @@ def ganti_profil(request):
     # print(profil.is_entrepreneur)
     return render(request, 'form_gantiprofil.html', context)
 
-
+@login_required
 def ganti_foto(request):
         # print("asdfgskjhdfs")
     profil = UserAccount.objects.all().first()
