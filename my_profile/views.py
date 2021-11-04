@@ -5,6 +5,7 @@ from models_app.models.EntrepreneurAccount import EntrepreneurAccount
 from my_profile.forms import PhotoForm, ProfileForm, FormSpesial
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class DoesProblemExist():
@@ -27,6 +28,7 @@ class FormErrors():
             setattr(self, attr_name, temp.message)
             setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
 
+@login_required
 def index(request):
     
     profil = UserAccount.objects.all().first()
@@ -49,7 +51,7 @@ def index(request):
   
 #     context['form']= form
 #     return render(request, 'form_gantipassword.html', context)
-
+@login_required
 def ganti_profil(request):
     # print("asdfgskjhdfs")
     profil = UserAccount.objects.all().first()
