@@ -1,8 +1,9 @@
 $(document).ready(function() {
   if($('#search-bar').val()==''){
-    show();
+    search();
   }
   $('#search-button').on('click', search);
+  
 });
 
 function show(){
@@ -37,19 +38,18 @@ function show(){
           </div>`
         }
         $('.cards').append(output);
-
-      
     }
   })
 }
 
 function search(){
   console.log("TERCETAK");
+  var search_bar = $('#search-bar').val();
   $.ajax({ 
     url: "/daftar-toko/search/",
     type: "POST",
     data: {
-      'search_text': $('#search-bar').val() ? $('#search-bar').val() : '',
+      'search_text': search_bar ? search_bar : '',
       'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
     },
     dataType: 'json',
@@ -61,8 +61,9 @@ function search(){
       result = data.company_search;
       output = '';
       console.log(result);
-      if(result.length <= 0){
-        output += '<div id="not-found"><h3>Hasil Pencarian Tidak Ditemukan :(</h3><button id="kembali-button" onclick="show()">Kembali ke Daftar Toko</button></div>';
+      if(result.length <= 0 && search_bar!=''){
+        $('#search-bar').val('');
+        output += '<div id="not-found"><h3>Hasil pencarian untuk <span style="color: #c71d64">'+search_bar+'</span> tidak ditemukan :(</h3><button id="kembali-button" onclick="search()">Kembali ke Daftar Toko</button></div>';
         $('#not-found').append(output);
       }else{
         console.log("OKE");
@@ -100,5 +101,5 @@ function search(){
 
 function clearSearch(){
   $('#search-bar').val('');
-  show();
+  search();
 }
