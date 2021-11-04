@@ -56,7 +56,8 @@ h4 {
 
 .third-part{
     background: rgb(140,232,255);
-    background: linear-gradient(180deg, #cdf4ff, #f4fdff);
+    /*background: linear-gradient(180deg, #cdf4ff, #f4fdff);*/
+    background: linear-gradient(180deg, #cdf4ff, #ffffff);
     position: relative;
 }
 

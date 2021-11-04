@@ -1,6 +1,6 @@
-# from django.db import models
+from django.db import models
 # 
 # # Create your models here.
-# class Pesan(models.Model):
+# class Message(models.Model):
 #     email = models.CharField(max_length=30)
 #     message = models.CharField(max_length=200)

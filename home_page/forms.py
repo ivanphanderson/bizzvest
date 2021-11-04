@@ -1,4 +1,4 @@
-# from home_page.models import Pesan
+# from home_page.models import Message
 # from django.forms import ModelForm
 # 
 # 

@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+    {% include 'bizzvest_navbar.html' %}
         <div class="ct-fullheight first-part">
             <div class="ct-columns">
                 <div class="ct-content">
@@ -104,15 +105,17 @@
                           <span class="ct-close">&times;</span>
                           <h2><b>Kirim Pesan</b></h2>
                         </div>
+                        <form id="new_message_form" action="" method='POST'>
                         <div class="ct-modal-body">
-                            <label for="to">Alamat Email yang bisa dihubungi:</label><br>
-                            <input type="text" class="form-control inputstyle" id="to" name="to" placeholder="Tuliskan emailmu...">
+                            <label for="email">Alamat Email yang bisa dihubungi:</label><br>
+                            <input type="text" class="form-control inputstyle" id="email" name="email" placeholder="Tuliskan emailmu...">
                             <label for="title">Pesan:</label><br>
-                            <textarea class="form-control inputstyle" id="pertanyaan" name="pertanyaan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
+                            <textarea class="form-control inputstyle" id="pesan" name="pesan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
                         </div>
                         <div class="ct-modal-footer">
-                            <input class="btn btn-primary" type="button" value="Kirim" style="margin-top:1em">
+                            <input class="btn btn-primary" type="button" id="savemsg" value="Kirim" style="margin-top:1em">
                         </div>
+                        </form>
                       </div>
                     </div>
                 </div>
@@ -141,6 +144,7 @@
                 </div>
             </div>
         </div>
+        {% include 'bizzvest_footer.html' %}
         <script src="static/js/home_page.js"></script>
     </body>
 </html>
