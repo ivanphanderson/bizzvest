@@ -62,7 +62,7 @@ class Company(models.Model):  # dengan nama lain: Toko
 
         super().save(*args, **kwargs)
 
-    def get_first_image(self):
-        return self.companyphoto_set.all().order_by("img_index")[0]
+    # variabel untuk meletakkan url gambar pertama yang akan ditampilkan di daftar toko
+    first_image = ''
 
 
