@@ -2,8 +2,8 @@ from django.shortcuts import render
 from models_app.models.UserAccount import UserAccount
 from models_app.models.InvestorAccount import InvestorAccount
 from models_app.models.EntrepreneurAccount import EntrepreneurAccount
-from my_profile.forms import ProfileForm, FormSpesial
-from django.http.response import HttpResponseRedirect
+from my_profile.forms import PhotoForm, ProfileForm, FormSpesial
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import ValidationError
 
 # Create your views here.
@@ -78,6 +78,29 @@ def ganti_profil(request):
             
         
   
+    context['form']= form
+    # print(profil)
+    # print(profil.is_entrepreneur)
+    return render(request, 'form_gantiprofil.html', context)
+
+
+def ganti_foto(request):
+        # print("asdfgskjhdfs")
+    profil = UserAccount.objects.all().first()
+    context ={"profil" : profil}
+    # create object of form
+    form = PhotoForm(request.POST or None, request.FILES or None, instance=profil)
+    # check if form data is valid
+    
+    if request.method == "POST" :
+        
+        if form.is_valid():
+            # save the form data to model
+            form.save()
+            return HttpResponse('success')
+        
+            
+        
     context['form']= form
     # print(profil)
     # print(profil.is_entrepreneur)

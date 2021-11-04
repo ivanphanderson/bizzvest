@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class ProfileForm(forms.ModelForm) :
     class Meta:
         model = UserAccount
-        fields = ("photo_profile", "full_name",
+        fields = ("full_name",
             "gender",
             "phone_number",
             "alamat",
@@ -41,3 +41,9 @@ class FormSpesial(forms.ModelForm) :
 
         return user    
 
+class PhotoForm(forms.ModelForm) :
+    class Meta:
+        model = UserAccount
+        fields = ("photo_profile",)  
+            # "enterpreneur_account",
+            # "investor_account"
