@@ -50,7 +50,7 @@ h4 {
 }
 
 .second-part{
-    background: #f4fdff;
+    background: var(--color-light);
     position: relative;
 }
 
@@ -83,10 +83,18 @@ h4 {
     margin: auto;
 }
 
+.ct-imgbox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ct-content2{
     /*background: pink;*/
     height: 85%;
-    width: 85%;
+    width: 84%;
     position: absolute;
     top: 0;
     right: 0;
@@ -137,7 +145,7 @@ h4 {
 }
 
 .ct-logofnc{
-    background: #f4fdff;
+    background: var(--color-light);
     height: 100px;
     width: 100px;
     border-radius: 50px;
@@ -150,6 +158,63 @@ h4 {
     width: 80%;
     height: 100%;
     text-align: center;
+}
+
+.ct-containertxt2{
+    /*background: red;*/
+    height: 30%;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ct-containerbutt{
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#ct-button{
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    background: var(--color-light);
+    width: 250px;
+    height: 70px;
+    border: none;
+    border-color: var(--color-light); 
+    border-radius: 35px;
+    cursor: pointer;
+    box-shadow: 3px 5px 10px grey;
+}
+
+.ct-containerfnc2{
+    /*background: grey;*/
+    height: 40%;
+    width: 100%;
+    columns: 3;
+    column-gap: 1em;
+}
+
+.ct-boxlogo{
+    width: 100%;
+    height: 100%;
+    display: grid;
+}
+
+.ct-circlelogo{
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img#sosmed{
+    width: 70%;
 }
 
 @media all and (max-width: 767px) {
@@ -171,8 +236,29 @@ h4 {
         columns: 1;
     }
     .ct-boxfnc{
-        width: 100%;
+        width: 70%;
         height: 30%;
         margin-top: 3%;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    .ct-containertxt2{
+        /*background: red;*/
+        height: 20%;
+        width
+    }
+    .ct-containerbutt{
+        height: 10%;
+    }
+    .ct-containerfnc2{
+        height: 70%;
+        columns: 1;
+    }
+    .ct-boxlogo{
+        height: 30%;
+        margin-top: 3%;
+    }
+    img#sosmed{
+        height: 70%;
     }
 }
