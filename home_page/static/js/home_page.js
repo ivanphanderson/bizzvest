@@ -47,6 +47,7 @@ $("#savemsg").on('click', function(e) {
                     console.log("Successfully added a message!");
                     alert("Pesan telah dikirim!");
                     $("form")[0].reset();
+                    modal.style.display = "none";
                 }
             }
         });
