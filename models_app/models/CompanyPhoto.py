@@ -11,8 +11,6 @@ from django.db import models
 #         raise ValidationError(f"Max file size is {KB_limit} KB")
 
 
-print(models)
-print(models.ImageField)
 class CompanyPhoto(models.Model):  # dengan nama lain: Toko
 
     id = models.BigAutoField(primary_key=True)

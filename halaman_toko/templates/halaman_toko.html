@@ -174,22 +174,23 @@
 
 
                     {% define_duplication 'proposal_download_btn' %}
-                        <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}"
-                             >
-                        <div class="{% if not company.proposal %}
-disabled
-{% endif %} download_proposal_container red_box"
+                        <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}
+{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI%}proposal_only{% endif %}">
+
+                        <div class="{% if not company.proposal %}disabled{% endif %} download_proposal_container red_box"
                              style=""
                              onclick="$('#download-proposal')[0].click();"
-                             onmouseenter="$('#clip_path_1--animate').find('animate').get(0).beginElement();console.log('zz');">
+                             onmouseenter="">
 
 
-                            <div class="download_proposal_icon">
+                            <div class="download_proposal__goto_startinvest__icon">
 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
-                                <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
+                                <div class="proposal-startinvest-icon-svg"
+                                     style="--mask-image:url('{% static '/fontawesome 5.15/svgs/solid/book.svg' %}');">
+                                </div>
                             </div>
-                            <div class="download_proposal_text_wrapper"">
-                                <span class="download_proposal_text h5">
+                            <div class="download_proposal_startinvest_text_wrapper">
+                                <span class="download_startinvest_text h5">
                                     Download Proposal
                                 </span>
                             </div>
@@ -198,39 +199,43 @@ disabled
                             <a
                                     {% if company.proposal %}
                                         href="{{ company.proposal.url }}"
+                                        target="_blank"
                                     {% else %}
-                                        href="{% url 'halaman_toko:proposal_not_available' %}"
+                                        href="#non-existing-id"
+                                        onclick="if (this.getAttribute('href') == '#non-existing-id' ) show_toast('This company hasn\'t uploaded any proposal yet', 1);"
+{#                                        href="{% url 'halaman_toko:proposal_not_available' %}"#}
                                     {% endif %}
-                                        id="download-proposal" target="_blank"></a>
+                                        id="download-proposal"></a>
                         </div>
-                        <div class="{% if not company.proposal %}
-disabled
-{% endif %} start_invest_container red_box shadowed_box_2_clickable"
+                        <div class="start_invest_container red_box shadowed_box_2_clickable"
                              style=""
-                             onclick="$('#pergi-ke-halaman-invest')[0].click();"
-                             onmouseenter="$('#clip_path_2--animate').find('animate').get(0).beginElement();console.log('zz');">
+                             onclick="$('#link-pergi-ke-halaman-invest')[0].click();"
+                             onmouseenter="$('.proposal_startinvest_container').addClass('halaman-invest-hover');"
+                             onmouseleave="$('.proposal_startinvest_container').removeClass('halaman-invest-hover');">
 
 
-                            <div class="download_proposal_icon">
+
+                            <div class="download_proposal_startinvest_text_wrapper">
+                                <span class="download_startinvest_text h5">
+                                    Tanam Keuntungan
+                                </span>
+                            </div>
+                            <div class="download_proposal__goto_startinvest__icon">
                                 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
-                                <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
-                            </div>
-                            <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
-                            <span class="download_proposal_text h5">
-                                Download Proposal
-                            </span>
+                                <div class="proposal-startinvest-icon-svg"
+                                     style="--mask-image:url('{% static '/fontawesome 5.15/svgs/solid/dollar-sign.svg' %}');">
+                                </div>
                             </div>
 
-
-                            <a
-                                    {% if company.proposal %}
-                                        href="{{ company.proposal.url }}"
-                                    {% else %}
-                                        href="{% url 'halaman_toko:proposal_not_available' %}"
-                                    {% endif %}
-                                        id="download-pergi-ke-halaman-invest"></a>
                         </div>
-
+                        <a
+                                {% if company.status_verifikasi == StatusVerifikasi.TERVERIFIKASI %}
+                                    href="/mulai-invest/"
+                                {% else %}
+                                    href="#non-existing-id"
+                                    onclick="if (this.getAttribute('href') == '#non-existing-id' ) show_toast('You should\'t invest on an unverified company', 1);"
+                                {% endif %}
+                                    id="link-pergi-ke-halaman-invest"></a>
 
 
                         </div>
