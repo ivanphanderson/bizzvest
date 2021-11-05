@@ -58,7 +58,7 @@ Coverage:
     - pip install coverage
     - coverage combine
   script:
-    - coverage report -m
+    - coverage report -i -m
     - coverage html
   artifacts:
     paths:
