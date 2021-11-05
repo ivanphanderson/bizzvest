@@ -7,7 +7,7 @@
   crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'css/saldo.css' %}">
 
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade in" id="myModals" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -24,10 +24,10 @@
             oninvalid="this.setCustomValidity('Fill it with number')"
             oninput="setCustomValidity('')">
           </div>
-        
+        <small style="font-weight: lighter;">Input harus bilangan bulat! <br> Input yang berupa bilangan desimal akan mengakibatkan saldo Anda tidak bertambah</small>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
         <button type="submit" class="btn btn-primary" >Tambah</button>
       </div>
   </form>
@@ -38,5 +38,4 @@
   <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-  <!-- <script src="{% static 'js/mulai_invest.js' %}"></script>  -->
   <script src="{% static 'js/saldo_forall.js' %}"></script> 

@@ -17,72 +17,6 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import View
 # Create your views here.
-# a=None
-
-# def registerPage(request):
-#     if request.user.is_authenticated:
-#         return redirect('/mulai-invest/')
-#     else:
-#         # form = CreateUserForm()
-#         # profile_form = ProfileForm()
-#         if request.method == 'POST':
-#             form = ExtendedUserForm(request.POST)
-#             profile_form=ProfileForm(request.POST)
-#             if form.is_valid() and profile_form.is_valid():
-#                 user = form.save()
-#                 profile=profile_form.save(commit=False)
-#                 profile.user=user
-
-#                 profile.save()
-
-#                 user = form.cleaned_data.get('username')
-#                 messages.success(request, 'Account was created for ' + user)
-                
-#                 return redirect('login')
-#         else:
-#             form=ExtendedUserForm()
-#             profile_form=ProfileForm()
-#         context = {'form':form, 'profile_form': profile_form}
-#         return render(request, 'register.html', context)
-
-# def loginPage(request):
-# 	if request.user.is_authenticated:
-# 		return redirect('/mulai-invest/')
-# 	else:
-# 		if request.method == 'POST':
-# 			username = request.POST.get('username')
-# 			password = request.POST.get('password')
-
-# 			user = authenticate(request, username=username, password=password)
-
-# 			if user is not None:
-# 				login(request, user)
-# 				return redirect('/mulai-invest/?id=1')
-# 			else:
-# 				messages.info(request, 'Username OR password is incorrect')
-
-# 		context = {}
-# 		return render(request, 'logins.html', context)
-
-# def logoutUser(request):
-#     logout(request)
-#     return redirect('login')
-
-def go_to_prev_history_javascript(time_in_ms):
-    ret = """
-    <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        (
-            async function (){
-                await sleep( """ + str(time_in_ms) + """);
-                window.history.go(-1);
-            }
-        )();
-    </script>
-    """
-    return ret
 
 class UpdateSaldo(View):
     def  get(self, request):
@@ -141,7 +75,7 @@ class BeliSaham(View):
         return JsonResponse(data)
 
 @login_required(login_url='/start-web/login')
-def halaman_toko(request):
+def mulai_invest(request):
     company_id= (request.GET.get("id", None))
     if(company_id is None):
         return HttpResponse("Please specify the id")
@@ -170,3 +104,8 @@ def halaman_toko(request):
         mulai_invest['lembar_dimiliki']=0
 
     return render(request, "mulai_invest.html", mulai_invest)
+
+def status_investasi(request):
+    user_stock = Stock.objects.filter(holder=request.user)
+    response = {'user_stock': user_stock}
+    return render(request, 'status_investasi.html', response)

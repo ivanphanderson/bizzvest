@@ -92,7 +92,7 @@ var myLineChart = new Chart(ctx1, {
                 },
                 ticks: {
                     display: true,
-                    suggestedMin: 0    // minimum will be 0, unless there is a lower value. 
+                    suggestedMin: 0  
                 }
             }]
         }  
@@ -144,7 +144,7 @@ var myLineChart = new Chart(ctx2, {
             yAxes: [{
                 ticks: {
                     display: true,
-                    suggestedMax: 100    // minimum will be 0, unless there is a lower value. 
+                    suggestedMax: 100
                 }
             }]
         }  

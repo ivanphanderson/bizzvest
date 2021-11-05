@@ -1,8 +1,5 @@
 var saham_sisa = parseInt(document.getElementById("saham_tersisaa").textContent);
 var saldo = parseInt(document.getElementById("user_saldo").textContent);
-// {% if user.is_authenticated %}
-//     saldo={{user.profile.saldo}};
-// {% endif %}
 
 
 function update_saldo() {
@@ -12,15 +9,19 @@ function update_saldo() {
     currency: 'IDR',
   });
   document.getElementById("saldoSekarang").innerHTML = formatted_saldo;
-  $(".lembar_saham").load(window.location.href + " .lembar_saham");
   $( ".refresh" ).load(window.location.href + " .refresh" );
+  $( ".refresh1" ).load(window.location.href + " .refresh1" );
+  $( ".refresh2" ).load(window.location.href + " .refresh2" );
 }
 
 function load_DER() {
   document.getElementById("DER").innerHTML = "Debt to Equity Ratio = " + parseInt(Math.random()*300 + 1) + "%\nusia toko: " + usia_toko;
-  update_saldo();
-  // console.log({{owner_account.username}});
-  // console.log("abc");
+  var harga_saham = parseInt(document.getElementById("company_nilai_saham").textContent);
+  var harga_saham_format = ((harga_saham).toLocaleString('ID', {
+    style: 'currency',
+    currency: 'IDR',
+  }));
+  document.getElementById("harga_sahams").innerHTML =harga_saham_format;
 }
 
 var formatter = new Intl.NumberFormat('ID', {
@@ -40,7 +41,6 @@ $("form#beli_saham").submit(function() {
   var saldo_temp = parseInt(saldo)-parseInt(totalHarga);
   var id_comp= parseInt(document.getElementById("company_id").textContent);
   
-  console.log(saldo_temp);
   if(sisa_lembar<0){
       document.getElementById("saldo_kurang").innerHTML = "Saham yang tersisa pada perusahaan ini hanya " + saham_sisa +" lembar";
   }

@@ -2,7 +2,7 @@
 {% load static %}
 <head>
 	<title>{{ company.nama_merek }}</title>
-
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
   
   <!-- <script src="{% static 'fontawesome 5.15/attribution.js' %}"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
@@ -25,9 +25,9 @@
   <div id="content">
     <div id="head">
       <div id="nama-toko-dan-perusahaan">
-        <span class="h1 d-block text-primary" id="nama_merk">
+        <a href="/halaman-toko/?id={{company.id}}" style="text-decoration: none;"><span class="h1 d-block text-primary" id="nama_merk">
           {{ company.nama_merek }}
-        </span>
+        </span> </a>
         <span class="h4 d-block text-secondary" id="nama_perusahaan">
           {{ company.nama_perusahaan }}
         </span>
@@ -120,23 +120,19 @@
         <div class="saham_rapi">
           <div class="lembar_saham">
             <div>Jumlah saham terjual  </div> 
-            <div>{{saham_terjual}} lembar</div>
+            <div class="refresh1">{{saham_terjual}} lembar</div>
             <div>Jumlah saham tersisa  </div> 
-            <div>{{saham_tersisa}} lembar</div>
+            <div class="refresh2">{{saham_tersisa}} lembar</div>
             <div>Harga saham  </div> 
-            <div>{{company.nilai_lembar_saham}}</div>
+            <div id="harga_sahams"></div>
           </div>
         </div>
       </div>
 
       <div id="saham_tertanam" class="kotak_bg shadowed_box_1">
         <div>
-          {% if user.is_authenticated %}
-            <h4> Jumlah saham yang telah Anda tanamkan: </h4>
-            <h3 class="refresh"> {{lembar_dimiliki}} Lembar</h3>
-          {% else %}
-            <h4 class="refresh"> Login untuk lihat jumlah saham yang telah Anda tanamkan</h4>
-          {% endif %}
+          <h4> Jumlah saham yang telah Anda tanamkan: </h4>
+          <h3 class="refresh"> {{lembar_dimiliki}} Lembar</h3>
         </div>
       </div>
 
@@ -159,11 +155,7 @@
             oninput="setCustomValidity('')">
           <p id="saldo_kurang"></p>
 
-          {% if user.is_authenticated %}
-            <button class="btn btn-primary" type="submit" id="submit_beli">Beli</button>
-          {% else %}
-            <button class="btn btn-primary" type="submit" id="submit_beli" disabled>Beli</button>
-          {% endif %}
+          <button class="btn btn-primary" type="submit" id="submit_beli">Beli</button>
 
           <a href="/halaman-toko/?id={{company.id}}" class="btn btn-danger" id="batal">Batal</a>
         </form>
@@ -172,14 +164,12 @@
     
     
 
-    <!-- <p id="user_saldo" style="display: none;">{{user.profile.saldo}}</p> -->
     <p id="saham_tersisaa" style="display: none;">{{saham_tersisa}}</p>
     <p id= "company_id" style="display: none;">{{company.id}}</p>
     <p id= "company_nilai_saham" style="display: none;">{{company.nilai_lembar_saham}}</p>
   </div>
   
 	{% include "bizzvest_footer.html" %}
-  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>

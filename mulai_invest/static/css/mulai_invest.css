@@ -33,6 +33,7 @@ body{
 
 /* From here */
 /* Taken from immanuel's halaman_toko_layout.css */
+/* with some adjusment */
 #body{
     margin: auto;
     width: 77% !important;
@@ -71,15 +72,8 @@ body{
     border-radius: 5px;
     border: 1px solid rgb(194, 194, 194);
 }
-/* Until here */
-/* Taken from immanuel's halaman_toko_layout.css */
 
 
-
-
-
-/* From here */
-/* Taken from immanuel's halaman_toko_layout.css */
 #company_photos_carousel .carousel-item-inner-wrapper-1{
     height: 100%;
     width: 100%;
@@ -210,8 +204,9 @@ body{
     color: dimgrey;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-/* Taken from immanuel's halaman_toko_layout.css */
 /* Until here */
+/* Taken from immanuel's halaman_toko_layout.css */
+/* with some adjusment */
 
 
 .saham_rapi{
@@ -269,8 +264,6 @@ body{
     padding: 10px;
 }
 
-/* #submit_beli{
-} */
 
 #batal{
     margin-left: 20px;
