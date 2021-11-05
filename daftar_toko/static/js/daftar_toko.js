@@ -7,7 +7,6 @@ $(document).ready(function() {
 });
 
 function show(){
-  console.log("TERCETAK");
   var search_bar = $('#search-bar').val();
   $.ajax({ 
     url: "/daftar-toko/search/",
@@ -20,7 +19,6 @@ function show(){
     success: function (data){
       $('.cards').empty();
       $('#not-found').empty();
-      console.log("DAH SAMPE SINI")
       console.log(data)
       result = data.company_search;
       output = '';
@@ -30,7 +28,6 @@ function show(){
         output += '<div id="not-found"><h3>Hasil pencarian untuk <span style="color: #c71d64">'+search_bar+'</span> tidak ditemukan :(</h3><button id="kembali-button" onclick="show()">Kembali ke Daftar Toko</button></div>';
         $('#not-found').append(output);
       }else{
-        console.log("OKE");
         console.log(result.length);
         for(i=0; i<result.length; i++){
           output +=`<div class="card" style="cursor:pointer" onclick="location.href='/halaman-toko/?id=${result[i].id}'">
