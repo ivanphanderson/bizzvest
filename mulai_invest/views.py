@@ -15,7 +15,6 @@ class UpdateSaldo(View):
 
         obj = get_object_or_404(UserAccount, user_model=request.user)
         obj.saldo=saldo1
-        print(saldo1)
         obj.save()
 
         user = {'id':obj.id,'saldo':obj.saldo}
@@ -34,7 +33,6 @@ class BeliSaham(View):
         company_obj=Company.objects.filter(id=company_id).first()
         
         
-        print(saldo1)
         profile_obj = get_object_or_404(UserAccount, user_model=request.user)
         profile_obj.saldo=saldo1
         profile_obj.save()
@@ -82,7 +80,6 @@ def mulai_invest(request):
     lembar_saham_terjual = 0
     for stock in company_stock:
         lembar_saham_terjual += stock.jumlah_lembar_saham
-    print(lembar_saham_terjual)
 
     mulai_invest['saham_terjual']=lembar_saham_terjual
     mulai_invest['saham_tersisa']=company_obj.jumlah_lembar - lembar_saham_terjual
