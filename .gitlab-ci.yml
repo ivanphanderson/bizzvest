@@ -55,6 +55,7 @@ Coverage:
   <<: *disable_on_template
   stage: coverage_result
   before_script:
+    - *django_before_script
     - pip install coverage
     - coverage combine
   script:
