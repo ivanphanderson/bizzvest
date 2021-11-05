@@ -16,19 +16,18 @@ def tampilkan_toko(request):
 
 def search(request):
     company_search = []
+    company_list = []
     search_text = ''
     if request.method == "POST":
         search_text = request.POST['search_text']
         company_search = list(Company.objects.filter(Q(nama_perusahaan__icontains=search_text)|Q(nama_merek__icontains=search_text)|Q(kode_saham__icontains=search_text)).values())       
     else:
         company_search = list(Company.objects.all().values())
-    
+
     for company in company_search:
-        company["img"] = Company.objects.get(id=company["id"]).companyphoto_set.all().order_by('img_index').first().img.url
+        if Company.objects.get(id=company["id"]).status_verifikasi == 3:
+            company["img"] = Company.objects.get(id=company["id"]).companyphoto_set.all().order_by('img_index').first().img.url
+            company_list.append(company)
 
-    return JsonResponse({'company_search' : company_search})
-
-def experiment(request):
-    data = serializers.serialize('json', Company.objects.all())
-    return HttpResponse(data, content_type="application/json")
+    return JsonResponse({'company_search' : company_list})
 
