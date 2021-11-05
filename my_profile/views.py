@@ -6,6 +6,7 @@ from my_profile.forms import PhotoForm, ProfileForm, FormSpesial
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 class DoesProblemExist():
@@ -32,25 +33,9 @@ class FormErrors():
 def index(request):
     
     profil = UserAccount.objects.all().first()
-    # akun_investor = InvestorAccount.objects.all.values()
-    # akun_enterpreneur = EntrepreneurAccount.objects.all.values()
     response = {'profil':profil}
     return render(request, 'tampilan_profil.html', response)
 
-# def ganti_password(request):
-#     context ={}
-  
-#     # create object of form
-#     form = PasswordForm(request.POST or None, request.FILES or None)
-      
-#     # check if form data is valid
-#     if form.is_valid():
-#         # save the form data to model
-#         form.save()
-#         return HttpResponseRedirect('form_gantiprofil.html')
-  
-#     context['form']= form
-#     return render(request, 'form_gantipassword.html', context)
 
 
 @login_required
@@ -73,37 +58,34 @@ def ganti_profil(request):
             return HttpResponseRedirect('/my-profile/')
 
         else:
+            messages.info(request, 'Pastikan email, username, dan nama lengkap yang anda masukkan memenuhi syarat')
+            messages.info(request, 'Nama lengkap maksimal 23 huruf (termasuk spasi)')
+            messages.info(request, 'Pastikan email unik')
+            messages.info(request, 'Pastikan username unik')
             print("email tidak unik")
         
             
         
   
     context['form']= form
-    # print(profil)
-    # print(profil.is_entrepreneur)
     return render(request, 'form_gantiprofil.html', context)
 
 @login_required
 def ganti_foto(request):
-        # print("asdfgskjhdfs")
     if not request.user.is_authenticated:
         return HttpResponseRedirect("/start-web/login")
     profil = request.user.useraccount
     context ={"profil" : profil}
-    # create object of form
     form = PhotoForm(request.POST or None, request.FILES or None, instance=profil)
-    # check if form data is valid
+
     
     if request.method == "POST" :
         
         if form.is_valid():
-            # save the form data to model
             form.save()
             return HttpResponse('success')
         
             
         
     context['form']= form
-    # print(profil)
-    # print(profil.is_entrepreneur)
     return render(request, 'form_gantiprofil.html', context)

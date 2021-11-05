@@ -4,9 +4,9 @@ body {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#8ce8ff), to(#f4fdff));
   background-image: linear-gradient(to bottom, #94EAFF, #f4fdff);
   /* margin-bottom: 83px; */
-  /* display: -webkit-box; */
-  /* display: -ms-flexbox; */
-  /* display: flex; */
+  /* display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; */
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;

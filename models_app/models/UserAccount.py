@@ -81,7 +81,7 @@ class UserAccount(models.Model):
                                                                'followed by 8 to 14 digits',
                                                        code='nomatch')])
 
-    full_name = models.CharField(max_length=30, default="", blank=True,
+    full_name = models.CharField(max_length=23, default="", blank=True,
                                  validators=[
                                      RegexValidator(regex='^[a-zA-Z]?[a-z]*( [a-zA-Z][a-z]*)*$',
                                                     message='Must consists only alphabets. Only first letters in each '
