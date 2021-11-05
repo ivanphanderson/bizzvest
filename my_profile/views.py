@@ -32,7 +32,9 @@ class FormErrors():
 @login_required
 def index(request):
     
-    profil = UserAccount.objects.all().first()
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect("/start-web/login")
+    profil = request.user.useraccount
     response = {'profil':profil}
     return render(request, 'tampilan_profil.html', response)
 
@@ -41,7 +43,9 @@ def index(request):
 @login_required
 def ganti_profil(request):
     # print("asdfgskjhdfs")
-    profil = UserAccount.objects.all().first()
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect("/start-web/login")
+    profil = request.user.useraccount
     context ={"profil" : profil}
     # create object of form
     form = ProfileForm(request.POST or None, request.FILES or None, instance=profil)
