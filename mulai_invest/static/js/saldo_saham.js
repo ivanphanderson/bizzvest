@@ -40,8 +40,11 @@ $("form#beli_saham").submit(function() {
   var totalHarga = parseInt(saham_dibeli)*parseInt(document.getElementById("company_nilai_saham").textContent);
   var saldo_temp = parseInt(saldo)-parseInt(totalHarga);
   var id_comp= parseInt(document.getElementById("company_id").textContent);
-  
-  if(sisa_lembar<0){
+ 
+  if (saham_dibeli<1){
+    alert("Minimal pembelian 1 lembar");
+    document.getElementById("saldo_kurang").innerHTML = "Minimal pembelian 1 lembar";
+  }else if(sisa_lembar<0){
       alert("Saham yang tersisa pada perusahaan ini hanya " + saham_sisa +" lembar");
       document.getElementById("saldo_kurang").innerHTML = "Saham yang tersisa pada perusahaan ini hanya " + saham_sisa +" lembar";
   }
