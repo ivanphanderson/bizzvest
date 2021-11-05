@@ -64,8 +64,9 @@ def ganti_profil(request):
         else:
             messages.info(request, 'Pastikan email, username, dan nama lengkap yang anda masukkan memenuhi syarat')
             messages.info(request, 'Nama lengkap maksimal 23 huruf (termasuk spasi)')
-            messages.info(request, 'Pastikan email unik')
+            messages.info(request, 'Pastikan email unik, dan tidak boleh memasukkan email yang pernah digunakan sebelumnya')
             messages.info(request, 'Pastikan username unik')
+            messages.info(request, 'Pastikan nomor handphone diawali digit "0" dan berjumlah minimal 11 digit angka ')
             print("email tidak unik")
         
             

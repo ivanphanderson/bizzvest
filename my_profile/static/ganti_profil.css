@@ -61,14 +61,28 @@ html {
   background-color: #0096C7 ;
   
 }
+#navbarkiri1:hover {
+  cursor: pointer;
+  
+}
 
 #navbarkiri2 {
   color: #0096C7;
  
 }
 
+#navbarkiri2:hover {
+  cursor: pointer;
+  
+}
+
+
 #navbarkiri3 {
   color: #0096C7;
+}
+
+#navbarkiri3:hover {
+  cursor: pointer;
   
 }
 .card {
