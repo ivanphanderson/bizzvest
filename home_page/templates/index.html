@@ -8,6 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="static/css/home_page_style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="icon" type="image/png" href="/static/png/icon.png"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -22,6 +23,11 @@
                 <div class="ct-content">
                     <div class="ct-txtbox">
                         <div>
+                            {% if user.is_authenticated %}
+                            <h2 id="title">Selamat datang kembali!</h2>
+                            {% else %}
+
+                `           {% endif %}
                             <h1 id="title">
                                 <b>BizzVest, Solusi untuk Perkembangan Bisnis Anda di Masa Pandemi COVID-19</b>
                             </h1>
@@ -106,15 +112,16 @@
                           <h2><b>Kirim Pesan</b></h2>
                         </div>
                         <form id="new_message_form" action="" method='POST'>
-                        <div class="ct-modal-body">
-                            <label for="email">Alamat Email yang bisa dihubungi:</label><br>
-                            <input type="text" class="form-control inputstyle" id="email" name="email" placeholder="Tuliskan emailmu...">
-                            <label for="title">Pesan:</label><br>
-                            <textarea class="form-control inputstyle" id="pesan" name="pesan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
-                        </div>
-                        <div class="ct-modal-footer">
-                            <input class="btn btn-primary" type="button" id="savemsg" value="Kirim" style="margin-top:1em">
-                        </div>
+                            {% csrf_token %}
+                            <div class="ct-modal-body">
+                                <label for="email">Alamat Email yang bisa dihubungi:</label><br>
+                                <input type="text" class="form-control inputstyle" id="email" name="email" placeholder="Tuliskan emailmu...">
+                                <label for="title">Pesan:</label><br>
+                                <textarea class="form-control inputstyle" id="pesan" name="pesan" rows="3" placeholder="Tuliskan pesanmu..."></textarea>
+                            </div>
+                            <div class="ct-modal-footer">
+                                <input class="btn btn-primary" type="button" id="savemsg" value="Kirim" style="margin-top:1em">
+                            </div>
                         </form>
                       </div>
                     </div>

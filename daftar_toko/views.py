@@ -10,9 +10,9 @@ from django.views.generic import ListView
 # Create your views here.
 
 def tampilkan_toko(request):
-    company_obj = Company.objects.all()
+    company = Company.objects.all()
 
-    return render(request, 'index_daftar_toko.html', {'company_obj': company_obj})
+    return render(request, 'index_daftar_toko.html', {'company_obj': company})
 
 def search(request):
     company_search = []
