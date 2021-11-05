@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 
-<nav class="tito navbar_tito navbar sticky-top navbar-expand-sm navbar-light">
+<nav class="bizzvest_navbar navbar sticky-top navbar-expand-sm navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
             <img class="logo_navbar" src="https://i.imgur.com/exltf82.png" alt="">
@@ -13,14 +13,10 @@
                     <a class="nav-link active mx-2" aria-current="page" href="/daftar-toko/">Daftar Toko</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active mx-2" aria-current="page" href="#">Mulai Invest</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active mx-2" aria-current="page" href="/faq/">FAQ</a>
                 </li>
             </ul>
         </div>
-    </div>
     {% if user.is_authenticated %}
         <div class="dropdown mx-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,13 +24,14 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Profil</a></li>
-                <li><a class="dropdown-item" href="#">Toko Kita</a></li>
-                <li><a class="dropdown-item" href="#">Status Investasi</a></li>
+                <li><a class="dropdown-item" href="/my-profile/">Profil</a></li>
+                <li><a class="dropdown-item" href="/halaman-toko/add">Tambah Toko</a></li>
+                <li><a class="dropdown-item" href="/mulai-invest/status-invest">Status Investasi</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
             </ul>
         </div>
     {% else %}
-        <a href="{% url 'sign-up' %}" class="btn active mx-3 px-4" role="button" aria-pressed="true">Daftar</a>
+        <a href="{% url 'sign-up' %}" class="btn active mx-1 px-4" role="button" aria-pressed="true">Daftar</a>
     {% endif %}
+    </div>
 </nav>

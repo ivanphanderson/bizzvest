@@ -15,7 +15,7 @@
     <script>
         $(document).ready(function(e) {
             $('#myModal').on('hidden.bs.modal', function(e) {
-                window.location.href = '/navbar-footer/home'
+                window.location.href = '/'
             });
         });
     </script>
@@ -35,6 +35,11 @@
                             <div class="form-group">
                                 <input type="password" class="form-control mt-3 py-2" placeholder="Password" name="password">
                             </div>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p class="px-2 mt-1">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <center>
                             <button type="submit" class="btn btn-lg border-0 mt-3 px-5">Masuk</button>
