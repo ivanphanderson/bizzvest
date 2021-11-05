@@ -55,13 +55,15 @@ class CompanyAddForm(forms.ModelForm):
 
         unique_fields = ['kode_saham', 'nama_merek']
 
+
         for field in unique_fields:
-            try:
-                Company.objects.get(**{field: data[field]})
-            except Company.DoesNotExist:
-                pass
-            else:
-                errors[field] = 'Must be unique. Another company has already taken this value.'
+            if field in data:
+                try:
+                    Company.objects.get(**{field: data[field]})
+                except Company.DoesNotExist:
+                    pass
+                else:
+                    errors[field] = 'Must be unique. Another company has already taken this value.'
 
         if len(errors) > 0:
             raise ValidationError(errors)

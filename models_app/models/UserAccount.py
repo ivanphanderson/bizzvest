@@ -41,7 +41,7 @@ class UserAccount(models.Model):
 
         super().__init__(*args, **kwargs)
 
-    USERNAME_VALIDATORS = [RegexValidator(regex='^[a-z0-9_]{4,14}$',
+    USERNAME_VALIDATORS = [RegexValidator(regex='^[a-zA-Z0-9_]{4,14}$',
                                           message='Must consists only lowercase alphanumeric characters '
                                                   'and underscore. The length should be 4 to 14 characters',
                                           code='nomatch')]
@@ -83,7 +83,8 @@ class UserAccount(models.Model):
 
     full_name = models.CharField(max_length=23, default="", blank=True,
                                  validators=[
-                                     RegexValidator(regex='^[a-zA-Z]?[a-z]*( [a-zA-Z][a-z]*)*$',
+                                     # RegexValidator(regex='^[a-zA-Z]?[a-z]*( [a-zA-Z][a-z]*)*$',
+                                     RegexValidator(regex='^[a-zA-Z ]+$',
                                                     message='Must consists only alphabets. Only first letters in each '
                                                             'word are allowed to be uppercase. No two consecutive '
                                                             'spaces are allowed',

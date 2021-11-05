@@ -379,7 +379,7 @@ body{
     background-repeat: no-repeat;
 
     --filter: blur(1px);
-    filter: var(--filter);
+    /*filter: var(--filter);*/  /* di mozilla ini bikin jadi aneh */
     -webkit-filter: var(--filter);
 
 }
