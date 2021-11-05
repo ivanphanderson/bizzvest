@@ -132,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 print("SETTINGS PY  ", DEBUG, PRODUCTION)
-if DEBUG and not PRODUCTION:
+if DEBUG and not PRODUCTION or True:
     AUTH_PASSWORD_VALIDATORS = []
     print("auth password validators off")
 
