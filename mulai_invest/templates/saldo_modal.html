@@ -24,11 +24,11 @@
             oninvalid="this.setCustomValidity('Fill it with number')"
             oninput="setCustomValidity('')">
           </div>
-        <small style="font-weight: lighter;">Input harus bilangan bulat! <br> Input yang berupa bilangan desimal akan mengakibatkan saldo Anda tidak bertambah</small>
+        <small style="font-weight: lighter;">Input harus bilangan bulat! <br> Max total saldo adalah 2**63-1 <br><br> Input yang bukan berupa bilangan bulat akan mengakibatkan saldo Anda tidak bertambah <br>  Input yang mengakibatkan jumlah saldo di atas 2**63-1 akan mengakibatkan saldo Anda tidak bertambah</small>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-primary" >Tambah</button>
+        <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: rgb(218, 44, 44); color: white;">Batal</button>
+        <button type="submit" class="btn" style="background-color: #00c2f3; color: white;">Tambah</button>
       </div>
   </form>
     </div>

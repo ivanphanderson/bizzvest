@@ -15,7 +15,7 @@ function update_saldo() {
 }
 
 function load_DER() {
-  document.getElementById("DER").innerHTML = "Debt to Equity Ratio = " + parseInt(Math.random()*300 + 1) + "%\nusia toko: " + usia_toko;
+  document.getElementById("DER").innerHTML = "Debt to Equity Ratio = " + parseInt(Math.random()*300 + 1) + "%<br>Usia toko: " + usia_toko + " bulan";
   var harga_saham = parseInt(document.getElementById("company_nilai_saham").textContent);
   var harga_saham_format = ((harga_saham).toLocaleString('ID', {
     style: 'currency',
@@ -42,10 +42,13 @@ $("form#beli_saham").submit(function() {
   var id_comp= parseInt(document.getElementById("company_id").textContent);
   
   if(sisa_lembar<0){
+      alert("Saham yang tersisa pada perusahaan ini hanya " + saham_sisa +" lembar");
       document.getElementById("saldo_kurang").innerHTML = "Saham yang tersisa pada perusahaan ini hanya " + saham_sisa +" lembar";
   }
   else if(saldo_temp<0){
+      alert("Saldo Anda tidak cukup 😢");
       document.getElementById("saldo_kurang").innerHTML = "Saldo Anda tidak cukup 😢";
+      
   } else{
       if (saham_dibeli) {
           saldo=parseInt(saldo_temp);

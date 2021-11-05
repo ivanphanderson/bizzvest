@@ -19,90 +19,97 @@
   <body>
     {% include "bizzvest_navbar.html" %}
     <h1 id="heading1">Status Investasi</h1>
-    <table class="table table-bordered border-none table-striped" id="notes_table">
-      <tr>
-        <th style="width: 22%">Perusahaan</th>
-        <th style="width: 16%">Jumlah Lembar Saham</th>
-        <th style="width: 16%">Nilai Lembar Saham</th>
-        <th style="width: 16%">Total Investasi</th>
-        <th style="width: 30%">Grafik saat ini</th>
-      </tr>
-      
-      {% for stock in user_stock %}
-      <tr class="notes-table clickable-row" data-href='/mulai-invest/?id={{stock.company.id}}'>
-        <td>{{stock.company.nama_merek}}</td>
-        <td>{{stock.jumlah_lembar_saham}}</td>
-        <td>
-          <script>
-            document.write(({{stock.company.nilai_lembar_saham}}).toLocaleString('ID', {
-              style: 'currency',
-              currency: 'IDR',
-            }));
-          </script>
-        </td>
-        <td>
-          <script>
-            document.write(({{stock.jumlah_lembar_saham}}*{{stock.company.nilai_lembar_saham}}).toLocaleString('ID', {
-              style: 'currency',
-              currency: 'IDR',
-            }))
-          </script></td>
-        <td><canvas id={{stock.company.id}}></canvas></td>
-          <script>
-          var ctx1 = document.getElementById({{stock.company.id}});
-          var net_sales = new Array();
-          for(let i=0; i<20; i++){
-              net_sales[i]=(Math.random()*9+1);
-          }
-          var myLineChart = new Chart(ctx1, {
-              type: 'line',
-              data: {
-                  labels: ["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"],
-                  datasets: [{
-                      data: net_sales,
-                      label: "Net Sales",
-                      borderColor: "#458af7",
-                      backgroundColor: '#458af7',
-                      fill: false,
-                      lineTension: 0
-                  }]
-              },
-              options: {
-                  legend: {
-                      display: false
-                  },
-                  scales:{
-                    xAxes: [{
-                        ticks: {
-                            display: false,
-                            // suggestedMin: 0  
-                        },
-                        gridLines : {
-                            display : false
+    {% if user_stock %}
+      <table class="table table-bordered border-none table-striped" id="notes_table">
+        <tr>
+          <th style="width: 22%">Perusahaan</th>
+          <th style="width: 16%">Jumlah Lembar Saham</th>
+          <th style="width: 16%">Nilai Lembar Saham</th>
+          <th style="width: 16%">Total Investasi</th>
+          <th style="width: 30%">Grafik saat ini</th>
+        </tr>
+        
+        {% for stock in user_stock %}
+        <tr class="notes-table clickable-row" data-href='/mulai-invest/?id={{stock.company.id}}'>
+          <td>{{stock.company.nama_merek}}</td>
+          <td>{{stock.jumlah_lembar_saham}}</td>
+          <td>
+            <script>
+              document.write(({{stock.company.nilai_lembar_saham}}).toLocaleString('ID', {
+                style: 'currency',
+                currency: 'IDR',
+              }));
+            </script>
+          </td>
+          <td>
+            <script>
+              document.write(({{stock.jumlah_lembar_saham}}*{{stock.company.nilai_lembar_saham}}).toLocaleString('ID', {
+                style: 'currency',
+                currency: 'IDR',
+              }))
+            </script></td>
+          <td><canvas id={{stock.company.id}}></canvas></td>
+            <script>
+            var ctx1 = document.getElementById({{stock.company.id}});
+            var net_sales = new Array();
+            for(let i=0; i<20; i++){
+                net_sales[i]=(Math.random()*9+1);
+            }
+            var myLineChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"],
+                    datasets: [{
+                        data: net_sales,
+                        label: "Net Sales",
+                        borderColor: "#458af7",
+                        backgroundColor: '#458af7',
+                        fill: false,
+                        lineTension: 0
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales:{
+                      xAxes: [{
+                          ticks: {
+                              display: false,
+                              // suggestedMin: 0  
+                          },
+                          gridLines : {
+                              display : false
+                          }
+                          // display: false //this will remove all the x-axis grid lines
+                      }],
+                      yAxes: [{
+                          ticks: {
+                              display: false,
+                              suggestedMin: 0  
+                          },
+                          gridLines : {
+                              display : false
+                          }
+                      }] 
+                    },
+                    elements: {
+                        point:{
+                            radius: 0
                         }
-                        // display: false //this will remove all the x-axis grid lines
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            display: false,
-                            suggestedMin: 0  
-                        },
-                        gridLines : {
-                            display : false
-                        }
-                    }] 
-                  },
-                  elements: {
-                      point:{
-                          radius: 0
-                      }
-                  }
-              }  
-          });
-          </script>
-      </tr>
-      {% endfor %}
-    </table>
+                    }
+                }  
+            });
+            </script>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+    <div id="not_invest" class="container">
+      <h4>Anda belum melakukan investasi di BizzVest. Ayo segera pilih toko yang tempat Anda ingin berinvestasi dan lakukan investasi perdana Anda dengan cara klik button di bawah ini!</h4>
+      <a href="/daftar-toko/" class="btn" id="lihat2">Lihat Daftar Toko</a>
+    </div>
+    {% endif %}
     {% include "bizzvest_footer.html" %}
   </body>
   <script src="{% static 'js/status_invest.js' %}"></script> 

@@ -264,7 +264,13 @@ body{
     padding: 10px;
 }
 
+#submit_beli{
+    background-color: #00c2f3;
+    color: white;
+}
 
 #batal{
     margin-left: 20px;
+    color: white;
+    background-color: rgb(218, 44, 44);
 }

@@ -56,3 +56,14 @@ table {
 .border-none tr td:last-child {
   border-right: none;
 }
+
+#not_invest{
+  /* display: flex; */
+  text-align: center !important;
+  /* align-self:center; */
+}
+
+#lihat2{
+    background-color: #00c2f3;
+    color: white;
+}

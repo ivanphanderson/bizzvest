@@ -1,21 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
+from django.views.generic import View
 
-# from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
-from django.middleware import csrf
-from django.db.models import Sum
 from models_app.models.UserAccount import UserAccount
-
-# from mulai_invest.models import Profile
-# from .forms import ExtendedUserForm, ProfileForm, StockForm, CreateUserForm
-from django.contrib import messages
-
 from models_app.models import Company
 from models_app.models import Stock
-from django.core.handlers.wsgi import WSGIRequest
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.views.generic import View
 # Create your views here.
 
 class UpdateSaldo(View):

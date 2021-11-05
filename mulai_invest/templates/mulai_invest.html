@@ -88,6 +88,7 @@
         <canvas id="bar_chart"></canvas>
         <canvas id="line_chart"></canvas>
           
+        <h6>Informasi Tambahan:</h6>
         <p id="DER"></p>
       </div>
       
@@ -138,7 +139,7 @@
 
       <div id="description" class="kotak_bg shadowed_box_1">
         <span class="h5">
-          deskripsi
+          Deskripsi
         </span>
         <div id="deskripsi_perusahaan"">
           {{ company.deskripsi }}
@@ -155,9 +156,9 @@
             oninput="setCustomValidity('')">
           <p id="saldo_kurang"></p>
 
-          <button class="btn btn-primary" type="submit" id="submit_beli">Beli</button>
+          <button class="btn" type="submit" id="submit_beli">Beli</button>
 
-          <a href="/halaman-toko/?id={{company.id}}" class="btn btn-danger" id="batal">Batal</a>
+          <a href="/halaman-toko/?id={{company.id}}" class="btn" id="batal">Batal</a>
         </form>
       </div>
     </div>
