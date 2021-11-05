@@ -19,7 +19,7 @@
           <input class="form-control" id="form-id" type="hidden" name="formId"/>
           <div class="mb-3">
             <label for="saldo" class="col-form-label">Masukkan jumlah saldo yang ingin Anda tambahkan:</label>
-            <input type="text" class="form-control" id="saldo" name="saldo" placeholder="e.g., 10000" 
+            <input type="number" class="form-control" id="saldo" name="saldo" placeholder="e.g., 10000" 
             required pattern=".*\S.*" data-type="currency"
             oninvalid="this.setCustomValidity('Fill it with number')"
             oninput="setCustomValidity('')">
