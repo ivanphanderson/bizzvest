@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
-.footer_tito .logo_footer{
-    width: 98px !important; 
+.bizzvest_footer .logo_footer{
+    width: 98,5px !important; 
     height: 60px !important;
     padding-bottom: 0px !important;
 }
 
-body.footer_tito{
+body.bizzvest_footer{
     background-color: #8CE8FF;
 }
 
-.footer_tito a{
-    font-family: 'DM Sans', sans-serif;
+.bizzvest_footer a{
+    font-family: 'DM Sans', sans-serif !important;
 }

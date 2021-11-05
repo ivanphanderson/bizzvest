@@ -15,13 +15,12 @@
     <script>
         $(document).ready(function(e) {
             $('#myModal').on('hidden.bs.modal', function(e) {
-                window.location.href = '/navbar-footer/home'
+                window.location.href = '/'
             });
         });
     </script>
 </head>
 <body>
-    <!-- {% include "navbar.html" %} -->
     <div class="container mt-3"></div>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -30,10 +29,16 @@
                     <form action="{% url 'sign-up' %}" method=POST>
                         {% csrf_token %}
                         <div class="form-group">
-                            <input type="text" class="form-control mt-3 py-2" placeholder="Nama" name="username">
+                            <input type="text" class="form-control mt-3 py-2" placeholder="Username" id= "usernameField" name="username">
+                        </div>
+                        <div class="invalid_username invalid-feedback px-2" style="display:none;">
+                            <p></p>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control mt-3 py-2" aria-describedby="emailHelp" placeholder="Alamat email" name="email">
+                            <input type="email" class="form-control mt-3 py-2" aria-describedby="emailHelp" placeholder="Alamat email" id= "emailField" name="email">
+                        </div>
+                        <div class="invalid_email invalid-feedback px-2" style="display:none;">
+                            <p></p>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control mt-3 py-2" placeholder="Password" name="password1">
@@ -50,6 +55,6 @@
             </div>
         </div>
     </div>
-      
+    <script src="{% static 'js/signup_ajax.js' %}"></script>
 </body>
 </html>
