@@ -105,6 +105,7 @@ def mulai_invest(request):
 
     return render(request, "mulai_invest.html", mulai_invest)
 
+@login_required(login_url='/start-web/login')
 def status_investasi(request):
     user_stock = Stock.objects.filter(holder=request.user)
     response = {'user_stock': user_stock}
