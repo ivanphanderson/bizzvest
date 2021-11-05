@@ -32,9 +32,14 @@
 
         <link rel="stylesheet" href="{% static 'fontawesome 5.15/css/all.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
-        <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
-        <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
-        <link rel="stylesheet" href="{% static 'css/toast.css' %}"/>
+
+        {% define_duplication 'import_css_buatan_sendiri' %}
+            <link rel="stylesheet" href="{% static 'css/halaman_toko_layout.css' %}"/>
+            <link rel="stylesheet" href="{% static 'css/halaman_toko_component.css' %}"/>
+            <link rel="stylesheet" href="{% static 'css/toast.css' %}"/>
+        {% end_define_duplication %}
+    {% instantiate_duplication 'import_css_buatan_sendiri' '' %}{% end_instantiate_duplication %}
+
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ company.nama_merek }}</title>
@@ -217,7 +222,7 @@
 
                             <div class="download_proposal_startinvest_text_wrapper">
                                 <span class="download_startinvest_text h5">
-                                    Tanam Keuntungan
+                                    Mulai invest
                                 </span>
                             </div>
                             <div class="download_proposal__goto_startinvest__icon">
@@ -532,7 +537,8 @@
             </defs>
         </svg>
 
-    {% include 'toast.html' %}
-    {% include 'bizzvest_footer.html' %}
+        {% include 'toast.html' %}
+        {% include 'bizzvest_footer.html' %}
+        {% instantiate_duplication 'import_css_buatan_sendiri' '' %}{% end_instantiate_duplication %}
     </body>
 </html>
