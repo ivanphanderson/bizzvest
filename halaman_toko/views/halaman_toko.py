@@ -1,3 +1,5 @@
+import time
+
 from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum
@@ -5,6 +7,7 @@ from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import render
 
+import threading
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
@@ -129,7 +132,6 @@ def save_company_form(req:WSGIRequest):
     form = CompanyEditForm(req.POST, instance=company_object)
 
     if (form.is_valid()):
-        print(form)
         form.save()
         return HttpResponse('saved successfully!', status=200)
     else:
@@ -138,6 +140,15 @@ def save_company_form(req:WSGIRequest):
         for field, error in form.errors.items():
             error_messages.append(f"{field}  {str(error.as_data()[0])}")
         return HttpResponse('the following errors has occured: \n\n ' + '\n'.join(error_messages), status=400)
+
+
+
+def membuat_menjadi_terverifikasi(company_obj:Company, wait=True):
+    if wait:
+        time.sleep(14)
+    company_obj.status_verifikasi = Company.StatusVerifikasi.TERVERIFIKASI
+    company_obj.save()
+
 
 
 def ajukan_verifikasi(req:WSGIRequest):
@@ -172,6 +183,11 @@ def ajukan_verifikasi(req:WSGIRequest):
 
     company_object.status_verifikasi = Company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI
     company_object.save()
+
+    # ceritanya nanti adminnya udah mengecek dan mem-verifikasi
+    t = threading.Thread(target=membuat_menjadi_terverifikasi,args=[company_object])
+    t.setDaemon(True)
+    t.start()
 
     return HttpResponse("success!")
 

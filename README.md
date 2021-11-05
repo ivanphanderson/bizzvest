@@ -1,9 +1,13 @@
+[![pipeline status](https://gitlab.com/immanuel01/bizzvest/badges/main/pipeline.svg)](https://gitlab.com/immanuel01/bizzvest/commits/main)
+
 # BizzVest
+
 “Let’s invest toward your business”
 
 
 ## Kelompok C02
 **Nama Anggota:**
+
 1. 2006483201	Raissa Tito Safaraz
 1. 2006483031	Raihansyah Yoga Adhitama
 1. 2006463004	Ivan Phanderson
@@ -24,10 +28,10 @@ Pandemi Covid-19 sudah berlangsung cukup lama dan perekonomian Indonesia telah t
 1. Home & About BizzVest (Ahmad Ghozi Fidinillah)
 1. Profil Pengguna (Raihansyah Yoga Adhitama)
 1. Frequently Ask Question (Nandhita Zefania Maharani)
-1. Halaman Toko (Immanuel)
+1. Halaman Toko, mendaftar toko baru (Immanuel)
 1. Mulai Invest (Ivan Phanderson)
-1. Daftar Toko (Azzam Labib Hakim)
-1. Login & Logout (Raissa Tito Safaraz)
+1. Daftar-daftar Toko yang ada (Azzam Labib Hakim)
+1. Login, logout, sign up dan navbar & footer (Raissa Tito Safaraz)
 
 
 ## Persona:

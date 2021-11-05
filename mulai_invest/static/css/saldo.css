@@ -1,0 +1,54 @@
+#saldoku{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+    grid-template-rows: 0px;
+}
+
+.kotak_saldo_bg{
+  
+  background-color: rgba(205, 245, 255, 1);
+  padding: 4px;
+  border-radius: 5px;
+}
+
+
+.kotak_saldo{
+    grid-column: 2;
+    text-align: center;
+    
+}
+
+#saldoSekarang{
+  padding-right: 20px !important;
+}
+
+.tambah_saldo{
+    grid-column: 2/2;
+    position: relative;
+    top: 5px;
+    left: 10px;
+    text-align: right;
+    /* padding-bottom: 25px !important; */
+} 
+
+#plus_btn{
+    border-radius: 100px!important;
+    background-color: rgba(0, 200, 250, 1)!important;
+    height: 30px;
+    width: 30px;
+    /* padding: 4px!important; */
+}
+
+#plus_aligner{
+  /* vertical-align: middle; */
+  position: relative;
+  top: -4px;
+  margin-left: 0px !important;
+  color: white;
+}
+
+#myModals{
+  font-weight: bold;
+}

@@ -171,27 +171,73 @@
 
 
 
+
+
                     {% define_duplication 'proposal_download_btn' %}
-                        <div class="{% if not company.proposal %}
-disabled
-{% endif %} download_proposal_container red_box shadowed_box_2_clickable {{ extra_class }}">
-                            <div class="download_proposal_icon">
+                        <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}
+{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI %}proposal_only{% endif %}">
+
+                        <div class="{% if not company.proposal %}disabled{% endif %} download_proposal_container red_box"
+                             style=""
+                             onclick="$('#download-proposal')[0].click();"
+                             onmouseenter="">
+
+
+                            <div class="download_proposal__goto_startinvest__icon">
 {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
-                                <img class="proposal-icon-svg" src="{% static '/fontawesome 5.15/svgs/solid/book.svg' %}">
+                                <div class="proposal-startinvest-icon-svg"
+                                     style="--mask-image:url('{% static '/fontawesome 5.15/svgs/solid/book.svg' %}');">
+                                </div>
                             </div>
-                            <div class="download_proposal_text_wrapper" onclick="$('#download-proposal')[0].click();">
-                                <span class="download_proposal_text h5">
+                            <div class="download_proposal_startinvest_text_wrapper">
+                                <span class="download_startinvest_text h5">
                                     Download Proposal
                                 </span>
                             </div>
 
+
                             <a
                                     {% if company.proposal %}
                                         href="{{ company.proposal.url }}"
+                                        target="_blank"
                                     {% else %}
-                                        href="{% url 'halaman_toko:proposal_not_available' %}"
+                                        href="#non-existing-id"
+                                        onclick="if (this.getAttribute('href') == '#non-existing-id' ) show_toast('This company hasn\'t uploaded any proposal yet', 1);"
+{#                                        href="{% url 'halaman_toko:proposal_not_available' %}"#}
                                     {% endif %}
-                                        id="download-proposal" target="_blank"></a>
+                                        id="download-proposal"></a>
+                        </div>
+                        <div class="start_invest_container red_box shadowed_box_2_clickable"
+                             style=""
+                             onclick="$('#link-pergi-ke-halaman-invest')[0].click();"
+                             onmouseenter="$('.proposal_startinvest_container').addClass('halaman-invest-hover');"
+                             onmouseleave="$('.proposal_startinvest_container').removeClass('halaman-invest-hover');">
+
+
+
+                            <div class="download_proposal_startinvest_text_wrapper">
+                                <span class="download_startinvest_text h5">
+                                    Tanam Keuntungan
+                                </span>
+                            </div>
+                            <div class="download_proposal__goto_startinvest__icon">
+                                {#                                <i class="proposal-icon" data-fa-symbol="proposal-icon" class="fas fa-book fa-fw"></i>#}
+                                <div class="proposal-startinvest-icon-svg"
+                                     style="--mask-image:url('{% static '/fontawesome 5.15/svgs/solid/dollar-sign.svg' %}');">
+                                </div>
+                            </div>
+
+                        </div>
+                        <a
+                                {% if company.status_verifikasi == StatusVerifikasi.TERVERIFIKASI %}
+                                    href="/mulai-invest/?id={{ company.id }}"
+                                {% else %}
+                                    href="#non-existing-id"
+                                    onclick="if (this.getAttribute('href') == '#non-existing-id' ) show_toast('You should\'t invest on an unverified company', 1);"
+                                {% endif %}
+                                    id="link-pergi-ke-halaman-invest"></a>
+
+
                         </div>
                     {% end_define_duplication %}
 
@@ -413,6 +459,78 @@ disabled
                 </div>
             </div>
         </div>
+
+        <svg width="0" height="0" class="proposal_startinvest_svg_clippath">
+{#        <svg xmlns="http://www.w3.org/2000/svg" height="400" width="700">#}
+            <defs>
+                <clipPath id="clip_path_1--animate" class="animating" clipPathUnits="objectBoundingBox">
+                    <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z">
+                        <animate attributeType="XML"
+                                 attributeName="d"
+                                 from="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+                              Z"
+                                 to="M 0,1
+                              L 0,0
+                              L 1,0
+                              C 1 1, 1 1, 1 1
+                              Z"
+                                 dur="300ms"
+                                 fill="freeze"
+                                 repeatCount="1"
+                                 restart="always"/>
+                    </path>
+                </clipPath>
+
+                <clipPath id="clip_path_1--start" clipPathUnits="objectBoundingBox">
+                    <path  d="M 0,1
+                              L 0,0
+                              L 0.6,0
+                              C 0.5 0, 0.5 1, 0.4 1
+
+                              Z" />
+                </clipPath>
+
+                <clipPath id="clip_path_2--animate" clipPathUnits="objectBoundingBox">
+                    <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z">
+                        <animate attributeType="XML"
+                                 attributeName="d"
+                                 from="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+                              Z"
+                                 to="M 1,0
+                              L 1,1
+                              L 0,1
+                              C 0 0, 0 0, 0 0
+                              Z"
+                                 dur="300ms"
+                                 fill="freeze"
+                                 repeatCount="1"
+                                 restart="always"/>
+                    </path>
+                </clipPath>
+                <clipPath id="clip_path_2--start" clipPathUnits="objectBoundingBox">
+                    <path  d="M 1,0
+                              L 1,1
+                              L 0.4,1
+                              C 0.5 1, 0.5 0, 0.6 0
+
+                              Z" />
+                </clipPath>
+            </defs>
+        </svg>
 
     {% include 'toast.html' %}
     {% include 'bizzvest_footer.html' %}

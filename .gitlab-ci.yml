@@ -19,6 +19,8 @@ cache:
 
 .django_before_script: &django_before_script |-
   pip install -r requirements.txt
+  python manage.py makemigrations
+  python manage.py migrate
   python manage.py collectstatic --no-input
 
 .coverage_artifacts: &coverage_artifacts
@@ -53,6 +55,7 @@ Coverage:
   <<: *disable_on_template
   stage: coverage_result
   before_script:
+    - *django_before_script
     - pip install coverage
     - coverage combine
   script:

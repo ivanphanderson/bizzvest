@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link active mx-2" aria-current="page" href="/faq/">FAQ</a>
                 </li>
+                <div>
+                    {% include "saldo.html" %}
+                </div>    
             </ul>
         </div>
     {% if user.is_authenticated %}

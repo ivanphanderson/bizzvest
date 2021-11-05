@@ -92,6 +92,7 @@ class UserAccount(models.Model):
     alamat = models.CharField(max_length=140, default="", blank=True)
     deskripsi_diri = models.TextField(max_length=3000, default="", blank=True)
     gender = models.CharField(max_length=20, choices=gender_choices, default='jenis-kelamin', blank=True)
+    saldo = models.BigIntegerField(default=0)
     ### sepertinya tidak perlu
     # join_date = models.DateField(default=timezone.now)
     # last_login = models.DateTimeField(default=timezone.now)
