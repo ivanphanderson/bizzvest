@@ -19,7 +19,7 @@ def search(request):
     search_text = ''
     if request.method == "POST":
         search_text = request.POST['search_text']
-        company_search = list(Company.objects.filter(Q(nama_perusahaan__contains=search_text)|Q(nama_merek__contains=search_text)|Q(kode_saham__contains=search_text)).values())       
+        company_search = list(Company.objects.filter(Q(nama_perusahaan__icontains=search_text)|Q(nama_merek__icontains=search_text)|Q(kode_saham__icontains=search_text)).values())       
     else:
         company_search = list(Company.objects.all().values())
     
