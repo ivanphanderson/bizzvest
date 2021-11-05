@@ -55,8 +55,7 @@ Coverage:
   <<: *disable_on_template
   stage: coverage_result
   before_script:
-    - python manage.py makemigrations
-    - python manage.py migrate
+    - *django_before_script
     - pip install coverage
     - coverage combine
   script:
