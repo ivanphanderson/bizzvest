@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from models_app.models import UserAccount
 from .forms import RegisterUserForm
 from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 class UsernameValidation(View):
@@ -25,7 +26,11 @@ class EmailValidation(View):
     def post(self, request):
         data = json.loads(request.body)
         email = data["email"]
-        if not validate_email(email):
+        # if not validate_email(email):
+        #     return JsonResponse({"email_error": "Masukkan email yang benar!"}, status=400)
+        try:
+            validate_email(email)
+        except ValidationError as e:
             return JsonResponse({"email_error": "Masukkan email yang benar!"}, status=400)
         if User.objects.filter(email=email).exists():
             return JsonResponse({"email_error": "Email telah terpakai, silahkan gunakan email lain!"}, status=409)
