@@ -1,0 +1,58 @@
+body{
+  background: rgb(140,232,255);
+  background: linear-gradient(180deg, rgba(140,232,255,1) 0%, rgba(244,253,255,1) 100%);
+}
+
+#heading1{
+  text-align: center;
+  color: #1e8baf;
+}
+
+#notes_table{
+  vertical-align: middle;
+  text-align: center;
+}
+
+#notes_table th{ 
+  background-color: grey;
+  color: white;
+}
+
+.notes-table:hover {
+  transform: scale(1.05);
+}
+
+.notes-table {
+  cursor: pointer; 
+  transition: transform .5s;
+  background-color: rgba(244,253,255,0.5);
+}
+table {
+  margin: auto;
+  width: 70% !important; 
+  table-layout: fixed
+}
+
+.notes-table td {
+  word-wrap: break-word;
+}
+.border-none {
+  border-collapse: collapse;
+  border: none;
+}
+
+.border-none tr:first-child td {
+  border-top: none;
+}
+
+.border-none tr:last-child td {
+  border-bottom: none;
+}
+
+.border-none tr td:first-child {
+  border-left: none;
+}
+
+.border-none tr td:last-child {
+  border-right: none;
+}
