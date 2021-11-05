@@ -52,3 +52,23 @@ nav.bizzvest_navbar{
     text-shadow: 1px 1px 5px #0096C7 !important;
     transition: 0.2s ease;
 }
+
+.bizzvest_navbar .navbar-collapse {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .bizzvest_navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .bizzvest_navbar .dropdown-menu[data-bs-popper] {
+        left: 0 !important;
+        top: 100% !important;
+        right: unset !important;
+        margin-top: 0.9rem !important;
+    }
+}

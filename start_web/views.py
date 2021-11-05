@@ -26,8 +26,6 @@ class EmailValidation(View):
     def post(self, request):
         data = json.loads(request.body)
         email = data["email"]
-        # if not validate_email(email):
-        #     return JsonResponse({"email_error": "Masukkan email yang benar!"}, status=400)
         try:
             validate_email(email)
         except ValidationError as e:
@@ -49,8 +47,10 @@ def sign_up(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=username, password=password)
             login(request, user)
-            # messages.success(request, ("Registration Successful!"))
-            return HttpResponseRedirect("/")
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return HttpResponseRedirect("/")
         print(form.errors)
     else:
         form = RegisterUserForm()
@@ -66,8 +66,6 @@ def log_in(request):
         if user is not None:
             login(request, user)
             return HttpResponseRedirect("/")
-            # next = request.POST.get("next", "/")
-            # return HttpResponseRedirect(next)
         else:
             messages.success(request, ("Username atau Password salah, silahkan coba lagi"))
             return redirect("login")
@@ -77,5 +75,4 @@ def log_in(request):
 
 def log_out(request):
     logout(request)
-    # messages.success(request, ("You Were Logged Out!"))
     return HttpResponseRedirect("/")
