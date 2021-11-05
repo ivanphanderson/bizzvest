@@ -55,10 +55,12 @@ Coverage:
   <<: *disable_on_template
   stage: coverage_result
   before_script:
+    - python manage.py makemigrations
+    - python manage.py migrate
     - pip install coverage
     - coverage combine
   script:
-    - coverage report -i -m
+    - coverage report -m
     - coverage html
   artifacts:
     paths:
