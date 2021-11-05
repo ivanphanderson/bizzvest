@@ -116,6 +116,7 @@ $(document).ready(function (){
                 success: function (response) {
                     show_toast("success!", 2);
                     $("#download-proposal").prop('href', response);
+                    $("#download-proposal").prop('target', "_blank");
                 },
                 error: function(xhr, text_status, error_thrown){
                     if (xhr.readyState === 0)  // masalah koneksi
