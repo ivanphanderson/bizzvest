@@ -175,7 +175,7 @@
 
                     {% define_duplication 'proposal_download_btn' %}
                         <div class="proposal_startinvest_container red_box shadowed_box_2_clickable {{ extra_class }}
-{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI%}proposal_only{% endif %}">
+{% if company.status_verifikasi == StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI or company.status_verifikasi != StatusVerifikasi.TERVERIFIKASI %}proposal_only{% endif %}">
 
                         <div class="{% if not company.proposal %}disabled{% endif %} download_proposal_container red_box"
                              style=""
@@ -230,7 +230,7 @@
                         </div>
                         <a
                                 {% if company.status_verifikasi == StatusVerifikasi.TERVERIFIKASI %}
-                                    href="/mulai-invest/"
+                                    href="/mulai-invest/?id={{ company.id }}"
                                 {% else %}
                                     href="#non-existing-id"
                                     onclick="if (this.getAttribute('href') == '#non-existing-id' ) show_toast('You should\'t invest on an unverified company', 1);"
