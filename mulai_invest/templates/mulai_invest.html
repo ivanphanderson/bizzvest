@@ -126,6 +126,7 @@
             <div class="refresh2">{{saham_tersisa}} lembar</div>
             <div>Harga saham  </div> 
             <div id="harga_sahams"></div>
+            <div>Status verifikasi  </div>
           </div>
         </div>
       </div>
@@ -156,8 +157,14 @@
             oninput="setCustomValidity('')">
           <p id="saldo_kurang"></p>
 
-          <button class="btn" type="submit" id="submit_beli">Beli</button>
-
+          {% if company.status_verifikasi == company.StatusVerifikasi.TERVERIFIKASI %}
+            <button class="btn" type="submit" id="submit_beli">Beli</button>
+          {% else %}
+            <p>Toko ini belum terverifikasi</p>
+            <span style="cursor: no-drop;">
+            <button class="btn" type="submit" id="submit_beli" style="cursor: no-drop;" disabled>Beli</button>
+            </span>
+          {% endif %}
           <a href="/halaman-toko/?id={{company.id}}" class="btn" id="batal">Batal</a>
         </form>
       </div>
