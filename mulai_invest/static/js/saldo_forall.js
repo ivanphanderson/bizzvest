@@ -3,7 +3,11 @@ var saldo = parseInt(document.getElementById("user_saldo").textContent);
 $("form#updateUser").submit(function() {
     var saldoInput = $('input[name="saldo"]').val().trim();
     var saldo_temp = parseInt(saldo)+parseInt(saldoInput);
-    if(saldo_temp<0){
+    if(isNaN(saldoInput)){
+        alert("Input harus berupa bilangan bulat");
+    } else if(saldo_temp>Number.MAX_SAFE_INTEGER){
+        alert("Angka yang Anda masukkan terlalu besar");
+    } else if(saldo_temp<0){
         alert("Saldo minimal adalah 0");
     } else{
         if (saldoInput) {
