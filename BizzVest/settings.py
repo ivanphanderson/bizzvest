@@ -37,6 +37,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'localhost', 'bizzvest.herokuapp.com']
 
+"""
+CORS_ALLOWED_ORIGINS = [
+    '*', 'localhost', 'bizzvest.herokuapp.com',
+]
+"""
+CORS_ORIGIN_ALLOW_ALL = True
+
+# """
+
+
 
 # Application definition
 
@@ -49,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'corsheaders',
     
     'home_page',
     'my_profile',
@@ -62,6 +73,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

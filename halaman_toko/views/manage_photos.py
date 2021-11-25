@@ -3,6 +3,7 @@ import json
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_foto import CompanyPhotoAddForm
@@ -12,6 +13,18 @@ from models_app.models_utility.company_utility import recalculate_img_index, rec
 
 
 
+@csrf_exempt
+def photo_json(req:WSGIRequest):
+    if 'id' not in req.GET:
+        return HttpResponse("field not found: id", status=400)
+
+    is_toko_id_valid, object = validate_toko_id(req.GET['id'])
+    if not is_toko_id_valid:
+        return object
+
+    company:Company = object[0]
+    temp = get_photos_json(company)
+    return temp
 
 
 

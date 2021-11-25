@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from models_app.models import UserAccount
 from .forms import RegisterUserForm
@@ -58,6 +59,7 @@ def sign_up(request):
 
     return render(request, "signup.html", {"form":form})
 
+@csrf_exempt  # TODO
 def log_in(request):
     if request.method == "POST":
         username = request.POST["username"]

@@ -21,4 +21,5 @@ urlpatterns = [
     path('upload-proposal', views.edit_proposal, name="upload_proposal"),
     path('proposal-not-available', views.proposal_not_available, name="proposal_not_available"),
     path('request-for-verification', views.ajukan_verifikasi, name="ajukan_verifikasi"),
+    path('photo_json', views.photo_json, name="photo_json"),
 ]
