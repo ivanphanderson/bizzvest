@@ -1,3 +1,4 @@
+import json
 import time
 
 from django.contrib.auth.decorators import login_required
@@ -11,6 +12,7 @@ import threading
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
+from halaman_toko.templatetags.date_utils_tag import number_of_days_from_today, ubah_jadi_bulan_atau_tahun_jika_perlu
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
 from models_app.models import Company
 
@@ -56,6 +58,47 @@ def halaman_toko(req:WSGIRequest):
         'informasi_saham': InformasiSaham(company_obj),
         'tunjukkan_tombol_edit': is_company_owner_account
     })
+
+
+def halaman_toko_json(req:WSGIRequest):
+    is_valid, ret_obj = validate_toko_id_by_GET_req(req)
+    if not is_valid:
+        return ret_obj
+
+    company:Company = ret_obj[0]
+    logged_in_acc = get_logged_in_user_account(req)
+    is_company_owner_account = logged_in_acc is not None and (
+            logged_in_acc.user_model.username == company.pemilik_usaha.account.user_model.username
+    )
+
+    informasi_saham = InformasiSaham(company)
+
+    ret = {
+        'nama_merek': company.nama_merek,
+        'nama_perusahaan': company.nama_perusahaan,
+        'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")],
+        'status_verifikasi': company.status_verifikasi,
+        'tanggal_berakhir': company.end_date,
+        'kode_saham': company.kode_saham,
+        'sisa_waktu': ubah_jadi_bulan_atau_tahun_jika_perlu(
+            number_of_days_from_today(company.end_date)
+        ),
+        'periode_dividen': company.dividen,
+        'alamat': company.alamat,
+        'deskripsi': company.deskripsi,
+        'owner': {
+            'full_name': company.pemilik_usaha.account.full_name,
+            'username': company.pemilik_usaha.account.user_model.username,
+            'photo_profile': company.pemilik_usaha.account.photo_profile.url,
+        },
+        'nilai_lembar_saham': company.nilai_lembar_saham,
+        'jumlah_lembar_saham': company.jumlah_lembar,
+        'jumlah_lembar_saham_tersisa': informasi_saham.lembar_saham_tersisa,
+    }
+
+    return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
+
+
 
 
 
@@ -148,7 +191,6 @@ def membuat_menjadi_terverifikasi(company_obj:Company, wait=True):
         time.sleep(14)
     company_obj.status_verifikasi = Company.StatusVerifikasi.TERVERIFIKASI
     company_obj.save()
-
 
 
 def ajukan_verifikasi(req:WSGIRequest):

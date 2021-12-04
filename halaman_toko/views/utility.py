@@ -1,4 +1,5 @@
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import QuerySet
 from django.http import HttpResponseRedirect, HttpResponse
 
 from models_app.models import Company
@@ -25,7 +26,11 @@ def validate_toko_id_by_GET_req(req:WSGIRequest):
     "returns (True, company_obj_query) if valid, or (False, http response object) if is not valid"
     if (req.GET.get("id") is None):
         ret = HttpResponseRedirect("")
-        ret["Location"] += "?id=1"
+        temp:Company = Company.objects.last()
+        if (temp is not None):
+            ret["Location"] += "?id=" + str(temp.id)
+        else:
+            ret["Location"] += "?id=1"
         return (False, ret)
 
     return validate_toko_id(req.GET.get("id"))
