@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .forms import NoteForm
 from .models import Faq
+from django.core import serializers
+import json
 
 def index(request):
     form = NoteForm()
@@ -22,3 +24,9 @@ def save_data(request):
             return JsonResponse({'status':'Save', 'pertanyaan_data': pertanyaan_data})
         else:
             return JsonResponse({'status':0})
+        
+def faqJson(request):
+    pertanyaan = Faq.objects.all()
+    dataPertanyaan = serializers.serialize('json', pertanyaan)
+    dataPertanyaan = json.loads(dataPertanyaan)
+    return JsonResponse(dataPertanyaan, safe=False)
