@@ -7,6 +7,8 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import render
+from django.templatetags.static import static
+import django.template.defaultfilters as defaultfilters
 
 import threading
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account
@@ -15,8 +17,6 @@ from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
 from halaman_toko.templatetags.date_utils_tag import number_of_days_from_today, ubah_jadi_bulan_atau_tahun_jika_perlu
 from halaman_toko.views.utility import validate_toko_id_by_GET_req, validate_toko_id
 from models_app.models import Company
-
-
 
 
 class InformasiSaham():
@@ -47,7 +47,6 @@ def halaman_toko(req:WSGIRequest):
             logged_in_acc.user_model.username == company_obj.pemilik_usaha.account.user_model.username
     )
 
-
     return render(req, "halaman_toko.html", {
         'company': company_obj,
         'StatusVerifikasi': Company.StatusVerifikasi,
@@ -76,9 +75,11 @@ def halaman_toko_json(req:WSGIRequest):
     ret = {
         'nama_merek': company.nama_merek,
         'nama_perusahaan': company.nama_perusahaan,
-        'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")],
+        'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")] or [
+            static("img/no pict.png")
+        ],
         'status_verifikasi': company.status_verifikasi,
-        'tanggal_berakhir': company.end_date,
+        'tanggal_berakhir': defaultfilters.date(company.end_date, "d M Y"),
         'kode_saham': company.kode_saham,
         'sisa_waktu': ubah_jadi_bulan_atau_tahun_jika_perlu(
             number_of_days_from_today(company.end_date)
@@ -86,6 +87,7 @@ def halaman_toko_json(req:WSGIRequest):
         'periode_dividen': company.dividen,
         'alamat': company.alamat,
         'deskripsi': company.deskripsi,
+        'alamat_proposal': company.proposal.url if company.proposal else "",
         'owner': {
             'full_name': company.pemilik_usaha.account.full_name,
             'username': company.pemilik_usaha.account.user_model.username,
@@ -95,11 +97,7 @@ def halaman_toko_json(req:WSGIRequest):
         'jumlah_lembar_saham': company.jumlah_lembar,
         'jumlah_lembar_saham_tersisa': informasi_saham.lembar_saham_tersisa,
     }
-
     return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
-
-
-
 
 
 def edit_proposal(req:WSGIRequest):
@@ -128,7 +126,7 @@ def edit_proposal(req:WSGIRequest):
 
     if (form.is_valid()):
         form.save()
-        form_instance:Company = form.instance
+        form_instance: Company = form.instance
         return HttpResponse(form_instance.proposal.url, status=200)
 
     return HttpResponse(
@@ -140,7 +138,6 @@ def edit_proposal(req:WSGIRequest):
 
 def proposal_not_available(req:WSGIRequest):
     return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)
-
 
 
 def save_company_form(req:WSGIRequest):
@@ -161,7 +158,6 @@ def save_company_form(req:WSGIRequest):
         return obj
 
     company_object = obj.first()  # get the first query. I think it should only have one item tho
-
 
     user_object = get_logged_in_user_account(req)
     if user_object is None:
@@ -185,7 +181,6 @@ def save_company_form(req:WSGIRequest):
         return HttpResponse('the following errors has occured: \n\n ' + '\n'.join(error_messages), status=400)
 
 
-
 def membuat_menjadi_terverifikasi(company_obj:Company, wait=True):
     if wait:
         time.sleep(14)
@@ -194,10 +189,10 @@ def membuat_menjadi_terverifikasi(company_obj:Company, wait=True):
 
 
 def ajukan_verifikasi(req:WSGIRequest):
-    if (req.method != 'POST'):
+    if req.method != 'POST':
         return HttpResponse('invalid request: not a POST request', status=400)
 
-    if (temp:=is_available('id', req.POST)) is not True:
+    if (temp := is_available('id', req.POST)) is not True:
         return temp
 
     id = req.POST['id']
@@ -222,11 +217,10 @@ def ajukan_verifikasi(req:WSGIRequest):
     if (company_object.companyphoto_set.all().count() == 0):
         return HttpResponse("The company must have at least 1 photo", status=400)
 
-
     company_object.status_verifikasi = Company.StatusVerifikasi.MENGAJUKAN_VERIFIKASI
     company_object.save()
 
-    # ceritanya nanti adminnya udah mengecek dan mem-verifikasi
+    # ceritanya nanti adminnya udah mengecek dan men-verifikasi
     t = threading.Thread(target=membuat_menjadi_terverifikasi,args=[company_object])
     t.setDaemon(True)
     t.start()
