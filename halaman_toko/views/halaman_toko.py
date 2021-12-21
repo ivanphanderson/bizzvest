@@ -73,6 +73,7 @@ def halaman_toko_json(req:WSGIRequest):
     informasi_saham = InformasiSaham(company)
 
     ret = {
+        'is_curr_client_the_owner': 1 if is_company_owner_account else 0,
         'nama_merek': company.nama_merek,
         'nama_perusahaan': company.nama_perusahaan,
         'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")] or [
