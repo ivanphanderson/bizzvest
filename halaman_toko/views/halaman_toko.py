@@ -58,7 +58,7 @@ def halaman_toko(req:WSGIRequest):
         'tunjukkan_tombol_edit': is_company_owner_account
     })
 
-
+# @login_required(login_url='/start-web/login')
 def halaman_toko_json(req:WSGIRequest):
     is_valid, ret_obj = validate_toko_id_by_GET_req(req)
     if not is_valid:
@@ -73,6 +73,8 @@ def halaman_toko_json(req:WSGIRequest):
     informasi_saham = InformasiSaham(company)
 
     ret = {
+        'csrf_token': csrf.get_token(req),
+        'your_acc': logged_in_acc.user_model.username if logged_in_acc is not None else "none.",
         'is_curr_client_the_owner': 1 if is_company_owner_account else 0,
         'nama_merek': company.nama_merek,
         'nama_perusahaan': company.nama_perusahaan,
@@ -233,3 +235,24 @@ def is_available(field_name:str, request_query:dict):
     if (field_name not in request_query):
         return HttpResponse(f'invalid request: {repr(field_name)} field is not available', status=400)
     return True
+
+
+def account_information(req:WSGIRequest):
+    logged_in_acc = get_logged_in_user_account(req)
+    is_logged_in = logged_in_acc is not None
+    is_investor = False
+    is_entrepreneur = False
+
+    if is_logged_in:
+        is_investor = logged_in_acc.is_investor
+        is_entrepreneur = logged_in_acc.is_entrepreneur
+
+    return HttpResponse(
+        json.dumps(
+            {
+                'is_logged_in': int(is_logged_in),
+                'is_investor': int(is_investor),
+                'is_entrepreneur': int(is_entrepreneur),
+            }
+        ), status=200
+    )

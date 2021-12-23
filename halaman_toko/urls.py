@@ -14,6 +14,7 @@ urlpatterns = [
     path('add', views.add_toko, name='add_toko'),
 
     path('HzPyScript/contoh1', contoh1, name="HzPyScript_contoh1"),
+    path('account-information', views.account_information, name="account_information"),
 
     path('add-photo', views.add_photo),
     path('delete-photo', views.delete_photo),

@@ -62,6 +62,8 @@ def sign_up(request):
 @csrf_exempt  # TODO
 def log_in(request):
     if request.method == "POST":
+        print(request.GET)
+        print(request.POST)
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
