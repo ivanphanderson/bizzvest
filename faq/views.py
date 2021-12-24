@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from .forms import NoteForm
 from .models import Faq
 from django.core import serializers
@@ -24,8 +25,14 @@ def save_data(request):
             return JsonResponse({'status':'Save', 'pertanyaan_data': pertanyaan_data})
         else:
             return JsonResponse({'status':0})
-        
+
+@csrf_exempt
 def faqJson(request):
+    if(request.method == 'POST'):
+        print(request.body)
+        data = json.loads(request.body)
+        faq = Faq(nama=data['nama'], pertanyaan=data['pertanyaan'])
+        faq.save()
     pertanyaan = Faq.objects.all()
     dataPertanyaan = serializers.serialize('json', pertanyaan)
     dataPertanyaan = json.loads(dataPertanyaan)
