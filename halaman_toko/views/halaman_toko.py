@@ -237,22 +237,3 @@ def is_available(field_name:str, request_query:dict):
     return True
 
 
-def account_information(req:WSGIRequest):
-    logged_in_acc = get_logged_in_user_account(req)
-    is_logged_in = logged_in_acc is not None
-    is_investor = False
-    is_entrepreneur = False
-
-    if is_logged_in:
-        is_investor = logged_in_acc.is_investor
-        is_entrepreneur = logged_in_acc.is_entrepreneur
-
-    return HttpResponse(
-        json.dumps(
-            {
-                'is_logged_in': int(is_logged_in),
-                'is_investor': int(is_investor),
-                'is_entrepreneur': int(is_entrepreneur),
-            }
-        ), status=200
-    )

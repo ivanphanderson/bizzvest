@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['*', 'localhost', 'bizzvest.herokuapp.com']
 
 """
 CORS_ALLOWED_ORIGINS = [
-    '*', 'localhost', 'bizzvest.herokuapp.com',
+    'http://localhost', 'https://bizzvest.herokuapp.com',
 ]
 """
 CORS_ORIGIN_ALLOW_ALL = True
@@ -74,6 +74,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
