@@ -102,7 +102,7 @@ def ganti_foto(request):
     context['form']= form
     return render(request, 'form_gantiprofil.html', context)
 
-
+@csrf_exempt
 def my_profile_json(req:WSGIRequest):
     is_valid, ret_obj = validate_toko_id_by_GET_req(req)
     if not is_valid:
