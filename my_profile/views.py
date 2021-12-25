@@ -3,7 +3,7 @@ from models_app.models.UserAccount import UserAccount
 from models_app.models.InvestorAccount import InvestorAccount
 from models_app.models.EntrepreneurAccount import EntrepreneurAccount
 from my_profile.forms import PhotoForm, ProfileForm, FormSpesial
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http.response import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -103,43 +103,47 @@ def ganti_foto(request):
     return render(request, 'form_gantiprofil.html', context)
 
 @csrf_exempt
-def my_profile_json(req:WSGIRequest):
-    is_valid, ret_obj = validate_toko_id_by_GET_req(req)
-    if not is_valid:
-        return ret_obj
+def my_profile_json(request):
+    data = json.loads(request.body)
+    nama_lengkap = data["full_name"]
+    return JsonResponse(nama_lengkap)
 
-    company:Company = ret_obj[0]
-    logged_in_acc = get_logged_in_user_account(req)
-    is_company_owner_account = logged_in_acc is not None and (
-            logged_in_acc.user_model.username == company.pemilik_usaha.account.user_model.username
-    )
+    # is_valid, ret_obj = validate_toko_id_by_GET_req(req)
+    # if not is_valid:
+    #     return ret_obj
 
-    informasi_saham = InformasiSaham(company)
+    # company:Company = ret_obj[0]
+    # logged_in_acc = get_logged_in_user_account(req)
+    # is_company_owner_account = logged_in_acc is not None and (
+    #         logged_in_acc.user_model.username == company.pemilik_usaha.account.user_model.username
+    # )
 
-    ret = {
-        'is_curr_client_the_owner': 1 if is_company_owner_account else 0,
-        'nama_merek': company.nama_merek,
-        'nama_perusahaan': company.nama_perusahaan,
-        'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")] or [
-            static("img/no pict.png")
-        ],
-        'status_verifikasi': company.status_verifikasi,
-        'tanggal_berakhir': defaultfilters.date(company.end_date, "d M Y"),
-        'kode_saham': company.kode_saham,
-        'sisa_waktu': ubah_jadi_bulan_atau_tahun_jika_perlu(
-            number_of_days_from_today(company.end_date)
-        ),
-        'periode_dividen': company.dividen,
-        'alamat': company.alamat,
-        'deskripsi': company.deskripsi,
-        'alamat_proposal': company.proposal.url if company.proposal else "",
-        'owner': {
-            'full_name': company.pemilik_usaha.account.full_name,
-            'username': company.pemilik_usaha.account.user_model.username,
-            'photo_profile': company.pemilik_usaha.account.photo_profile.url,
-        },
-        'nilai_lembar_saham': company.nilai_lembar_saham,
-        'jumlah_lembar_saham': company.jumlah_lembar,
-        'jumlah_lembar_saham_tersisa': informasi_saham.lembar_saham_tersisa,
-    }
-    return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
+    # informasi_saham = InformasiSaham(company)
+
+    # ret = {
+    #     'is_curr_client_the_owner': 1 if is_company_owner_account else 0,
+    #     'nama_merek': company.nama_merek,
+    #     'nama_perusahaan': company.nama_perusahaan,
+    #     'images': [i.img.url for i in company.companyphoto_set.all().order_by("img_index")] or [
+    #         static("img/no pict.png")
+    #     ],
+    #     'status_verifikasi': company.status_verifikasi,
+    #     'tanggal_berakhir': defaultfilters.date(company.end_date, "d M Y"),
+    #     'kode_saham': company.kode_saham,
+    #     'sisa_waktu': ubah_jadi_bulan_atau_tahun_jika_perlu(
+    #         number_of_days_from_today(company.end_date)
+    #     ),
+    #     'periode_dividen': company.dividen,
+    #     'alamat': company.alamat,
+    #     'deskripsi': company.deskripsi,
+    #     'alamat_proposal': company.proposal.url if company.proposal else "",
+    #     'owner': {
+    #         'full_name': company.pemilik_usaha.account.full_name,
+    #         'username': company.pemilik_usaha.account.user_model.username,
+    #         'photo_profile': company.pemilik_usaha.account.photo_profile.url,
+    #     },
+    #     'nilai_lembar_saham': company.nilai_lembar_saham,
+    #     'jumlah_lembar_saham': company.jumlah_lembar,
+    #     'jumlah_lembar_saham_tersisa': informasi_saham.lembar_saham_tersisa,
+    # }
+    # return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
