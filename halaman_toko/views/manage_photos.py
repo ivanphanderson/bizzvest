@@ -93,7 +93,7 @@ def delete_photo(req:WSGIRequest):
     if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
-    if (req.method == 'POST'):
+    if req.method == 'POST':
         if not 'photo_id' in req.POST:
             return HttpResponse("field not found: photo_id", status=400)
 
@@ -115,13 +115,13 @@ def delete_photo(req:WSGIRequest):
         if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
             return HttpResponse('you are not the owner of this company', status=403)
 
-        if (company_obj.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+        if company_obj.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI:
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
         company_photos = list(company_obj.companyphoto_set.all().order_by('img_index'))
         photo_index_in_the_list = photo_index-1
         assert (company_photos[photo_index_in_the_list].id == photo_obj.id), \
-            "img_index tidak sesuai dengan posisinya pada array"  # +1 because img_index is starts from 1
+            "img_index tidak sesuai dengan posisinya pada array"
 
         company_photos[photo_index_in_the_list].delete()
         recalculate_img_index(company_obj, photo_index_in_the_list)
@@ -136,6 +136,9 @@ def photo_reorder(req:WSGIRequest):
         return HttpResponseRedirect(get_login_url())
 
     if (req.method == 'POST'):
+        print(req.POST)
+        print('photo_order' in req.POST)
+        print('company_id' in req.POST)
         if not 'photo_order' in req.POST:
             return HttpResponse("field not found: photo_order", status=400)
 
@@ -153,6 +156,7 @@ def photo_reorder(req:WSGIRequest):
         if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
 
+        # key: photo id, value: position priority (any position between 0 to 1000. it'll be sorted)
         photo_order_json_string = req.POST['photo_order']
         try:
             photo_order = json.loads(photo_order_json_string)
@@ -171,7 +175,8 @@ def photo_reorder(req:WSGIRequest):
             del photo_order[key]  # delete the string version of the key
 
         if (company.companyphoto_set.all().count() != len(photo_order)):
-            return HttpResponse("invalid json [non-equal length]: photo_order", status=400)
+            return HttpResponse("invalid json [non-equal length]: photo_order. "
+                                "Please don't edit the photos from two different instances (web/app) simultaneously", status=400)
 
         company_photos = list(company.companyphoto_set.all())
 
