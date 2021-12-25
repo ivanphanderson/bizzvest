@@ -27,4 +27,5 @@ urlpatterns = [
     path('halaman-toko-photo-json', views.photo_json, name="photo_json"),
     path('halaman-toko-json', views.halaman_toko_json, name="halaman_toko_json"),
     path('add-toko-api', views.add_toko_API, name="add_toko_API"),
+    path('manage-photos-init-api', views.manage_photos_initial_API, name="manage_photos_init_API"),
 ]

@@ -2,6 +2,7 @@ import json
 
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponseRedirect, HttpResponse
+from django.middleware import csrf
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -32,7 +33,13 @@ def add_photo(req:WSGIRequest):
     if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
 
-    if (req.method == 'POST'):
+    if req.method == 'POST':
+        print()
+        print()
+        print(req.POST)
+        print()
+        print()
+        print(req.FILES)
         if 'company_id' not in req.POST:
             return HttpResponse("field not found: company_id", status=400)
 
@@ -43,20 +50,19 @@ def add_photo(req:WSGIRequest):
         if not is_toko_id_valid:
             return object
 
-        company:Company = object[0]
+        company: Company = object[0]
         user_object = get_logged_in_user_account(req)
         if user_object is None:
             return HttpResponse('please log in', status=403)
         if user_object.user_model.username != company.pemilik_usaha.account.user_model.username:
             return HttpResponse('you are not the owner of this company', status=403)
 
-        if (company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI):
+        if company.status_verifikasi != Company.StatusVerifikasi.BELUM_MENGAJUKAN_VERIFIKASI:
             return HttpResponse("Verification status must be 'not submitted yet' to alter any photo", status=400)
-
 
         company_photos_count = company.companyphoto_set.all().count()
 
-        if (company_photos_count + len(req.FILES.getlist('img')) > 12):
+        if company_photos_count + len(req.FILES.getlist('img')) > 12:
             return HttpResponse("Sorry, you can't add any photo more than 12", status=400)
 
         uploaded_images = req.FILES.getlist("img")  # daftar semua file yang di upload oleh <input type="file" multiple>
@@ -65,7 +71,7 @@ def add_photo(req:WSGIRequest):
             files_temp = req.FILES.copy()
             files_temp.setlist(
                 'img',
-                [ req.FILES.getlist('img')[i], ]
+                [req.FILES.getlist('img')[i], ]
             )
 
 
@@ -76,7 +82,7 @@ def add_photo(req:WSGIRequest):
 
 
             if (form.is_valid()):
-                saved_obj:CompanyPhoto = form.save()
+                saved_obj: CompanyPhoto = form.save()
             else:
                 return HttpResponse("Sorry, the form you've given is invalid. <!--" + str(form.errors) + "-->", status=400)
         return get_photos_json(company)
@@ -208,6 +214,33 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
         })
 
 
+def manage_photos_initial_API(req:WSGIRequest):
+    if req.method == "GET":
+        is_valid, ret_obj = validate_toko_id_by_GET_req(req)
+        if not is_valid:
+            return ret_obj
+
+        company_obj:Company = ret_obj[0]
+        user_object = get_logged_in_user_account(req)
+        if user_object is None:
+            return HttpResponse('please log in', status=403)
+        if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
+            return HttpResponse('you are not the owner of this company', status=403)
+
+        company_photos = company_obj.companyphoto_set.all().order_by('img_index')
+        return HttpResponse(
+            json.dumps({
+                'csrftoken': csrf.get_token(req),
+                'photos': [
+                    {
+                        'id': img.id,
+                        'url': img.img.url
+                    } for img in company_photos
+                ]
+            }), content_type='application/json')
+
+
+
 
 def get_photos_json(company_obj):
     company_photos = company_obj.companyphoto_set.all().order_by('img_index')
@@ -218,5 +251,4 @@ def get_photos_json(company_obj):
                 'id': img.id,
                 'url': img.img.url
             }
-                for img in company_photos]
-    ), content_type='application/json')
+                for img in company_photos]), content_type='application/json')

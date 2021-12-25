@@ -169,6 +169,18 @@ def add_toko_API(req:WSGIRequest):
             print()
             print()
 
+            # resulting_err_dict = {
+            #     "nama_merek": ["a", "b"],
+            #     "nama_perusahaan": ["c", "d"],
+            #     "kode_saham": ["e", "f"],
+            #     "alamat": ["g", "h"],
+            #     "jumlah_lembar": ["i", "j"],
+            #     "nilai_lembar_saham": ["k", "l"],
+            #     "dividen": ["m", "n"],
+            #     "end_date": ["o", "p"],
+            #     "deskripsi": ["q", "r"],
+            # }
+
             return HttpResponse(
                 json.dumps({
                     'is_valid': 0,
