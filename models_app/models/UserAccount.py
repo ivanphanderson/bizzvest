@@ -100,7 +100,7 @@ class UserAccount(models.Model):
 
     @property
     def is_investor(self):
-        return hasattr(self, 'investoraccount') and self.investoraccount is not None
+        return hasattr(self, 'investoraccount') and self.investoraccount is not None 
 
     @is_investor.setter
     def is_investor(self, value):
@@ -109,9 +109,11 @@ class UserAccount(models.Model):
             if value:
                 self.investoraccount = InvestorAccount(account=self)
                 self.investoraccount.save()
+
             else:
                 self.investoraccount.delete()
                 self.investoraccount = None
+               
 
 
     @property
@@ -125,9 +127,11 @@ class UserAccount(models.Model):
             if value:
                 self.entrepreneuraccount = EntrepreneurAccount(account=self)
                 self.entrepreneuraccount.save()
+                
             else:
                 self.entrepreneuraccount.delete()
                 self.entrepreneuraccount = None
+                
 
 
     def __str__(self):
