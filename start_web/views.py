@@ -1,3 +1,4 @@
+from django.contrib.auth.backends import UserModel
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
@@ -80,3 +81,57 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+@csrf_exempt
+def login_flutter(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return JsonResponse({
+              "status": True,
+              "message": "Successfully Logged In!"
+            }, status=200)
+        else:
+            return JsonResponse({
+              "status": False,
+              "message": "Failed to Login, Account Disabled."
+            }, status=401)
+
+    else:
+        return JsonResponse({
+          "status": False,
+          "message": "Failed to Login, check your email/password."
+        }, status=401)
+
+@csrf_exempt
+def signup_flutter(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+
+        newUser = UserModel.objects.create_user(
+        username = username, 
+        email = email,
+        password = password,
+        )
+
+        newUser.save()
+        return JsonResponse({
+            "status": True
+        }, status=200)
+    else:
+        return JsonResponse({
+            "status": False
+        }, status=401)
+
+@csrf_exempt
+def logout_flutter(request):
+    try:
+        logout(request)
+        return JsonResponse({"status": True,}, status=200)
+    except:
+        return JsonResponse({"status": False,}, status=401)
