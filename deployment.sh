@@ -1,5 +1,5 @@
 #!/bin/bash
-python manage.py makemigrations
+python manage.py makemigrations 
 python manage.py makemigrations models_app
 python manage.py makemigrations faq
 python manage.py makemigrations home_page
