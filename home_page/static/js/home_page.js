@@ -29,7 +29,7 @@ $("#savemsg").on('click', function(e) {
     console.log("Send Button Clicked");
     let mail = $("#email").val();
     let pesan = $("#pesan").val();
-    let csr = $("input[name=csrfmiddlewaretoken]").val();
+    //let csr = $("input[name=csrfmiddlewaretoken]").val();
     e.preventDefault();
 
     if (mail != "" & pesan != "") {
@@ -38,8 +38,8 @@ $("#savemsg").on('click', function(e) {
             method: "POST",
             data:{ 
                 email: mail, 
-                message: pesan, 
-                csrfmiddlewaretoken: csr 
+                message: pesan//, 
+                //csrfmiddlewaretoken: csr 
             },
             dataType:"json",
             success: function (data) {
