@@ -228,9 +228,9 @@ def manage_photos_initial_API(req:WSGIRequest):
         company_obj:Company = ret_obj[0]
         user_object = get_logged_in_user_account(req)
         if user_object is None:
-            return HttpResponse('please log in', status=403)
+            return HttpResponse('please log in', status=401)
         if user_object.user_model.username != company_obj.pemilik_usaha.account.user_model.username:
-            return HttpResponse('you are not the owner of this company', status=403)
+            return HttpResponse('you are not the owner of this company', status=401)
 
         company_photos = company_obj.companyphoto_set.all().order_by('img_index')
         return HttpResponse(
