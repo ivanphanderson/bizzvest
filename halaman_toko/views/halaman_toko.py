@@ -11,6 +11,9 @@ from django.templatetags.static import static
 import django.template.defaultfilters as defaultfilters
 
 import threading
+
+from django.views.decorators.csrf import csrf_exempt
+
 from halaman_toko.authentication_and_authorization import get_logged_in_user_account
 from halaman_toko.forms.halaman_toko_edit_form import CompanyEditForm
 from halaman_toko.forms.halaman_toko_edit_proposal import CompanyAddProposalForm
@@ -36,6 +39,7 @@ class InformasiSaham():
 
 
 @login_required(login_url='/start-web/login')
+@csrf_exempt
 def halaman_toko(req:WSGIRequest):
     is_valid, ret_obj = validate_toko_id_by_GET_req(req)
     if not is_valid:
@@ -58,7 +62,7 @@ def halaman_toko(req:WSGIRequest):
         'tunjukkan_tombol_edit': is_company_owner_account
     })
 
-# @login_required(login_url='/start-web/login')
+@csrf_exempt
 def halaman_toko_json(req:WSGIRequest):
     is_valid, ret_obj = validate_toko_id_by_GET_req(req)
     if not is_valid:
@@ -103,6 +107,7 @@ def halaman_toko_json(req:WSGIRequest):
     return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
 
 
+@csrf_exempt
 def edit_proposal(req:WSGIRequest):
     if req.method != 'POST':
         return HttpResponse(status=400)
@@ -143,6 +148,7 @@ def proposal_not_available(req:WSGIRequest):
     return HttpResponse("This company hasn't uploaded any proposal yet.", status=404)
 
 
+@csrf_exempt
 def save_company_form(req:WSGIRequest):
     if (req.method != 'POST'):
         return HttpResponse('invalid request: not a POST request', status=400)
@@ -190,7 +196,7 @@ def membuat_menjadi_terverifikasi(company_obj:Company, wait=True):
     company_obj.status_verifikasi = Company.StatusVerifikasi.TERVERIFIKASI
     company_obj.save()
 
-
+@csrf_exempt
 def ajukan_verifikasi(req:WSGIRequest):
     if req.method != 'POST':
         return HttpResponse('invalid request: not a POST request', status=400)

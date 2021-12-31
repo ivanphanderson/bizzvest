@@ -43,7 +43,7 @@ class FormErrors():
             setattr(self.does_problem_exist, attr_name, "problem" if (attr_name in dictionary) else "no-problem")
 
 
-
+@csrf_exempt
 def add_toko(req:WSGIRequest):
     # TemporaryFiles.delete_outdated_files()
 
@@ -99,7 +99,7 @@ def add_toko(req:WSGIRequest):
     })
 
 
-
+@csrf_exempt
 def add_toko_API(req:WSGIRequest):
     logged_in_account = get_logged_in_user_account(req)
     if logged_in_account is None:

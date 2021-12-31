@@ -28,7 +28,7 @@ def photo_json(req:WSGIRequest):
     return temp
 
 
-
+@csrf_exempt
 def add_photo(req:WSGIRequest):
     if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
@@ -88,7 +88,7 @@ def add_photo(req:WSGIRequest):
         return get_photos_json(company)
     return HttpResponse("Invalid request", status=400)
 
-
+@csrf_exempt
 def delete_photo(req:WSGIRequest):
     if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
@@ -130,7 +130,7 @@ def delete_photo(req:WSGIRequest):
         return temp
     return HttpResponse("Invalid request", status=400)
 
-
+@csrf_exempt
 def photo_reorder(req:WSGIRequest):
     if (get_logged_in_user_account(req) is None):
         return HttpResponseRedirect(get_login_url())
@@ -197,7 +197,7 @@ def photo_reorder(req:WSGIRequest):
         return HttpResponse("success", status=200)
     return HttpResponse("Invalid request", status=400)
 
-
+@csrf_exempt
 def manage_photos(req:WSGIRequest, *args, **kwargs):
     if req.method == "GET":
         is_valid, ret_obj = validate_toko_id_by_GET_req(req)
@@ -218,7 +218,7 @@ def manage_photos(req:WSGIRequest, *args, **kwargs):
             'company': company_obj
         })
 
-
+@csrf_exempt
 def manage_photos_initial_API(req:WSGIRequest):
     if req.method == "GET":
         is_valid, ret_obj = validate_toko_id_by_GET_req(req)
