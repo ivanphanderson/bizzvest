@@ -12,10 +12,12 @@ def account_information(req:WSGIRequest):
     is_logged_in = logged_in_acc is not None
     is_investor = False
     is_entrepreneur = False
+    user_id = -1
 
     if is_logged_in:
         is_investor = logged_in_acc.is_investor
         is_entrepreneur = logged_in_acc.is_entrepreneur
+        user_id = logged_in_acc.user_model_id
 
     return HttpResponse(
         json.dumps(
@@ -23,6 +25,7 @@ def account_information(req:WSGIRequest):
                 'is_logged_in': int(is_logged_in),
                 'is_investor': int(is_investor),
                 'is_entrepreneur': int(is_entrepreneur),
+                'user_id_buat_mulaiInvest': user_id,
             }
         ), status=200
     )
