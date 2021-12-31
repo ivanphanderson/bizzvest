@@ -117,7 +117,7 @@ def my_profile_json(req:WSGIRequest):
     # print(logged_in_acc.photo_profile)
     ret = {
         'csrf_token': csrf.get_token(req),
-        'full_name': logged_in_acc.full_name if logged_in_acc.full_name else "hihi",
+        'full_name': logged_in_acc.full_name if logged_in_acc.full_name else "",
         'username': logged_in_acc.user_model.username,
         'phone_number': logged_in_acc.phone_number,
         'investor': 1 if logged_in_acc.is_investor else 0,
