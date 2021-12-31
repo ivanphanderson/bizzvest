@@ -237,3 +237,5 @@ def is_available(field_name:str, request_query:dict):
     return True
 
 
+def test_try(req:WSGIRequest):
+    return HttpResponse("Hello world!")
