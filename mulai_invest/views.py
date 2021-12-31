@@ -109,9 +109,6 @@ def get_invest_stuff(request):
         return HttpResponse("Sorry, the id you're trying to reach is invalid")
     mulai_invest={}
     mulai_invest['company']=  serializers.serialize('json', company_obj_all)
-    
-    # zz = list(company_obj.companyphoto_set.all().order_by("img_index"))
-    # mulai_invest['company_photos']= serializers.serialize('json', zz)
 
     mulai_invest['company_photos'] = [i.img.url for i in company_obj.companyphoto_set.all().order_by("img_index")]
 
