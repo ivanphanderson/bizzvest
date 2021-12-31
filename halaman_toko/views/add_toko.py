@@ -7,6 +7,7 @@ from django.middleware import csrf
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import dateformat, timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from halaman_toko.authentication_and_authorization import *
 from halaman_toko.forms.halaman_toko_add_form import CompanyAddForm
