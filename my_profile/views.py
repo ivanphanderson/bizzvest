@@ -113,84 +113,91 @@ def ganti_foto(request):
 
 @csrf_exempt
 def my_profile_json(req:WSGIRequest):
-
-    # profil = request.user.useraccount
-    # response = {'profil':profil}
-
-    # data = json.loads(response.body)
-    # str_data = serialize('json', response)
-    # data = json.loads(str_data)
-    # return JsonResponse(data, content_type="application/json")
-    # print(response)
-    # print(profil.full_name)
-
-    # is_valid, ret_obj = validate_toko_id_by_GET_req(req)
-    # if not is_valid:
-    #     return ret_obj
-
-    # company:Company = ret_obj[0]
-    # logged_in_acc = get_logged_in_user_account(req)
-    # is_company_owner_account = logged_in_acc is not None and (
-    #         logged_in_acc.user_model.username == company.pemilik_usaha.account.user_model.username
-    # )
-
-    # informasi_saham = InformasiSaham(company)
     logged_in_acc = get_logged_in_user_account(req)
-    print(logged_in_acc)
+    # print(logged_in_acc.photo_profile)
     ret = {
-        # nanti klo udah ada loginnya, tambahin if if an kalo misal dia belom ada nama lengkap, return "belum ada nama lengkap"
-        'csrf_token': "3278622dadsad",
-        'nama_lengkap': 'Raihansyah Yoga Adhitama',
-        'username': "uhuydee",
-        'phone_number': "08571471",
-        'status_verifikasi': "Pengusaha dan Investor",
-        'jenis_kelamin': "Laki-laki",
-        'deskripsi_diri': "Aku adalah anak gembala",
-        'alamat': "Jalan jaha no 9487329 kelurahan panjaitan",
-        'email': "radityaakmal@gmail.com",
-        'photo_profile': "https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747",
-
-        # # dibawah ini dipake kalo loginnya udah bisa
-        # 'csrf_token': csrf.get_token(req),
-        # 'nama_lengkap': logged_in_acc.full_name if logged_in_acc.full_name else "",
-        # 'username': logged_in_acc.user_model.username if logged_in_acc is not None else "none.",
-        # 'phone_number': logged_in_acc.phone_number,
-        # 'status_verifikasi': "Pengusaha dan Enterpreneur" if logged_in_acc.is_entrepreneur and logged_in_acc.is_investor else "",
-        # # 'Investor' : "Investor" if logged_in_acc.is_investor else "",
-        # 'jenis_kelamin': logged_in_acc.gender,
-        # 'deskripsi_diri': logged_in_acc.deskripsi_diri,
-        # 'alamat': logged_in_acc.alamat,
-        # 'email': logged_in_acc.user_model.email,
-        # 'photo_profile': logged_in_acc.photo_profile,
+        'csrf_token': csrf.get_token(req),
+        'full_name': logged_in_acc.full_name if logged_in_acc.full_name else "",
+        'username': logged_in_acc.user_model.username,
+        'phone_number': logged_in_acc.phone_number,
+        'investor': 1 if logged_in_acc.is_investor else 0,
+        'enterpreneur': 1 if logged_in_acc.is_entrepreneur else 0,
+        'gender': logged_in_acc.gender if logged_in_acc.gender!="" else "Pilih jenis kelamin",
+        'deskripsi_diri': logged_in_acc.deskripsi_diri,
+        'alamat': logged_in_acc.alamat,
+        'email': logged_in_acc.user_model.email,
+        'photo_profile': logged_in_acc.photo_profile,
         }
     return HttpResponse(json.dumps(ret, indent=4, sort_keys=True, default=str))
 
-
+@csrf_exempt
 def my_profile_API(req:WSGIRequest):
     addtitional_problems = []
     logged_in_account = get_logged_in_user_account(req)
-    # if (logged_in_account is None):
-    #     return HttpResponseRedirect(get_login_url())
-    if (req.method == 'POST'):
-        form = ProfileForm(req.POST)
-        form_spesial= FormSpesial(req.POST)
-        if form.is_valid() and form_spesial.is_valid():
+    profil = logged_in_account
+    global response
+    if logged_in_account is None:
+        return HttpResponseRedirect(get_login_url())
+    if req.method == 'POST':
+        form = ProfileForm(req.POST or None,instance=profil)
+        form_spesial = FormSpesial(req.POST or None,instance=profil.user_model)
+        print(form.errors.as_data())
+        print(form_spesial.errors.as_data())
+        success = False
+        success_special = False
+        if form.is_valid():
             form.save()
+            success = True
+            
+        if form_spesial.is_valid():
             form_spesial.save()
-            saved_obj:UserAccount = form.save()
-            return HttpResponse(
-                json.dumps({
-                    'csrf_token': 432423423 ,
-                    'nama_lengkap': 'sjsjsjs',
-                    'username': "jdsjdjsjds",
-                    'phone_number': "08571471",
-                    'status_verifikasi': "Pengusaha dan Investor",
-                    'jenis_kelamin': "Laki-laki",
-                    'deskripsi_diri': "Aku adalah anak gembala",
-                    'alamat': "Jalan jaha no 9487329 kelurahan panjaitan",
-                    'email': "radityaakmal@gmail.com",
-                    'photo_profile': "https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747",
-                }), content_type="application/json"
-            )
+            success_special = True
+            
+        return HttpResponse(
+            json.dumps({
+                'SUCCESS' :1 if success else 0,
+                'SUCCESS SPECIAL' : 1 if success_special else 0,
+            }), content_type="application/json"
+        )
+
+        
+    else :
+        return HttpResponse(
+            json.dumps({
+                "SUCCESS" : 0,
+            }), content_type="application/json"
+        )
+
+@csrf_exempt
+def foto_API(req:WSGIRequest) :
+    logged_in_account = get_logged_in_user_account(req)
+    profil = logged_in_account
+    global response
+    if logged_in_account is None:
+        return HttpResponseRedirect(get_login_url())
+    if req.method == 'POST':
+        form_foto = PhotoForm(req.POST or None, req.FILES or None,instance=profil)
+        print(form_foto.errors.as_data())
+        success_foto = False
+        if form_foto.is_valid():
+            form_foto.save()
+            print(profil.photo_profile)
+            print(profil.user_model.username)
+            success_foto = True
+            
+
+        return HttpResponse(
+            json.dumps({
+                'SUCESS FOTO': 1 if success_foto else 0,
+            }), content_type="application/json"
+        )
+
+        
+    else :
+        return HttpResponse(
+            json.dumps({
+                "SUCCESS" : 0,
+            }), content_type="application/json"
+        )
 
 
