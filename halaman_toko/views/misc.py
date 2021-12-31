@@ -17,7 +17,7 @@ def account_information(req:WSGIRequest):
     if is_logged_in:
         is_investor = logged_in_acc.is_investor
         is_entrepreneur = logged_in_acc.is_entrepreneur
-        user_id = logged_in_acc.user_model_id
+        user_id = logged_in_acc.id
 
     return HttpResponse(
         json.dumps(
