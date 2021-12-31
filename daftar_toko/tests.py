@@ -16,5 +16,3 @@ class daftarTokoTest(TestCase):
     def test_using_index_func(self):
         found = resolve('/daftar-toko/')
         self.assertEqual(found.func, tampilkan_toko)
-
-    
