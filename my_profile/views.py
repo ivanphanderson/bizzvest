@@ -117,12 +117,12 @@ def my_profile_json(req:WSGIRequest):
     # print(logged_in_acc.photo_profile)
     ret = {
         'csrf_token': csrf.get_token(req),
-        'full_name': logged_in_acc.full_name if logged_in_acc.full_name else "",
+        'full_name': logged_in_acc.full_name if logged_in_acc.full_name else "hihi",
         'username': logged_in_acc.user_model.username,
         'phone_number': logged_in_acc.phone_number,
         'investor': 1 if logged_in_acc.is_investor else 0,
         'enterpreneur': 1 if logged_in_acc.is_entrepreneur else 0,
-        'gender': logged_in_acc.gender if logged_in_acc.gender!="" else "Pilih jenis kelamin",
+        'gender': 'Laki-laki' if logged_in_acc.gender=="laki_laki" else 'Perempuan' if logged_in_acc.gender=="perempuan" else "Pilih jenis kelamin",
         'deskripsi_diri': logged_in_acc.deskripsi_diri,
         'alamat': logged_in_acc.alamat,
         'email': logged_in_acc.user_model.email,
