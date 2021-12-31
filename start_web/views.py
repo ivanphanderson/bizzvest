@@ -60,7 +60,7 @@ def sign_up(request):
 
     return render(request, "signup.html", {"form":form})
 
-@csrf_exempt  # TODO
+
 def log_in(request):
     if request.method == "POST":
         print(request.GET)
@@ -115,8 +115,10 @@ def signup_flutter(request):
         if User.objects.filter(email=email).exists():
             return JsonResponse({"status": "email exist"}, status=409)
 
-        newUser = UserModel.objects.create_user(username = username, email = email, password = password,)
-        newUser.save()
+        new_user:User = UserModel.objects.create_user(username = username, email = email, password = password,)
+        useraccount_obj = UserAccount(user_model=new_user)
+        useraccount_obj.save()
+        new_user.save()
 
         return JsonResponse({"status": "authenticated"}, status=200)
     else:

@@ -101,13 +101,11 @@ def add_toko(req:WSGIRequest):
 
 
 def add_toko_API(req:WSGIRequest):
-    additional_problems = []
-
     logged_in_account = get_logged_in_user_account(req)
-    if (logged_in_account is None):
-        return HttpResponseRedirect(get_login_url())
+    if logged_in_account is None:
+        return HttpResponse("User has not logged in", status=401)
 
-    if (req.method == 'POST'):
+    if req.method == 'POST':
         form = CompanyAddForm(req.POST)
         form.instance.start_date = dateformat.format(timezone.now(), 'Y-m-d')
 
@@ -124,7 +122,7 @@ def add_toko_API(req:WSGIRequest):
 
 
         if ('is_validate_only' not in req.POST):
-            additional_problems.append("invalid request error: no 'is_validate_only' property")
+            pass
         else:
             if (form.is_valid()):
                 if (req.POST.get('is_validate_only', '1') == '0'):
@@ -188,6 +186,7 @@ def add_toko_API(req:WSGIRequest):
                     'errors': resulting_err_dict
                 }), status=422, content_type="application/json"
             )
+        return HttpResponse("is_validate_only is not available", status=500)
     else:
         return HttpResponse(
             json.dumps({
