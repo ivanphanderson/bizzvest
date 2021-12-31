@@ -121,12 +121,11 @@
         <div class="saham_rapi">
           <div class="lembar_saham">
             <div>Jumlah saham terjual  </div> 
-            <div class="refresh1">{{saham_terjual}} lembar</div>
+            <div class="refresh1" id="saham_terjual">{{saham_terjual}} lembar</div>
             <div>Jumlah saham tersisa  </div> 
-            <div class="refresh2">{{saham_tersisa}} lembar</div>
+            <div class="refresh2" id="saham_tersisa">{{saham_tersisa}} lembar</div>
             <div>Harga saham  </div> 
             <div id="harga_sahams"></div>
-            <div>Status verifikasi  </div>
           </div>
         </div>
       </div>
@@ -134,7 +133,7 @@
       <div id="saham_tertanam" class="kotak_bg shadowed_box_1">
         <div>
           <h4> Jumlah saham yang telah Anda tanamkan: </h4>
-          <h3 class="refresh"> {{lembar_dimiliki}} Lembar</h3>
+          <h3 class="refresh" id="lembar_dimiliki"> {{lembar_dimiliki}} Lembar</h3>
         </div>
       </div>
 
@@ -148,7 +147,8 @@
       </div>
 
       <div id="form_saldo" class="kotak_bg">
-        <form id="beli_saham" action="">
+        <form id="beli_saham" action="" method="POST">
+          {% csrf_token %}
           <input class="form-control" id="form-id-beli" type="hidden" name="formId"/>
           <label for="jumlah_lembar_saham" class="col-form-label">Masukkan jumlah lembar saham yang ingin ditanamkan:</label>
           <input class="form-control" type="number" name="jumlah_lembar_saham" placeholder="e.g., 20"
@@ -162,7 +162,7 @@
           {% else %}
             <p>Toko ini belum terverifikasi</p>
             <span style="cursor: no-drop;">
-            <button class="btn" type="submit" id="submit_beli" style="cursor: no-drop;" disabled>Beli</button>
+            <button class="btn" id="submit_beli" style="cursor: no-drop;" disabled>Beli</button>
             </span>
           {% endif %}
           <a href="/halaman-toko/?id={{company.id}}" class="btn" id="batal">Batal</a>
