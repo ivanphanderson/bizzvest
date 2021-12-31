@@ -136,7 +136,6 @@ def get_invest_stuff(request):
 def get_saldo(request):
     userAcc = UserAccount.objects.filter(id=request.POST.get("userId", None))
     userSaldo = userAcc[0].saldo
-    print(userSaldo)
     return JsonResponse({'saldo':userSaldo})
 
 @csrf_exempt
