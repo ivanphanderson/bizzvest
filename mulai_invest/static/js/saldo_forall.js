@@ -2,31 +2,32 @@ var saldo = parseInt(document.getElementById("user_saldo").textContent);
 
 $("form#updateUser").submit(function() {
     var saldoInput = $('input[name="saldo"]').val().trim();
-    var saldo_temp = parseInt(saldo)+parseInt(saldoInput);
-    if(saldo_temp>Number.MAX_SAFE_INTEGER){
-        alert("Angka yang Anda masukkan terlalu besar");
-    } else if(saldo_temp<0){
-        alert("Saldo minimal adalah 0");
-    } else{
-        if (saldoInput) {
-            saldo=saldo_temp;
-            // Create Ajax Call
-            $.ajax({
-                url: '/mulai-invest/ajax/update-saldo',
-                data: {
-                    'saldo': saldoInput,
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.user) {
-                    update_saldo();
-                    }
+    // var saldo = parseInt(document.getElementById("user_saldo").textContent);
+    // var saldo_temp = parseInt(saldo) + parseInt(saldoInput);
+    var csr = $("input[name=csrfmiddlewaretoken]").val().trim();
+
+    if (saldoInput) {
+        // Create Ajax Call
+        $.ajax({
+            url: '/mulai-invest/ajax/update-saldo',
+            method: "POST",
+            data: {
+                'saldo': saldoInput,
+                csrfmiddlewaretoken: csr
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.user.status==='success') {
+                    update_saldo(data.user);
+                } else {
+                    alert(data.user.message)
                 }
-            });
-            } else {
-            alert("All fields must have a valid value.");
-        }
+            }
+        });
+    } else {
+        alert("All fields must have a valid value.");
     }
+
     $('form#updateUser').trigger("reset");
     $('#myModals').modal('hide');
     $('body').removeClass('modal-open');
@@ -40,9 +41,9 @@ var pls_btn = document.getElementById('plus_btn')
 pls_btn.addEventListener("click", () => {
     setTimeout(function(){
         document.getElementsByTagName("body")[0].style.overflow = "hidden"
-        if($('.modal-backdrop').length<2){
-            $('body').append('<div class="modal-backdrop fade show" id="aneh"></div>');
-        }
+        // if($('.modal-backdrop').length<2){
+        //     $('body').append('<div class="modal-backdrop fade show" id="aneh"></div>');
+        // }
     }, 200);
     setTimeout(function(){
         const my_modal = document.getElementById("myModals");
@@ -79,13 +80,14 @@ function set_body(){
 }
 
 
-function update_saldo() {
-  saldo_temp = saldo;
+function update_saldo(data) {
+  saldo_temp = data.saldo;
   formatted_saldo = (saldo_temp).toLocaleString('ID', {
     style: 'currency',
     currency: 'IDR',
   });
   document.getElementById("saldoSekarang").innerHTML = formatted_saldo;
+  $( ".user-saldo" ).load(window.location.href + " .user-saldo" );
 }
 
-window.onload = update_saldo();
+window.onload = update_saldo({'saldo': saldo});

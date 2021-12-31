@@ -1,41 +1,39 @@
-{% load static %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
-  crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
-  rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
-  crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'css/saldo.css' %}">
+{% if user.is_authenticated %}
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/saldo.css' %}">
 
-<div class="modal fade in" id="myModals" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Tambah Saldo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="updateUser" action="">
-          <input class="form-control" id="form-id" type="hidden" name="formId"/>
-          <div class="mb-3">
-            <label for="saldo" class="col-form-label">Masukkan jumlah saldo yang ingin Anda tambahkan:</label>
-            <input type="number" class="form-control" id="saldo" name="saldo" placeholder="e.g., 10000" 
-            required pattern=".*\S.*" data-type="currency"
-            oninvalid="this.setCustomValidity('Fill it with number')"
-            oninput="setCustomValidity('')">
+  <div class="modal fade in" id="myModals" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Tambah Saldo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close_modal"></button>
+        </div>
+        <form id="updateUser" action="" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input class="form-control" id="form-id" type="hidden" name="formId"/>
+            <div class="mb-3">
+              <label for="saldo" class="col-form-label">Masukkan jumlah saldo yang ingin Anda tambahkan:</label>
+              <input type="number" class="form-control" id="saldo" name="saldo" placeholder="e.g., 10000" 
+              required pattern=".*\S.*" data-type="currency"
+              oninvalid="this.setCustomValidity('Fill it with number')"
+              oninput="setCustomValidity('')">
+            </div>
+            <small style="font-weight: lighter;">Max total saldo adalah 2 miliar Rupiah <br><br> Input yang menyebabkan jumlah saldo di atas 2 miliar Rupiah akan mengakibatkan saldo Anda tidak bertambah</small>
           </div>
-        <small style="font-weight: lighter;">Input harus bilangan bulat! <br> Max total saldo adalah 2**63-1 <br><br> Input yang bukan berupa bilangan bulat akan mengakibatkan saldo Anda tidak bertambah <br>  Input yang mengakibatkan jumlah saldo di atas 2**63-1 akan mengakibatkan saldo Anda tidak bertambah</small>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: rgb(218, 44, 44); color: white;">Batal</button>
+            <button type="submit" class="btn" style="background-color: #00c2f3; color: white;">Tambah</button>
+          </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: rgb(218, 44, 44); color: white;">Batal</button>
-        <button type="submit" class="btn" style="background-color: #00c2f3; color: white;">Tambah</button>
-      </div>
-  </form>
     </div>
   </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
   <script src="{% static 'js/saldo_forall.js' %}"></script> 
+{% endif %}

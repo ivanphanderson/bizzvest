@@ -74,10 +74,6 @@ var myLineChart = new Chart(ctx1, {
         }]
     },
     options: {
-        title: {
-            display: true,
-            text: 'Grafik Keuangan'
-        },
         scales: {
             xAxes: [{
                 scaleLabel: {
@@ -130,10 +126,6 @@ var myLineChart = new Chart(ctx2, {
         }]
     },
     options: {
-        title: {
-            display: true,
-            text: 'Grafik Keuangan'
-        },
         scales: {
             xAxes: [{
                 scaleLabel: {
