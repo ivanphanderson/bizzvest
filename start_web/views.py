@@ -90,8 +90,10 @@ def login_flutter(request):
     if user is not None:
         if user.is_active:
             login(request, user)
+            print("logged in")
             return JsonResponse({"status": True}, status=200)
         else:
+            print("fail log in")
             return JsonResponse({"status": False}, status=401)
 
     else:
