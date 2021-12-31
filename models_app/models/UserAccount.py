@@ -16,9 +16,9 @@ def random_password():
     return f"{temp1}{temp2}{temp3}"
 
 gender_choices = (
-    ('Pilih jenis kelamin', 'Pilih jenis kelamin'),
-    ('Laki-laki', 'Laki-laki'),
-    ('Perempuan', 'Perempuan'),
+    ('jenis_kelamin', 'Pilih jenis kelamin'),
+    ('laki_laki', 'Laki-laki'),
+    ('perempuan', 'Perempuan'),
 )
 
 class UserAccount(models.Model):
