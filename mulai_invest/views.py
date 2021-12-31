@@ -228,7 +228,7 @@ def beli_saham_flutter(request):
         return JsonResponse(user)
         # return HttpResponse("hi")
     except:
-        return HttpResponse('fail')
+        return HttpResponse(traceback.format_exc())
 
 @login_required(login_url='/start-web/login')
 def mulai_invest(request):
