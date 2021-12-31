@@ -213,7 +213,7 @@ def beli_saham_flutter(request):
         else:
             jumlah_lembar_saham1 = int(request.GET.get('jumlahLembarSaham', None))
             stock_obj = Stock.objects.create(
-                holder = userAcc,
+                holder = pengguna,
                 company = company_obj,
                 jumlah_lembar_saham = jumlah_lembar_saham1
             )
