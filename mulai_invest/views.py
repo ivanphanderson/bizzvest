@@ -14,7 +14,6 @@ from models_app.models import Stock
 from django.contrib.auth.models import User
 # Create your views here.
 
-@csrf_exempt
 def update_saldo_ajax(request):
     if request.method == "POST":
         saldoo = request.user.useraccount.saldo
@@ -137,12 +136,13 @@ def get_invest_stuff(request):
 def get_saldo(request):
     userAcc = UserAccount.objects.filter(id=request.POST.get("userId", None))
     userSaldo = userAcc[0].saldo
+    print(userSaldo)
     return JsonResponse({'saldo':userSaldo})
 
 @csrf_exempt
 def update_saldo_flutter(request):
     if request.method == "POST":
-        userId = int(request.POST.get('userId', None))
+        userId = (request.POST.get('userId', None))
         userAcc = UserAccount.objects.filter(id=userId)
         saldoo = userAcc[0].saldo
         saldo1 = int(saldoo)+int(request.POST.get('saldo', None))
