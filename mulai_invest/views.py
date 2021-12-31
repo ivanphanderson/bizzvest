@@ -213,7 +213,7 @@ def beli_saham_flutter(request):
         else:
             jumlah_lembar_saham1 = int(request.GET.get('jumlahLembarSaham', None))
             stock_obj = Stock.objects.create(
-                holder = userAcc,
+                holder = pengguna,
                 company = company_obj,
                 jumlah_lembar_saham = jumlah_lembar_saham1
             )
@@ -228,7 +228,7 @@ def beli_saham_flutter(request):
         return JsonResponse(user)
         # return HttpResponse("hi")
     except:
-        return HttpResponse('fail')
+        return HttpResponse(traceback.format_exc())
 
 @login_required(login_url='/start-web/login')
 def mulai_invest(request):
