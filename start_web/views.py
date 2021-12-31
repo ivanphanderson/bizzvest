@@ -90,21 +90,12 @@ def login_flutter(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return JsonResponse({
-              "status": True,
-              "message": "Successfully Logged In!"
-            }, status=200)
+            return JsonResponse({"status": True}, status=200)
         else:
-            return JsonResponse({
-              "status": False,
-              "message": "Failed to Login, Account Disabled."
-            }, status=401)
+            return JsonResponse({"status": False}, status=401)
 
     else:
-        return JsonResponse({
-          "status": False,
-          "message": "Failed to Login, check your email/password."
-        }, status=401)
+        return JsonResponse({"status": False}, status=401)
 
 @csrf_exempt
 def signup_flutter(request):
@@ -113,20 +104,21 @@ def signup_flutter(request):
         email = request.POST["email"]
         password = request.POST["password"]
 
-        newUser = UserModel.objects.create_user(
-        username = username, 
-        email = email,
-        password = password,
-        )
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({"status": "username exist"}, status=409)
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            return JsonResponse({"status": "invalid format"}, status=400)
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({"status": "email exist"}, status=409)
 
+        newUser = UserModel.objects.create_user(username = username, email = email, password = password,)
         newUser.save()
-        return JsonResponse({
-            "status": True
-        }, status=200)
+
+        return JsonResponse({"status": "authenticated"}, status=200)
     else:
-        return JsonResponse({
-            "status": False
-        }, status=401)
+        return JsonResponse({"status": "rejected"}, status=401)
 
 @csrf_exempt
 def logout_flutter(request):
