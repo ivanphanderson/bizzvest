@@ -74,7 +74,7 @@ class UserAccount(models.Model):
 
 
     photo_profile = models.ImageField(upload_to="uploads/user_profile/%Y/%m/", default="default_user_photoprofile.jpg", blank=True)
-    phone_number = models.CharField(default="00000000", blank=True, max_length=15,
+    phone_number = models.CharField(default="0000000000", blank=True, max_length=15,
                                     validators=[
                                         RegexValidator(regex='^0[0-9]{8,14}$',
                                                        message='Must consists only digits started by zero, then'
